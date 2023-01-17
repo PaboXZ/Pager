@@ -1,7 +1,9 @@
-<!-- 
-Required data: Login(POST), Password(POST) 
-Access: everyone
--->
+<?php 
+/*Required data: Login(POST), Password(POST) 
+Access: all
+
+Rules: none*/
+?>
 
 <?php
 

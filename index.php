@@ -1,3 +1,10 @@
+<?php
+/*Required data: none
+Access: all
+
+Rules: redirect if logged in (beware admin/user panel)*/
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -9,5 +16,7 @@
 		<input type="password" placeholder="password" name="user_password"/>
 		<input type="submit" value="Log in"/>
 	</form>
+	
+	<a href="admin-index.php">Panel Administracyjny</a>
 </body>
 </html>
