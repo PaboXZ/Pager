@@ -2,7 +2,8 @@
 /*Required data: none
 Access: all
 
-Rules: redirect if logged in (beware admin/user panel)*/
+Rules: redirect if logged in (beware admin/user panel)
+*/
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +18,6 @@ Rules: redirect if logged in (beware admin/user panel)*/
 		<input type="submit" value="Log in"/>
 	</form>
 	
-	<a href="admin-index.php">Panel Administracyjny</a>
+	<a href="index-admin.php">Panel Administracyjny</a>
 </body>
 </html>

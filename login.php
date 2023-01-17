@@ -1,8 +1,10 @@
 <?php 
-/*Required data: Login(POST), Password(POST) 
+/*
+Required data: Login(POST), Password(POST) 
 Access: all
 
-Rules: none*/
+Rules: redirect if logged in
+*/
 ?>
 
 <?php
