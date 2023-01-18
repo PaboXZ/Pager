@@ -1,9 +1,20 @@
 <?php
-/*Required data: none
-Access: all
+/*Required data: none OK
+Access: all	OK
 
 Rules: redirect if logged in (beware admin/user panel)
 */
+?>
+
+<?php
+	/*Rules check*/
+	session_start();
+	if(isset($_SESSION['user_id']))
+	{
+		Header("Location: panel.php");
+		exit();
+	}
+	/*END*/
 ?>
 
 <!DOCTYPE html>

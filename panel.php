@@ -1,28 +1,32 @@
 <?php
 /*
 Required data: none OK
-Access: admin OK
+Access: logged user OK
 
-Rules: redirect if not logged in admin OK
+Rules: redirect if not logged in OK
 */
 ?>
 
 <?php
 	/*Rules check*/
 	session_start();
-	if(!isset($_SESSION['admin_id']))
+	if(!isset($_SESSION['user_id']))
 	{
-		Header("Location: login-admin.php");
+		Header("Location: index.php");
 		exit();
 	}
 	/*END*/
+	
+	
+	
 ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
 	<meta charset="utf-8"/>
 </head>
 <body>
-	<a href="logout-admin.php">Log out</a>
+	<a href="logout.php">Wyloguj</a>
 </body>
 </html>

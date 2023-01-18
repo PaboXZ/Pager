@@ -1,9 +1,9 @@
 <?php 
 /*
-Required data: Login(POST), Password(POST) 
-Access: all
+Required data: Login(POST), Password(POST)  OK
+Access: all OK
 
-Rules: redirect if logged in
+Rules: redirect if logged in OK
 */
 ?>
 
@@ -16,7 +16,16 @@ Rules: redirect if logged in
 		exit();
 	}
 	/*END*/
-
+	
+	session_start();
+	
+	/*Rules check*/
+	if(isset($_SESSION['user_id']))
+	{
+		Header("Location: panel.php");
+		exit();
+	}
+	/*END*/
 	
 	try
 	{
@@ -43,7 +52,8 @@ Rules: redirect if logged in
 				$db_temporary_row = $db_temporary_query->fetch_assoc();
 				if(password_verify($_POST['user_password'], $db_temporary_row['user_password']))
 				{
-					echo "Login success";
+					$_SESSION['user_id'] = $db_temporary_row['user_id'];
+					Header("Location: panel.php");
 				}
 				else
 				{

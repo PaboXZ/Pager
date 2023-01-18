@@ -1,9 +1,9 @@
 <?php
 /*
-Required data: none
-Access: all
+Required data: none OK
+Access: all OK
 
-Rules: redirect if logged in
+Rules: redirect if logged in OK
 */
 ?>
 

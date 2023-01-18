@@ -1,9 +1,9 @@
 <?php
 /*
-Required data: admin_name, admin_password
-Access: all
+Required data: admin_name, admin_password OK
+Access: all OK
 
-Rules: redirect if logged in
+Rules: redirect if logged in OK
 */
 ?>
 

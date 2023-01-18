@@ -1,9 +1,9 @@
 <?php
 	/*
-		Required data: none
-		Access: admin
+		Required data: none OK
+		Access: admin OK
 		
-		Rules: Redirect if not admin(for clarity if changed later)
+		Rules: Redirect if not admin(for clarity if changed later) OK
 	*/
 ?>
 

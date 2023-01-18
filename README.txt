@@ -3,12 +3,13 @@ LOG:
 
 Login page
 -create login code -not complete(redirections, exceptions, error handling)
--create redirections
+-create redirections																	-DONE
+-add logout option																		-DONE
 
 Add Login Page For Admin
 -create login code -not complete(redirections, exceptions, error handling)
--create redirections	-DONE
--add logout option
+-create redirections																	-DONE
+-add logout option 																		-DONE
 
 Start session(!)
 
