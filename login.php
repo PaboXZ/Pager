@@ -9,13 +9,13 @@ Rules: redirect if logged in
 
 <?php
 
-	/*Check for required data*/
+	/*Required data check*/
 	if(!isset($_POST["user_name"]) OR !isset($_POST["user_password"]))
 	{
 		Header("Location: index.php");
 		exit();
 	}
-	
+	/*END*/
 
 	
 	try
@@ -31,7 +31,7 @@ Rules: redirect if logged in
 		}
 		/*END*/
 		
-		/*User name sterilization*/
+		/*User name sanitization*/
 		$user_name = htmlentities($_POST['user_name'], ENT_QUOTES);
 		/*END*/
 		
@@ -69,7 +69,6 @@ Rules: redirect if logged in
 		echo $error;
 	}
 	
-	echo password_hash("Test", PASSWORD_DEFAULT);
 	
 	if(isset($db_connection)) $db_connection->close();
 

@@ -7,6 +7,15 @@ Rules: redirect if logged in
 */
 ?>
 
+<?php
+	/*Rules check*/
+	session_start();
+	if(isset($_SESSION['admin_id'])){
+		Header("Location: panel-admin.php");
+		exit();
+	}
+	/*END*/
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>

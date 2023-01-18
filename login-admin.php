@@ -16,9 +16,14 @@ Rules: redirect if logged in
 	}
 	/*END*/
 	
-	/*Rules check
-	TO DO
-	*/
+	session_start();
+	
+	/*Rules check*/
+	if(isset($_SESSION['admin_id'])){
+		Header("Location: panel-admin.php");
+		exit();
+	}
+	/*END*/
 	try
 	{
 		require_once('db_credentials.php');
@@ -35,7 +40,8 @@ Rules: redirect if logged in
 				
 				if(password_verify($_POST['admin_password'], $db_temporary_row['admin_password']))
 				{
-					echo "admin login success";
+					$_SESSION['admin_id'] = $db_temporary_row['admin_id'];
+					Header("Location: panel-admin.php");
 				}
 				else
 				{
