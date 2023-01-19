@@ -9,12 +9,8 @@ Rules: redirect if not logged in admin OK
 
 <?php
 	/*Rules check*/
-	session_start();
-	if(!isset($_SESSION['admin_id']))
-	{
-		Header("Location: login-admin.php");
-		exit();
-	}
+	require_once("rules.php");
+	isLoggedAdmin();
 	/*END*/
 ?>
 <!DOCTYPE html>
@@ -23,6 +19,12 @@ Rules: redirect if not logged in admin OK
 	<meta charset="utf-8"/>
 </head>
 <body>
-	<a href="logout-admin.php">Log out</a>
+	<a href="logout.php">Log out</a>
+	<h1>Nowy użytownik</h1>
+	<form action="admin-new-user.php" method="POST">
+		<input type="text" name="register_name" placeholeder="Nazwa"/>
+		<input type="password" name="register_password" placeholder="hasło"/>
+		<input type="submit" value="Zarejestruj"/>
+	</form>
 </body>
 </html>

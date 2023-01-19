@@ -8,17 +8,10 @@ Rules: redirect if not logged in OK
 ?>
 
 <?php
-	/*Rules check*/
-	session_start();
-	if(!isset($_SESSION['user_id']))
-	{
-		Header("Location: index.php");
-		exit();
-	}
-	/*END*/
-	
-	
-	
+
+	require_once("rules.php");
+	isLoggedIn();
+		
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +20,12 @@ Rules: redirect if not logged in OK
 	<meta charset="utf-8"/>
 </head>
 <body>
+	<?php
+		if($_SESSION['user_power'] == 0)
+		{
+			echo '<a href="panel-admin.php">Panel administracyjny</a>';
+		}
+	?>
 	<a href="logout.php">Wyloguj</a>
 </body>
 </html>
