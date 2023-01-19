@@ -50,7 +50,7 @@ DATABASE
 Tables:
 
 -USER LOGIN DATA
-user ID(Primary)/user name/password hash/is admin bool/last active timestamp
+user ID(Primary)/user name/password hash/is admin bool/last active timestamp/user email
 -THREAD DATA
 Thread ID(Primary)/Owner ID/Thread name/Thread Version
 -USER X THREAD DATA
@@ -79,3 +79,12 @@ TASKS
 
 -CREATE DB STRUCTURE
 
+
+
+
+-----------------------------------------------------------------
+LOG
+
+--0.01
+
+Created db template
