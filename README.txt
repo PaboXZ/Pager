@@ -47,18 +47,56 @@ hide threads for narrow view
 -----------------------------------------------------------------
 DATABASE
 
-Tables:
+DATABASE STRUCTURE:
 
--USER LOGIN DATA
-user ID(Primary)/user name/password hash/is admin bool/last active timestamp/user email
-//in email field put 'TEMPORARY' for temporary users
--THREAD DATA
-Thread ID(Primary)/Owner ID/Thread name/Thread Version
--USER X THREAD DATA
-Thread ID(external)/User ID(external)/View power/Is Owner/Edit permission/Delete permission/Maximum task power(0 for no permission)/Set flag to complete permission
--CONTENT DATA
-Content ID/Thread ID/User ID/Title/Content/Created Timestamp/Power/Is complete flag/Is Pinned flag/Last edit timestamp
+Table:
+user_data
 
+Values:
+user_id -PRIMARY KEY, auto increment
+user_email -Set to value TEMPORARY if user is created by thread owner		MAX LENGTH: 64
+user_password -Password hash
+user_name																	MAX LENGTH: 64
+user_is_admin -Values: 0 for not admin, 1 for admin
+user_last_active -Timestamp updated after avery single operation(including page refresh)
+
+Table:
+thread_data
+
+Values:
+thread_id -PRIMARY KEY, auto increment
+thread_owner_id 
+thread_name																	MAX LENGTH: 64
+thread_version -For later use												VALUES: 0-3
+
+Table:
+task_data
+
+Values:
+task_id -PRIMARY KEY, auto increment
+task_thread_id -For which thread task was created
+task_user_id -Id of author
+task_title																	MAX LENGTH: 256
+task_content																MAX LENGTH: 2024
+task_create_timestamp
+task_edit_timestamp -Timestamp of last edit
+task_power -Priority of task												VALUES: 0-15
+task_is_complete -Values: 0 is not complete, 1 is complete
+task_is_pinned -Values: 0 is not pinned, 1 is pinned
+
+Table
+connection_user_thread  -table where information about connection to thread and permissions for that thread are stored
+
+Values:
+
+connection_user_id -External user_data key
+connection_thread_id -External thread_data key
+connection_view_power -Selects which tasks user can browse
+connection_is_owner -Values: 0 for not owner 1 for owner
+connection_edit_permission -Values: 0 for no permission to edit, 1 for permission
+connection_delete_permission -As above
+connection_create_power -Up to which priority user can create tasks -0 for no permission to create
+connection_complete_permission -Values: 0 cannot change completed flag, 1 can change
 
 -----------------------------------------------------------------
 THOUGHTS
@@ -85,11 +123,13 @@ Owner choices at user add menu:
 -----------------------------------------------------------------
 TASKS
 
--CREATE DUMMY USER PANEL
--CREATE TEMPORARY USER FLAG!!!(IMPORTANT) --RESOLVED
--ADD REGISTER OPTION
--REWRITE LOGIN OPTION TO WORK WITH NEW DATABASE LAYOUT --DONE
--CREATE DB STRUCTURE --DONE
+-CREATE CREATE_THREAD PAGE
+-CREATE DATABASE DOCUMENTATION											--DONE
+-CREATE DUMMY USER PANEL												--DONE
+-ADD REGISTER OPTION													--POSTPONED
+-CREATE TEMPORARY USER FLAG!!!(IMPORTANT) 								--RESOLVED
+-REWRITE LOGIN OPTION TO WORK WITH NEW DATABASE LAYOUT 					--DONE
+-CREATE DB STRUCTURE 													--DONE
 
 
 
