@@ -21,10 +21,7 @@ Rules: redirect if not logged in OK
 </head>
 <body>
 	<?php
-		if($_SESSION['user_power'] == 0)
-		{
-			echo '<a href="panel-admin.php">Panel administracyjny</a>';
-		}
+	echo $_SESSION['user_id'];
 	?>
 	<a href="logout.php">Wyloguj</a>
 </body>

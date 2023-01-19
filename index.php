@@ -28,7 +28,5 @@ Rules: redirect if logged in (beware admin/user panel)
 		<input type="password" placeholder="password" name="user_password"/>
 		<input type="submit" value="Log in"/>
 	</form>
-	
-	<a href="index-admin.php">Panel Administracyjny</a>
 </body>
 </html>

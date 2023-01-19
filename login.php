@@ -44,8 +44,16 @@ Rules: redirect if logged in OK
 		$user_name = htmlentities($_POST['user_name'], ENT_QUOTES);
 		/*END*/
 		
-		/*Check for user name in db and verify password with hash*/
-		if($db_temporary_query = $db_connection->query("SELECT user_power, user_id, user_password FROM login_data WHERE user_name='$user_name'"))
+		if(filter_var($user_name, FILTER_VALIDATE_EMAIL))
+		{
+			$user_name_credential = "user_email";
+		}
+		else
+		{
+			$user_name_credential = "user_name";
+		}
+		
+		if($db_temporary_query = $db_connection->query("SELECT user_id, user_password FROM user_data WHERE $user_name_credential='$user_name'"))
 		{
 			if($db_temporary_query->num_rows == 1)
 			{
@@ -53,7 +61,6 @@ Rules: redirect if logged in OK
 				if(password_verify($_POST['user_password'], $db_temporary_row['user_password']))
 				{
 					$_SESSION['user_id'] = $db_temporary_row['user_id'];
-					$_SESSION['user_power'] =$db_temporary_row['user_power'];
 					Header("Location: panel.php");
 				}
 				else
@@ -64,13 +71,13 @@ Rules: redirect if logged in OK
 			else
 			{
 				echo "login error";
+				
 			}
 		}
 		else
 		{
 			echo "query fail";
 		}
-		/*END*/
 		
 		
 		$db_temporary_query->close();
