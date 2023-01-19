@@ -67,7 +67,7 @@ Values:
 thread_id -PRIMARY KEY, auto increment
 thread_owner_id 
 thread_name																	MAX LENGTH: 64
-thread_version -For later use												VALUES: 0-3
+thread_version -For later use												VALUES: 0-3; 0-Simple, 1-Pro
 
 Table:
 task_data
@@ -101,6 +101,14 @@ connection_complete_permission -Values: 0 cannot change completed flag, 1 can ch
 -----------------------------------------------------------------
 THOUGHTS
 
+THINK ABOUT LIMITS
+
+-Threads per user cap
+-Tasks per thread cap
+
+REMEMBER ERROR MESSAGES
+MAYBE CREATE MESSAGING SYSTEM (one session variable should be enough)
+
 MAKE RULES FOR TEMPORARY USERS
 -temporary users have flag TEMPORARY in field email instead of true value
 -disable creating threads
@@ -123,10 +131,11 @@ Owner choices at user add menu:
 -----------------------------------------------------------------
 TASKS
 
--CREATE CREATE_THREAD PAGE
+-HANDLE ERRORS (create_thread.php)
+-ADD REGISTER OPTION													
+-CREATE CREATE_THREAD PAGE												--DONE
 -CREATE DATABASE DOCUMENTATION											--DONE
 -CREATE DUMMY USER PANEL												--DONE
--ADD REGISTER OPTION													--POSTPONED
 -CREATE TEMPORARY USER FLAG!!!(IMPORTANT) 								--RESOLVED
 -REWRITE LOGIN OPTION TO WORK WITH NEW DATABASE LAYOUT 					--DONE
 -CREATE DB STRUCTURE 													--DONE
@@ -136,6 +145,10 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+--0.03
+
+Added creating threads module
+
 --0.02
 
 Modified login to work with new DB

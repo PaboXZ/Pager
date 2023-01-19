@@ -10,6 +10,7 @@ Rules: redirect if not logged in OK
 
 <?php
 
+	session_start();
 	require_once("rules.php");
 	isLoggedIn();
 		
@@ -25,7 +26,7 @@ Rules: redirect if not logged in OK
 	<h2>Add thread</h2>
 	<form action="create_thread.php" method="POST">
 	<input type="text" name="thread_name"/>
-	<select name="thread_version">
+	<select name="thread_version" placeholder="Version">
 		<optgroup label="Version">
 			<option value="simple">Simple</option>
 			<option value="pro">Pro</option>

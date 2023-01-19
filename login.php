@@ -53,7 +53,7 @@ Rules: redirect if logged in OK
 			$user_name_credential = "user_name";
 		}
 		
-		if($db_temporary_query = $db_connection->query("SELECT user_id, user_password FROM user_data WHERE $user_name_credential='$user_name'"))
+		if($db_temporary_query = $db_connection->query("SELECT user_id, user_password, user_is_admin, user_last_active, user_email FROM user_data WHERE $user_name_credential='$user_name'"))
 		{
 			if($db_temporary_query->num_rows == 1)
 			{
@@ -61,6 +61,11 @@ Rules: redirect if logged in OK
 				if(password_verify($_POST['user_password'], $db_temporary_row['user_password']))
 				{
 					$_SESSION['user_id'] = $db_temporary_row['user_id'];
+					$_SESSION['user_is_admin'] = $db_temporary_row['user_id'];
+					$_SESSION['user_last_active'] = $db_temporary_row['user_id'];
+					if($db_temporary_row['user_email'] == 'TEMPORARY') $_SESSION['user_temporary_flag'] = TRUE;
+					else $_SESSION['user_temporary_flag'] = FALSE;
+					
 					Header("Location: panel.php");
 				}
 				else
