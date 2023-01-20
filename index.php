@@ -9,10 +9,17 @@ Rules: redirect if logged in (beware admin/user panel)
 <?php
 	/*Rules check*/
 	session_start();
+	
 	if(isset($_SESSION['user_id']))
 	{
 		Header("Location: panel.php");
 		exit();
+	}
+	//to be repositioned
+	if(isset($_SESSION['error_login']))
+	{
+		echo $_SESSION['error_login'];
+		unset($_SESSION['error_login']);
 	}
 	/*END*/
 ?>

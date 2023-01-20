@@ -1,23 +1,4 @@
 
-LOG:
-
-Joining login files, add priority to db
-
-
-
-
-Login page
--create login code -not complete(redirections, exceptions, error handling)
--create redirections																	-DONE
--add logout option																		-DONE
-
-Add Login Page For Admin
--create login code -not complete(redirections, exceptions, error handling)
--create redirections																	-DONE
--add logout option 																		-DONE
-
-
-Access - create seperate file with functions
 Errors handling
 Sorting
 Bootstrap integration
@@ -98,6 +79,30 @@ connection_delete_permission -As above
 connection_create_power -Up to which priority user can create tasks -0 for no permission to create
 connection_complete_permission -Values: 0 cannot change completed flag, 1 can change
 
+
+-----------------------------------------------------------------
+SESSION VALUES
+
+ON LOG IN:
+user_name
+user_id - main variable to check if user is logged in, also key in database
+user_is_admin - flag for admins: 1 is true, 0 is false
+user_last_active - timestamp with date of last activity (refresh page counts)
+user_temporary_flag - is user account temporary (local for single thread) or regular
+
+ERRORS(remember to clear after shown)
+error_create_thread - for unsuccessful thread creation									-not yet in use(need to be called)
+error_login - for unsuscessful login													-> index.php
+
+MESSAGE(remember to clear after use)
+to do
+
+
+-----------------------------------------------------------------
+INPUT DATA
+user_name - alnum 3-20 characters
+user_password - 8-48 characters
+
 -----------------------------------------------------------------
 THOUGHTS
 
@@ -131,8 +136,10 @@ Owner choices at user add menu:
 -----------------------------------------------------------------
 TASKS
 
+-CREATE THREAD PRINT AND SWITCH MODULE
 -HANDLE ERRORS (create_thread.php)
--ADD REGISTER OPTION													
+-ADD REGISTER OPTION
+-CREATE LIST OF SESSION VARIABLES										--DONE			
 -CREATE CREATE_THREAD PAGE												--DONE
 -CREATE DATABASE DOCUMENTATION											--DONE
 -CREATE DUMMY USER PANEL												--DONE
@@ -145,6 +152,11 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+--0.04
+
+Added list of SESSION variables
+Completed exceptions in login module
+
 --0.03
 
 Added creating threads module

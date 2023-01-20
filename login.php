@@ -9,15 +9,16 @@ Rules: redirect if logged in OK
 
 <?php
 
+	session_start();
 	/*Required data check*/
 	if(!isset($_POST["user_name"]) OR !isset($_POST["user_password"]))
 	{
+		$_SESSION['error_login'] = "Wprowadź dane logowania.";
 		Header("Location: index.php");
 		exit();
 	}
 	/*END*/
 	
-	session_start();
 	
 	/*Rules check*/
 	if(isset($_SESSION['user_id']))
@@ -29,21 +30,17 @@ Rules: redirect if logged in OK
 	
 	try
 	{
-		/*DB connection*/
+		error_reporting(E_ERROR);
 		require_once('db_credentials.php');
+		mysqli_report(MYSQLI_REPORT_OFF);
 		
-		$db_connection = new mysqli($db_host, $db_user, $db_password, $db_name);
-		
-		if($db_connection->connect_errno!=0)
+		if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
 		{
-			throw new Exception($db_connection->mysqli_connect_errno());
+			throw new Exception("Usługa niedostępna, za utrudnienia przepraszamy");
 		}
-		/*END*/
-		
-		/*User name sanitization*/
+
 		$user_name = htmlentities($_POST['user_name'], ENT_QUOTES);
-		/*END*/
-		
+
 		if(filter_var($user_name, FILTER_VALIDATE_EMAIL))
 		{
 			$user_name_credential = "user_email";
@@ -53,14 +50,17 @@ Rules: redirect if logged in OK
 			$user_name_credential = "user_name";
 		}
 		
-		if($db_temporary_query = $db_connection->query("SELECT user_id, user_password, user_is_admin, user_last_active, user_email FROM user_data WHERE $user_name_credential='$user_name'"))
+		if($db_temporary_query = $db_connection->query("SELECT user_id, user_name, user_password, user_is_admin, user_last_active, user_email FROM user_data WHERE $user_name_credential='$user_name'"))
 		{
 			if($db_temporary_query->num_rows == 1)
 			{
 				$db_temporary_row = $db_temporary_query->fetch_assoc();
+				$db_temporary_query->close();
+				
 				if(password_verify($_POST['user_password'], $db_temporary_row['user_password']))
 				{
 					$_SESSION['user_id'] = $db_temporary_row['user_id'];
+					$_SESSION['user_name'] = $db_temporary_row['user_name'];
 					$_SESSION['user_is_admin'] = $db_temporary_row['user_id'];
 					$_SESSION['user_last_active'] = $db_temporary_row['user_id'];
 					if($db_temporary_row['user_email'] == 'TEMPORARY') $_SESSION['user_temporary_flag'] = TRUE;
@@ -70,18 +70,17 @@ Rules: redirect if logged in OK
 				}
 				else
 				{
-					echo "password error";
+					throw new Exception("Nieprawidłowe dane logowania.");
 				}
 			}
 			else
 			{
-				echo "login error";
-				
+				throw new Exception("Nieprawidłowe dane logowania.");
 			}
 		}
 		else
 		{
-			echo "query fail";
+			throw new Exception("Wystąpił błąd, spróbuj ponownie później.");
 		}
 		
 		
@@ -89,9 +88,10 @@ Rules: redirect if logged in OK
 	}
 	catch(Exception $error)
 	{
-		echo $error;
+		$_SESSION['error_login'] = $error->getMessage();
+		Header("Location: index.php");
+		
 	}
-	
 	
 	if(isset($db_connection)) $db_connection->close();
 
