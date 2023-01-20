@@ -4,6 +4,8 @@ Required data: Login(POST), Password(POST)  OK
 Access: all OK
 
 Rules: redirect if logged in OK
+
+Exceptions: all to index.php
 */
 ?>
 

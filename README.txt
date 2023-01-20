@@ -136,9 +136,10 @@ Owner choices at user add menu:
 -----------------------------------------------------------------
 TASKS
 
+-CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
 -CREATE THREAD PRINT AND SWITCH MODULE
--HANDLE ERRORS (create_thread.php)
 -ADD REGISTER OPTION
+-HANDLE ERRORS (create_thread.php)										--DONE
 -CREATE LIST OF SESSION VARIABLES										--DONE			
 -CREATE CREATE_THREAD PAGE												--DONE
 -CREATE DATABASE DOCUMENTATION											--DONE
@@ -152,6 +153,11 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+--0.05
+
+Fixed creating threads
+Added thread exception handling
+
 --0.04
 
 Added list of SESSION variables

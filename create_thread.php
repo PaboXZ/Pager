@@ -52,22 +52,48 @@
 	
 	try
 	{
+		error_reporting(E_ERROR);
+		mysqli_report(MYSQLI_REPORT_OFF);
 		require_once("db_credentials.php");
-		$db_connection = new mysqli($db_host, $db_user, $db_password, $db_name);
+		if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
+		{
+			throw new Exception("Błąd serwera", 0);
+		}
 		
-		$db_connection->query("INSERT INTO thread_data (thread_owner_id, thread_name, thread_version) VALUES ('$thread_owner_id', '$thread_name', '$db_thread_version')");
-
+		$db_query_result = $db_connection->query("SELECT thread_id FROM thread_data WHERE thread_owner_id = '$thread_owner_id' AND thread_name = '$thread_name'");
+		if($db_query_result->num_rows > 0)
+		{
+			throw new Exception("Wybrana nazwa już istnieje.");
+		}
+		if(!$db_connection->query("INSERT INTO thread_data (thread_owner_id, thread_name, thread_version) VALUES ('$thread_owner_id', '$thread_name', '$db_thread_version')"))
+		{
+			throw new Exception("Błąd serwera", 1);
+		}			
+		if(!$db_query_result = $db_connection->query("SELECT thread_id FROM thread_data WHERE thread_owner_id = '$thread_owner_id' AND thread_name = '$thread_name'"))
+		{
+			throw new Exception("Błąd serwera", 2);
+		}
+		
+		$thread_id = $db_query_result->fetch_assoc()['thread_id'];
+		
+		if(!$db_connection->query("INSERT INTO connection_user_thread (connection_user_id, connection_thread_id, connection_view_power, connection_is_owner, connection_edit_permission, connection_delete_permission, connection_create_power, connection_complete_permission) VALUES ('$thread_owner_id', '$thread_id', '15', '1', '1', '1', '15', '1')"))
+		{
+			throw new Exception("Błąd serwera", 3);
+		}
+		$_SESSION['thread_active'] = $thread_id;
 	}
-	catch(Exception $e)
+	catch(Exception $error)
 	{
-		$_SESSION['error_create_thread'] = "Wystąpił błąd";
-		echo $e;
+		if($error->getCode() == 2 OR $error->getCode() == 3)
+		{
+			$db_connection->query("DELETE FROM thread_data WHERE thread_owner_id = '$thread_owner_id' AND thread_name = '$thread_name'");
+		}
+		$_SESSION['error_create_thread'] = $error->getMessage();
 	}
 	
 	if(isset($db_connection))
 	{
 		$db_connection->close();
 	}
-	
 	Header("Location: panel.php");
 ?>
