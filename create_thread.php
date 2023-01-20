@@ -24,22 +24,16 @@
 	require_once("rules.php");
 	
 	isLoggedIn();
-
-	if($_SESSION['user_temporary_flag'])
-	{
-		echo "0";
-		Header("Location: panel.php");
-		exit();
-	}
+	isTemporary();
 	
 	$thread_owner_id = $_SESSION['user_id'];
 	$thread_name = htmlentities($_POST['thread_name'], ENT_QUOTES);
 	$thread_version = htmlentities($_POST['thread_version'], ENT_QUOTES);
 	
-	if(strlen($thread_name) > 24)
+	if(strlen($thread_name) > 24 OR strlen($thread_name) < 3)
 	{
+		$_SESSION['error_create_thread'] = "Niewłaściwa długość nazwy (3 - 24)";
 		Header("Location: panel.php");
-		$_SESSION['error_thread_name'] = "Przekroczona długość nazwy (24)";
 		exit();
 	}
 	
@@ -95,5 +89,5 @@
 	{
 		$db_connection->close();
 	}
-	Header("Location: panel.php");
+	header("Location: panel.php");
 ?>

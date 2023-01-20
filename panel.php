@@ -34,8 +34,16 @@ Rules: redirect if not logged in OK
 		</select>
 		<input type="submit" value="Utwórz"/>
 	</form>
+	<?php
+		if(isset($_SESSION['error_create_thread']))
+		{
+			echo $_SESSION['error_create_thread'];
+			unset($_SESSION['error_create_thread']);
+		}
+	?>
 	<h2>Threads</h2>
 	<?php
+		
 		try
 		{
 			mysqli_report(MYSQLI_REPORT_OFF);
@@ -47,7 +55,7 @@ Rules: redirect if not logged in OK
 				throw new Exception("Błąd serwera", 1);
 			}
 			$user_id = $_SESSION['user_id'];
-			if(!$db_query_result = $db_connection->query("SELECT thread_name FROM connection_user_thread INNER JOIN thread_data ON connection_user_thread.connection_thread_id = thread_data.thread_id WHERE connection_user_thread.connection_user_id = '$user_id'"))
+			if(!$db_query_result = $db_connection->query("SELECT thread_id, thread_name FROM connection_user_thread INNER JOIN thread_data ON connection_user_thread.connection_thread_id = thread_data.thread_id WHERE connection_user_thread.connection_user_id = '$user_id'"))
 			{
 				throw new Exception("Błąd serwera", 2);
 			}
@@ -56,7 +64,7 @@ Rules: redirect if not logged in OK
 				for($i = $db_query_result->num_rows; $i > 0; $i--)
 				{
 					$db_result_row = $db_query_result->fetch_assoc();
-					echo $db_result_row['thread_name'];
+					echo '<a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br>";
 				}
 				$db_query_result->close();
 			}
@@ -67,6 +75,11 @@ Rules: redirect if not logged in OK
 			echo $error->getMessage();
 		}
 		if(isset($db_connection)) $db_connection->close();
+		if(isset($_SESSION['error_change_active_thread']))
+		{
+			echo $_SESSION['error_change_active_thread'];
+			unset($_SESSION['error_change_active_thread']);
+		}
 	?>
 	<a href="logout.php">Wyloguj</a>
 </body>

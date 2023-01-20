@@ -65,10 +65,9 @@ Exceptions: all to index.php
 					$_SESSION['user_name'] = $db_temporary_row['user_name'];
 					$_SESSION['user_is_admin'] = $db_temporary_row['user_id'];
 					$_SESSION['user_last_active'] = $db_temporary_row['user_id'];
-					if($db_temporary_row['user_email'] == 'TEMPORARY') $_SESSION['user_temporary_flag'] = TRUE;
+					if(!filter_var($db_temporary_row['user_email'], FILTER_VALIDATE_EMAIL)) $_SESSION['user_temporary_flag'] = TRUE;
 					else $_SESSION['user_temporary_flag'] = FALSE;
-					
-					Header("Location: panel.php");
+					header("Location: panel.php");
 				}
 				else
 				{
@@ -91,7 +90,7 @@ Exceptions: all to index.php
 	catch(Exception $error)
 	{
 		$_SESSION['error_login'] = $error->getMessage();
-		Header("Location: index.php");
+		header("Location: index.php");
 		
 	}
 	

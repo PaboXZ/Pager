@@ -23,7 +23,9 @@ Panel:
 2 Tasks in a row for widescreen, 1 for narrow
 hide threads for narrow view
 
+For thread owners display settings
 
+For temporary users don't show threads menu, no need
 
 -----------------------------------------------------------------
 DATABASE
@@ -35,7 +37,7 @@ user_data
 
 Values:
 user_id -PRIMARY KEY, auto increment
-user_email -Set to value TEMPORARY if user is created by thread owner		MAX LENGTH: 64
+user_email -Set to thread_id if user is created by thread owner		MAX LENGTH: 64
 user_password -Password hash
 user_name																	MAX LENGTH: 64
 user_is_admin -Values: 0 for not admin, 1 for admin
@@ -89,10 +91,12 @@ user_id - main variable to check if user is logged in, also key in database
 user_is_admin - flag for admins: 1 is true, 0 is false
 user_last_active - timestamp with date of last activity (refresh page counts)
 user_temporary_flag - is user account temporary (local for single thread) or regular
+user_active_thread - stores id of an active thread
 
 ERRORS(remember to clear after shown)
-error_create_thread - for unsuccessful thread creation									-not yet in use(need to be called)
+error_create_thread - for unsuccessful thread creation									-> panel.php
 error_login - for unsuscessful login													-> index.php
+error_change_active_thread -unsuccessful thread change									-> panel.php
 
 MESSAGE(remember to clear after use)
 to do
@@ -100,8 +104,11 @@ to do
 
 -----------------------------------------------------------------
 INPUT DATA
+
 user_name - alnum 3-20 characters
 user_password - 8-48 characters
+
+thread_name - alnum 1-24 characters
 
 -----------------------------------------------------------------
 THOUGHTS
@@ -136,9 +143,9 @@ Owner choices at user add menu:
 -----------------------------------------------------------------
 TASKS
 
--CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
--CREATE THREAD PRINT AND SWITCH MODULE
 -ADD REGISTER OPTION
+-CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
+-CREATE THREAD PRINT AND SWITCH MODULE									--DONE
 -HANDLE ERRORS (create_thread.php)										--DONE
 -CREATE LIST OF SESSION VARIABLES										--DONE			
 -CREATE CREATE_THREAD PAGE												--DONE
@@ -153,6 +160,10 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+--0.06
+
+Added switch active thread module
+
 --0.05
 
 Fixed creating threads

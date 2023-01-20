@@ -12,5 +12,14 @@
 			exit();
 		}
 	}	
+		
+	function isTemporary()	
+	{
+		if($_SESSION['user_temporary_flag'])
+		{
+			header("Location: panel.php");
+			exit();
+		}
+	}	
 	
 ?>
