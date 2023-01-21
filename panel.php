@@ -50,17 +50,30 @@ Rules: redirect if not logged in OK
 			error_reporting(E_ERROR);
 			
 			require_once("db_credentials.php");
+	
 			if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
 			{
 				throw new Exception("Błąd serwera", 1);
 			}
+			if(isset($_SESSION['user_active_thread']))
+			{
+				$user_active_thread = $_SESSION['user_active_thread'];
+				
+				if(!$db_query_result = $db_connection->query("SELECT thread_name FROM thread_data WHERE thread_id = '$user_active_thread' "))
+				{
+					throw new Exception("Bład serwera", 11);
+				}
+				$db_result_row = $db_query_result->fetch_assoc();
+				echo "Active thread: ".$db_result_row['thread_name']."<br>";
+			}
+			
 			$user_id = $_SESSION['user_id'];
 			if(!$db_query_result = $db_connection->query("SELECT thread_id, thread_name FROM connection_user_thread INNER JOIN thread_data ON connection_user_thread.connection_thread_id = thread_data.thread_id WHERE connection_user_thread.connection_user_id = '$user_id'"))
 			{
 				throw new Exception("Błąd serwera", 2);
 			}
 			else
-			{	
+			{
 				for($i = $db_query_result->num_rows; $i > 0; $i--)
 				{
 					$db_result_row = $db_query_result->fetch_assoc();

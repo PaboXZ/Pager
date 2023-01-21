@@ -1,3 +1,4 @@
+TASKIP
 
 Errors handling
 Sorting
@@ -97,6 +98,7 @@ ERRORS(remember to clear after shown)
 error_create_thread - for unsuccessful thread creation									-> panel.php
 error_login - for unsuscessful login													-> index.php
 error_change_active_thread -unsuccessful thread change									-> panel.php
+error_register																			-> index.php
 
 MESSAGE(remember to clear after use)
 to do
@@ -125,6 +127,7 @@ MAKE RULES FOR TEMPORARY USERS
 -temporary users have flag TEMPORARY in field email instead of true value
 -disable creating threads
 -disable control panel
+-to create temporary user use register form with flag
 
 
 
@@ -143,8 +146,11 @@ Owner choices at user add menu:
 -----------------------------------------------------------------
 TASKS
 
--ADD REGISTER OPTION
+-ADD RECAPTCHA TO REGISTER FORM
+-ADD TASK CREATION MODULE 
 -CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
+
+-ADD REGISTER OPTION													-DONE
 -CREATE THREAD PRINT AND SWITCH MODULE									--DONE
 -HANDLE ERRORS (create_thread.php)										--DONE
 -CREATE LIST OF SESSION VARIABLES										--DONE			
@@ -160,6 +166,10 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+--0.07
+
+Added registeration option
+
 --0.06
 
 Added switch active thread module
