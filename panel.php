@@ -94,6 +94,21 @@ Rules: redirect if not logged in OK
 			unset($_SESSION['error_change_active_thread']);
 		}
 	?>
+	<form action="create_task.php" method="POST">
+		<input type="text" name="task_title" placeholder="Nazwa wpisu"/><br>
+		<textarea name="task_content" rows="6"></textarea><br>
+		<input type="radio" name="task_power" value="1" id="power-low" checked/>
+		<label for="power-low">Niski</label><br>
+		<input type="radio" name="task_power" value="2" id="power-mid-low"/>
+		<label for="power-mid-low">Średnio-niski</label><br>
+		<input type="radio" name="task_power" value="3" id="power-mid"/>
+		<label for="power-mid">Średni</label><br>
+		<input type="radio" name="task_power" value="4" id="power-mid-high"/>
+		<label for="power-mid-high">Średnio-wysoki</label><br>
+		<input type="radio" name="task_power" value="5" id="power-high"/>
+		<label for="power-high">Ostrożnie!!!</label><br>
+		<input type="submit" value="Dodaj wpis"/>
+	</form>
 	<a href="logout.php">Wyloguj</a>
 </body>
 </html>

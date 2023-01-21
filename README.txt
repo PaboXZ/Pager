@@ -57,16 +57,16 @@ Table:
 task_data
 
 Values:
-task_id -PRIMARY KEY, auto increment
-task_thread_id -For which thread task was created
-task_user_id -Id of author
-task_title																	MAX LENGTH: 256
-task_content																MAX LENGTH: 2024
-task_create_timestamp
-task_edit_timestamp -Timestamp of last edit
-task_power -Priority of task												VALUES: 0-15
-task_is_complete -Values: 0 is not complete, 1 is complete
-task_is_pinned -Values: 0 is not pinned, 1 is pinned
+task_id -PRIMARY KEY, auto increment										AUTO
+task_thread_id -For which thread task was created							AUTO
+task_user_id -Id of author													AUTO
+task_title																	REQUIRED			MAX LENGTH: 64
+task_content																REQUIRED			MAX LENGTH: 2024
+task_create_timestamp														AUTO
+task_edit_timestamp -Timestamp of last edit									AUTO
+task_power -Priority of task												REQUIRED			VALUES: 0-15
+task_is_complete -Values: 0 is not complete, 1 is complete					AUTO
+task_is_pinned -Values: 0 is not pinned, 1 is pinned						AUTO
 
 Table
 connection_user_thread  -table where information about connection to thread and permissions for that thread are stored
@@ -115,6 +115,7 @@ thread_name - alnum 1-24 characters
 -----------------------------------------------------------------
 THOUGHTS
 
+IMAGE FOR THREAD (max.1)
 THINK ABOUT LIMITS
 
 -Threads per user cap
@@ -146,11 +147,13 @@ Owner choices at user add menu:
 -----------------------------------------------------------------
 TASKS
 
+-CHECK VARIABLES AND FIX IF NEEDED
+-ADD TIMESTAMP ON EDIT FUNCTION
 -ADD RECAPTCHA TO REGISTER FORM
 -ADD TASK CREATION MODULE 
 -CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
 
--ADD REGISTER OPTION													-DONE
+-ADD REGISTER OPTION													--DONE
 -CREATE THREAD PRINT AND SWITCH MODULE									--DONE
 -HANDLE ERRORS (create_thread.php)										--DONE
 -CREATE LIST OF SESSION VARIABLES										--DONE			

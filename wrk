@@ -1,0 +1,15 @@
+<NotepadPlus>
+    <Project name="Pager">
+        <File name="create_thread.php" />
+        <File name="db_credentials.php" />
+        <File name="index.php" />
+        <File name="login.php" />
+        <File name="logout.php" />
+        <File name="pager.sql" />
+        <File name="panel-admin.php" />
+        <File name="panel.php" />
+        <File name="README.txt" />
+        <File name="rules.php" />
+        <File name="test.php" />
+    </Project>
+</NotepadPlus>
