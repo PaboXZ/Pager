@@ -37,50 +37,50 @@ Table:
 user_data
 
 Values:
-user_id -PRIMARY KEY, auto increment
-user_email -Set to thread_id if user is created by thread owner		MAX LENGTH: 64
-user_password -Password hash
-user_name																	MAX LENGTH: 64
-user_is_admin -Values: 0 for not admin, 1 for admin
-user_last_active -Timestamp updated after avery single operation(including page refresh)
+user_id																						INT, AUTO INC, PRIMARY
+user_email																					VARCHAR, 64			REQUIRED (thread id for temporary)
+user_password -Password hash																VARCHAR, 256		REQUIRED
+user_name																					VARCHAR, 64			REQUIRED
+user_is_admin -VALUES: 0 for not admin, 1 for admin											TINYINT, 1			DEFAULT: 0, AUTO
+user_last_active -Timestamp updated after avery single operation(including page refresh)	TIMESTAMP			DEFAULT: current timestamp, AUTO
 
 Table:
 thread_data
 
 Values:
-thread_id -PRIMARY KEY, auto increment
-thread_owner_id 
-thread_name																	MAX LENGTH: 64
-thread_version -For later use												VALUES: 0-3; 0-Simple, 1-Pro
+thread_id 																					INT, AUTO INC, PRIMARY
+thread_owner_id 																			INT					REQUIRED
+thread_name																					VARCHAR, 32			REQUIRED, (rules: 3-24)
+thread_version -VALUES: 0-3; 0-Simple, 1-Pro												INT, 4				DEFAULT: 0, REQUIRED
 
 Table:
 task_data
 
 Values:
-task_id -PRIMARY KEY, auto increment										AUTO
-task_thread_id -For which thread task was created							AUTO
-task_user_id -Id of author													AUTO
-task_title																	REQUIRED			MAX LENGTH: 64
-task_content																REQUIRED			MAX LENGTH: 2024
-task_create_timestamp														AUTO
-task_edit_timestamp -Timestamp of last edit									AUTO
-task_power -Priority of task												REQUIRED			VALUES: 0-15
-task_is_complete -Values: 0 is not complete, 1 is complete					AUTO
-task_is_pinned -Values: 0 is not pinned, 1 is pinned						AUTO
+task_id -PRIMARY KEY, auto increment														INT, AUTO INC, PRIMARY
+task_thread_id -For which thread task was created											INT					AUTO
+task_user_id -Id of author																	INT					AUTO
+task_title																					VARCHAR, 127		REQUIRED (rules: 3-64)
+task_content																				VARCHAR. 2024		REQUIRED (rules: 2024 after htmlentities, said to be 1900)
+task_create_timestamp																		TIMESTAMP			DEFAULT: current timestamp, AUTO
+task_edit_timestamp -Timestamp of last edit													TIMESTAMP			DEFAULT: current timestamp, REQUIRED on edit
+task_power -Values 1-5																		INT, 4				DEFAULT: 1, REQUIRED
+task_is_complete -Values: 0 is not complete, 1 is complete									TINYINT, 1 			DEFAULT: 0, REQUIRED when called
+task_is_pinned -Values: 0 is not pinned, 1 is pinned										TINYINT, 1			DEFAULT: 0, REQUIRED when called
 
 Table
 connection_user_thread  -table where information about connection to thread and permissions for that thread are stored
 
 Values:
 
-connection_user_id -External user_data key
-connection_thread_id -External thread_data key
-connection_view_power -Selects which tasks user can browse
-connection_is_owner -Values: 0 for not owner 1 for owner
-connection_edit_permission -Values: 0 for no permission to edit, 1 for permission
-connection_delete_permission -As above
-connection_create_power -Up to which priority user can create tasks -0 for no permission to create
-connection_complete_permission -Values: 0 cannot change completed flag, 1 can change
+connection_user_id -External user_data key													INT 				REQUIRED
+connection_thread_id -External thread_data key												INT 				REQUIRED
+connection_view_power -Selects which tasks user can browse									INT, 4				REQUIRED
+connection_is_owner -Values: 0 for not owner 1 for owner									TINYINT, 1			DEFAULT: 0
+connection_edit_permission -Values: 0 for no permission to edit tasks, 1 for permission		TINYINT, 1			DEFAULT: 0
+connection_delete_permission -As above														TINYINY, 1			DEFAULT: 0
+connection_create_power -Up to which priority user can create tasks -0 for no permission	INT, 4				DEFAULT: 0
+connection_complete_permission -Values: 0 cannot change completed flag, 1 can change		TINYINT, 1			DEFAULT: 0
 
 
 -----------------------------------------------------------------

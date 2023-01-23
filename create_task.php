@@ -10,7 +10,7 @@ If no active thread go to panel
 If no data was sent (after login check) go to panel
 Then check values with database requirements
 
-Rights!! edit permission and power level
+Rights!!  power level
 */
 	
 ?>
@@ -58,7 +58,7 @@ Rights!! edit permission and power level
 	
 	if(strlen($task_content) > 2024)
 	{
-		errorAdd("Maksymalna długość wpisu: 2000");
+		errorAdd("Maksymalna długość wpisu: 1900");
 	}
 	
 	if($task_power > 5 OR $task_power < 1)
@@ -80,6 +80,15 @@ Rights!! edit permission and power level
 		$user_id = $_SESSION['user_id'];
 		$task_thread_id = $_SESSION['user_active_thread'];
 		
+		if(!$db_query_result = $db_connection->query("SELECT task_id FROM task_data WHERE task_user_id = '$user_id' AND task_thread_id = '$task_thread_id' AND task_title = '$task_title'"))
+		{
+			throw new Exception("Bład serwera", 4);
+		}
+		if($db_query_result->num_rows > 0)
+		{
+			throw new Exception("Podana nazwa wpisu już istnieje");
+		}
+		
 		if(!$db_query_result = $db_connection->query("SELECT connection_create_power FROM connection_user_thread WHERE connection_user_id = '$user_id' AND connection_thread_id = '$task_thread_id'"))
 		{
 			throw new Exception("Bład serwera", 2);
@@ -89,6 +98,10 @@ Rights!! edit permission and power level
 		if($task_power < $connection_create_power)
 		{
 			errorAdd("Przekroczono dozwoloną siłę wpisu");
+			throw new Exception($_SESSION['error_create_task']);
+		}
+		if(isset($_SESSION['error_create_task']))
+		{
 			throw new Exception($_SESSION['error_create_task']);
 		}
 		
@@ -106,9 +119,6 @@ Rights!! edit permission and power level
 	{
 		$db_connection->close();
 	}
-	if(isset($_SESSION['error_create_task']))
-	{
-		echo $_SESSION['error_create_task'];
-		unset($_SESSION['error_create_task']);
-	}
+	header('Location: panel.php');
+
 ?>

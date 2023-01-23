@@ -67,7 +67,6 @@ Rules: redirect if not logged in OK
 				echo "Active thread: ".$db_result_row['thread_name']."<br>";
 			}
 			
-			$user_id = $_SESSION['user_id'];
 			if(!$db_query_result = $db_connection->query("SELECT thread_id, thread_name FROM connection_user_thread INNER JOIN thread_data ON connection_user_thread.connection_thread_id = thread_data.thread_id WHERE connection_user_thread.connection_user_id = '$user_id'"))
 			{
 				throw new Exception("Błąd serwera", 2);
@@ -87,11 +86,47 @@ Rules: redirect if not logged in OK
 		{
 			echo $error->getMessage();
 		}
-		if(isset($db_connection)) $db_connection->close();
 		if(isset($_SESSION['error_change_active_thread']))
 		{
 			echo $_SESSION['error_change_active_thread'];
 			unset($_SESSION['error_change_active_thread']);
+		}
+		if(isset($db_connection)) $db_connection->close();
+		
+		try
+		{
+			if(!isset($_SESSION['user_active_thread']))
+			{
+				throw new Exception();
+			}
+			
+			$user_active_thread = $_SESSION['user_active_thread'];
+			$user_id = $_SESSION['user_id'];
+			
+			if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
+			{
+				throw new Exception("Błąd serwera", 11);
+			}
+			if(!$db_query_result = $db_connection->query("SELECT task_title, task_content, task_power FROM task_data WHERE task_user_id = '$user_id' AND task_thread_id = '$user_active_thread'"))
+			{
+				throw new Exception("Błąd serwera", 12);
+			}
+			for($i = $db_query_result->num_rows; $i > 0; $i--)
+			{
+				$db_result_row = $db_query_result->fetch_assoc();
+				echo "<h3>".$db_result_row['task_title']."</h3><br>"
+				.$db_result_row['task_content']."<br>"
+				.$db_result_row['task_power']."<br>";
+			}
+			$db_query_result->close();
+		}
+		catch(Exception $error)
+		{
+			echo $error->getMessage();
+		}
+		if(isset($db_connection))
+		{
+			$db_connection->close();
 		}
 	?>
 	<form action="create_task.php" method="POST">
@@ -109,6 +144,13 @@ Rules: redirect if not logged in OK
 		<label for="power-high">Ostrożnie!!!</label><br>
 		<input type="submit" value="Dodaj wpis"/>
 	</form>
+	<?php
+		if(isset($_SESSION['error_create_task']))
+		{
+			echo $_SESSION['error_create_task'];
+			unset($_SESSION['error_create_task']);
+		}
+	?>
 	<a href="logout.php">Wyloguj</a>
 </body>
 </html>
