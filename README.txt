@@ -150,9 +150,9 @@ TASKS
 -CHECK VARIABLES AND FIX IF NEEDED
 -ADD TIMESTAMP ON EDIT FUNCTION
 -ADD RECAPTCHA TO REGISTER FORM
--ADD TASK CREATION MODULE 
 -CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
 
+-ADD TASK CREATION MODULE 												--DONE
 -ADD REGISTER OPTION													--DONE
 -CREATE THREAD PRINT AND SWITCH MODULE									--DONE
 -HANDLE ERRORS (create_thread.php)										--DONE
@@ -169,6 +169,11 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+--0.08
+
+Completed create_task module
+Added task printing to panel
+
 --0.07
 
 Added registeration option
