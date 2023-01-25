@@ -1,6 +1,8 @@
 <?php
 	/*
-	Required data: thread_version, thread_name
+	Required data:
+	thread_version : 0-3
+	thread_name : 3-24
 	
 	Access: logged in, not TEMPORARY
 	

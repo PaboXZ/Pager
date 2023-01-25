@@ -1,49 +1,19 @@
 <?php
 /*
-Panel in dummy version
-Required data: none OK
-Access: logged user OK
-
-Rules: redirect if not logged in OK
+Access: logged in
+Redirect if not logged in
 */
 ?>
 
 <?php
-
+	
 	session_start();
 	require_once("rules.php");
 	isLoggedIn();
+		$user_id = $_SESSION['user_id'];
 		
-?>
-
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-	<meta charset="utf-8"/>
-</head>
-<body>
-	<h1>DUMMY PANEL - TESTING</h1>
-	<h2>Add thread</h2>
-	<form action="create_thread.php" method="POST">
-		<input type="text" name="thread_name"/>
-		<select name="thread_version" placeholder="Version">
-			<optgroup label="Version">
-				<option value="simple">Simple</option>
-				<option value="pro">Pro</option>
-			</optgroup>
-		</select>
-		<input type="submit" value="Utwórz"/>
-	</form>
-	<?php
-		if(isset($_SESSION['error_create_thread']))
-		{
-			echo $_SESSION['error_create_thread'];
-			unset($_SESSION['error_create_thread']);
-		}
-	?>
-	<h2>Threads</h2>
-	<?php
 		
+		//Thread HTML
 		try
 		{
 			mysqli_report(MYSQLI_REPORT_OFF);
@@ -55,17 +25,6 @@ Rules: redirect if not logged in OK
 			{
 				throw new Exception("Błąd serwera", 1);
 			}
-			if(isset($_SESSION['user_active_thread']))
-			{
-				$user_active_thread = $_SESSION['user_active_thread'];
-				
-				if(!$db_query_result = $db_connection->query("SELECT thread_name FROM thread_data WHERE thread_id = '$user_active_thread' "))
-				{
-					throw new Exception("Bład serwera", 11);
-				}
-				$db_result_row = $db_query_result->fetch_assoc();
-				echo "Active thread: ".$db_result_row['thread_name']."<br>";
-			}
 			
 			if(!$db_query_result = $db_connection->query("SELECT thread_id, thread_name FROM connection_user_thread INNER JOIN thread_data ON connection_user_thread.connection_thread_id = thread_data.thread_id WHERE connection_user_thread.connection_user_id = '$user_id'"))
 			{
@@ -73,12 +32,30 @@ Rules: redirect if not logged in OK
 			}
 			else
 			{
+				if(!isset($_SESSION['user_active_thread']))
+				{
+					$_SESSION['user_active_thread'] = 0;
+				}
+				$thread_html = "";
+				$thread_active_name = "";
+				
 				for($i = $db_query_result->num_rows; $i > 0; $i--)
 				{
 					$db_result_row = $db_query_result->fetch_assoc();
-					echo '<a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br>";
+					
+					if($_SESSION['user_active_thread'] == $db_result_row['thread_id'])
+					{
+						$thread_active_name = $db_result_row['thread_name'];
+						$temp_html = '<li class="active-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
+					}
+					else
+					{
+						$temp_html = '<li class="inactive-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
+					}
+					$thread_html =  $thread_html.$temp_html;
 				}
 				$db_query_result->close();
+				
 			}
 			
 		}
@@ -86,13 +63,9 @@ Rules: redirect if not logged in OK
 		{
 			echo $error->getMessage();
 		}
-		if(isset($_SESSION['error_change_active_thread']))
-		{
-			echo $_SESSION['error_change_active_thread'];
-			unset($_SESSION['error_change_active_thread']);
-		}
-		if(isset($db_connection)) $db_connection->close();
 		
+		
+		//Task HTML
 		try
 		{
 			if(!isset($_SESSION['user_active_thread']))
@@ -100,23 +73,37 @@ Rules: redirect if not logged in OK
 				throw new Exception();
 			}
 			
-			$user_active_thread = $_SESSION['user_active_thread'];
-			$user_id = $_SESSION['user_id'];
 			
 			if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
 			{
 				throw new Exception("Błąd serwera", 11);
 			}
-			if(!$db_query_result = $db_connection->query("SELECT task_title, task_content, task_power FROM task_data WHERE task_user_id = '$user_id' AND task_thread_id = '$user_active_thread'"))
+			
+			$user_id = $_SESSION['user_id'];
+			$user_active_thread = $_SESSION['user_active_thread'];
+			
+			if(!$db_query_result = $db_connection->query("SELECT task_id, task_title, task_content, task_power FROM task_data WHERE task_user_id = '$user_id' AND task_thread_id = '$user_active_thread' ORDER BY task_power DESC, task_id ASC"))
 			{
 				throw new Exception("Błąd serwera", 12);
 			}
+			if(isset($db_connection))
+			{
+				$db_connection->close();
+				
+			}
+			$task_html = "";
 			for($i = $db_query_result->num_rows; $i > 0; $i--)
 			{
 				$db_result_row = $db_query_result->fetch_assoc();
-				echo "<h3>".$db_result_row['task_title']."</h3><br>"
-				.$db_result_row['task_content']."<br>"
-				.$db_result_row['task_power']."<br>";
+				
+				$temporary_html = '<div class="col-12 col-lg-6">
+					<div class="task-show task-power-'.$db_result_row['task_power'].'">
+						<div class="task-title">'.$db_result_row['task_title'].'</div>
+						<div class="task-content">'.$db_result_row['task_content'].'</div>
+					</div>
+				</div>';
+				
+				$task_html = $task_html.$temporary_html;
 			}
 			$db_query_result->close();
 		}
@@ -124,33 +111,98 @@ Rules: redirect if not logged in OK
 		{
 			echo $error->getMessage();
 		}
-		if(isset($db_connection))
+
+?>
+
+
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="main.css"/>
+	<script>
+		function closeDialogBox(boxId)
 		{
-			$db_connection->close();
+			document.getElementById(boxId).style.cssText='display: none;';
 		}
-	?>
-	<form action="create_task.php" method="POST">
-		<input type="text" name="task_title" placeholder="Nazwa wpisu"/><br>
-		<textarea name="task_content" rows="6"></textarea><br>
-		<input type="radio" name="task_power" value="1" id="power-low" checked/>
-		<label for="power-low">Niski</label><br>
-		<input type="radio" name="task_power" value="2" id="power-mid-low"/>
-		<label for="power-mid-low">Średnio-niski</label><br>
-		<input type="radio" name="task_power" value="3" id="power-mid"/>
-		<label for="power-mid">Średni</label><br>
-		<input type="radio" name="task_power" value="4" id="power-mid-high"/>
-		<label for="power-mid-high">Średnio-wysoki</label><br>
-		<input type="radio" name="task_power" value="5" id="power-high"/>
-		<label for="power-high">Ostrożnie!!!</label><br>
-		<input type="submit" value="Dodaj wpis"/>
-	</form>
-	<?php
-		if(isset($_SESSION['error_create_task']))
+		function showDialogBox(boxId)
 		{
-			echo $_SESSION['error_create_task'];
-			unset($_SESSION['error_create_task']);
+			document.getElementById(boxId).style.cssText='display: block';
 		}
-	?>
-	<a href="logout.php">Wyloguj</a>
+	</script>
+</head>
+<body>
+	<div id="add-task">
+		<div class="container">
+			<div class ="row">
+				<div class="col-lg-6 offset-lg-3" id="dialog-box">
+					<div class="row">
+						<div class="col-lg-5">
+							<h3>Tworzenie Wpisu<h3>
+						</div>
+						<div class="offset-lg-6 col-lg-1 dialog-box-close" onclick="closeDialogBox('add-task')">
+							<h3>X</h3>
+						</div>
+						<div class="offset-lg-1 col-lg-10">
+							<form action="create_task.php" method="POST">
+								Nazwa wpisu:<br>
+								<input type="text" name="task_title" placeholder="Nazwa wpisu"/><br>
+								Treść wpisu:<br>
+								<textarea name="task_content" rows="6" value="Treść wpisu"></textarea><br>
+								Priorytet:<br>
+								<input type="radio" name="task_power" value="1" id="power-low" checked/>
+								<label for="power-low">Niski</label><br>
+								<input type="radio" name="task_power" value="2" id="power-mid-low"/>
+								<label for="power-mid-low">Średnio-niski</label><br>
+								<input type="radio" name="task_power" value="3" id="power-mid"/>
+								<label for="power-mid">Średni</label><br>
+								<input type="radio" name="task_power" value="4" id="power-mid-high"/>
+								<label for="power-mid-high">Średnio-wysoki</label><br>
+								<input type="radio" name="task_power" value="5" id="power-high"/>
+								<label for="power-high">Wysoki</label><br>
+								<br>
+								<input type="submit" value="Dodaj wpis"/>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div id="add-task-button" onclick="showDialogBox('add-task')">
+	+ Dodaj wpis
+	</div>
+	<div id="topbar">
+		<div class="container">
+			<div class="row">
+				<div class="col-9" id="logo">Skippit</div>
+				<div class="col-2">Witaj user_name</div>
+				<div class="col-1">Log out</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<nav class="col-2"><ul><?=$thread_html ?><li><a href="#" id="create-thread">+ Utwórz</a></li></ul></nav>
+			<main class="col-10">
+				<div class="row">
+					<div id="thread-active-name"><?=$thread_active_name?></div>
+					<?=$task_html ?>
+				</div>
+			</main>
+
+		</div>
+	</div>
+
+
+
+
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

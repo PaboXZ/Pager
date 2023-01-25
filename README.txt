@@ -1,4 +1,4 @@
-TASKIP
+SKIPPIT
 
 Errors handling
 Sorting
@@ -7,6 +7,21 @@ Bootstrap integration
 
 ------------------------------------------------------------------
 STRUCTURE
+
+USER PERMISSIONS AROUND TASKS:
+
+OWNER:
+-view
+-edit
+-flag
+-delete
+
+USER:
+
+
+
+
+
 
 Index:
 -only logging, registration later, same template
@@ -51,7 +66,7 @@ Values:
 thread_id 																					INT, AUTO INC, PRIMARY
 thread_owner_id 																			INT					REQUIRED
 thread_name																					VARCHAR, 32			REQUIRED, (rules: 3-24)
-thread_version -VALUES: 0-3; 0-Simple, 1-Pro												INT, 4				DEFAULT: 0, REQUIRED
+thread_version -VALUES: 0-3; 0-Simple, 1-Pro												INT, 2				DEFAULT: 0, REQUIRED
 
 Table:
 task_data
@@ -75,7 +90,7 @@ Values:
 
 connection_user_id -External user_data key													INT 				REQUIRED
 connection_thread_id -External thread_data key												INT 				REQUIRED
-connection_view_power -Selects which tasks user can browse									INT, 4				REQUIRED
+connection_view_power -Selects which tasks user can browse									INT, 4				REQUIRED, DEFAULT: 5
 connection_is_owner -Values: 0 for not owner 1 for owner									TINYINT, 1			DEFAULT: 0
 connection_edit_permission -Values: 0 for no permission to edit tasks, 1 for permission		TINYINT, 1			DEFAULT: 0
 connection_delete_permission -As above														TINYINY, 1			DEFAULT: 0
@@ -144,14 +159,37 @@ Owner choices at creation menu:
 Owner choices at user add menu:
 -Can edit own tasks
 
+PANEL
+
+OWNER/USER/TEMPORARY USER
+
+OWNER VIEW:
+
+threads, tasks, settings
+
+USER VIEW:
+
+threads, tasks
+
+TEMPORARY USER VIEW:
+
+tasks
+
+
 -----------------------------------------------------------------
 TASKS
 
+-RETHINK STRUCTURE: VIEWS(personal, owners - plus sorting)
+-TO RESOLVE: CREATE 3 PANELS WITH CHECK BEFORE OR 1 PANEL WITH CHECK WITHIN
+-CREATE TEMPLATE
+-FIX HTML ENTITIES string length(double-check strlen)
 -CHECK VARIABLES AND FIX IF NEEDED
 -ADD TIMESTAMP ON EDIT FUNCTION
 -ADD RECAPTCHA TO REGISTER FORM
 -CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
 
+
+-ADD BOOTSTRAP 															--DONE
 -ADD TASK CREATION MODULE 												--DONE
 -ADD REGISTER OPTION													--DONE
 -CREATE THREAD PRINT AND SWITCH MODULE									--DONE
@@ -169,6 +207,11 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+--0.09
+
+Started creating layout
+Basic bootstrap integration
+
 --0.08
 
 Completed create_task module

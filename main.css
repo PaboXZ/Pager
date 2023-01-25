@@ -1,0 +1,165 @@
+:root
+{
+	--font-color: white;
+	--background: DarkSlateGray;
+	--task-level-low-color: #17a63d;
+	--task-level-midlow-color: #c2bf1f;
+	--task-level-mid-color: #d99a1c;
+	--task-level-midhigh-color: #eb5e17;
+	--task-level-high-color: #c7311a;
+}
+body
+{
+	color: var(--font-color);
+	background-color: var(--background);
+}
+#topbar #logo
+{
+	padding: calc(5px + 1vh);
+	font-size: calc(12px + 2vh);
+	min-font-size: 10px;	
+	font-weight: 900;
+}
+
+
+nav ul
+{
+	padding: 0;
+	margin: calc(2em + 10px) 0;
+	list-style-type: none;
+	text-align: center;
+}
+nav .active-thread
+{
+	background-color: green;
+}
+nav .inactive-thread
+{
+	background-color: red;
+}
+nav .active-thread:hover
+{
+	background-color: lightgreen;
+}
+nav .inactive-thread:hover
+{
+	background-color: pink;
+}
+nav ul a
+{
+	padding: 3vh 0;
+	width: 100%;
+	color: white;
+	text-decoration: none;
+	display: inline-block;
+}
+#thread-active-name
+{
+	padding: 10px;
+	text-align: center;
+	font-size: 200%;
+	font-weight: 700;
+}
+
+.task-power-1
+{
+	background-color: var(--task-level-low-color);
+}
+.task-power-2
+{
+	background-color: var(--task-level-midlow-color);
+}
+.task-power-3
+{
+	background-color: var(--task-level-mid-color);
+}
+.task-power-4
+{
+	background-color: var(--task-level-midhigh-color);
+}
+.task-power-5
+{
+	background-color: var(--task-level-high-color);
+}
+
+.task-title
+{
+	padding: 15px;
+	font-size: calc(20px + 1vh);
+	font-weight: 700;
+}
+.task-content
+{
+	padding: 15px;
+	font-size: calc(12px + 0.5vh);
+	overflow: auto;
+	height: 30vh;
+}
+.task-show
+{
+	margin: 10px;
+	border-radius: 10px;
+}
+.task-content::-webkit-scrollbar
+{
+	width: 6px;
+}
+.task-content::-webkit-scrollbar-thumb
+{
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 3px;
+	width: 4px;
+}
+#create-thread
+{
+	background-color: rgba(255,255,255, 0.1);
+}
+#create-thread:hover
+{
+	background-color: rgba(255,255,255, 0.2);
+}
+
+#add-task
+{
+	display: none;
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	background-color: rgba(127,127,127, 0.4);
+	
+}
+#dialog-box
+{
+	margin-top: 15vh;
+	padding: 20px;
+	background-color: white;
+	border-radius: 15px;
+}
+#add-task input[type=text],
+#add-task input[type=submit],
+#add-task textarea,
+#add-task textbox
+{
+	margin: 5px 0;
+	padding: 5px;
+	width: 100%;
+	resize: none;
+}
+#add-task input[type=radio]
+{
+	margin: 5px 0;
+}
+#add-task-button
+{
+	padding: 20px;
+	position: absolute;
+	background-color: var(--task-level-low-color);
+	border-radius: 100px;
+	bottom: 50px;
+	right: 50px;
+	cursor: pointer;
+}
+.dialog-box-close
+{
+	cursor: pointer;
+}

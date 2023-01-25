@@ -3,9 +3,9 @@
 Access: not logged in
 
 Required data:
-name
-email
-password
+Name: alnum, length : 3-20, not existing
+email: email verify, not existing
+password: At least one of each [A-Z], [a-z], [0-9], hash to db, length : 8-48
 ToS check
 recaptcha -- later
 
