@@ -179,16 +179,18 @@ tasks
 -----------------------------------------------------------------
 TASKS
 
+
 -RETHINK STRUCTURE: VIEWS(personal, owners - plus sorting)
 -TO RESOLVE: CREATE 3 PANELS WITH CHECK BEFORE OR 1 PANEL WITH CHECK WITHIN
 -CREATE TEMPLATE
 -FIX HTML ENTITIES string length(double-check strlen)
--CHECK VARIABLES AND FIX IF NEEDED
 -ADD TIMESTAMP ON EDIT FUNCTION
 -ADD RECAPTCHA TO REGISTER FORM
 -CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
+-CHECK VARIABLES, REVIEW CODE AND DOCUMENTATION
 
 
+-HIDE ADD TASK BUTTON IF NO ACTIVE THREAD								--DONE
 -ADD BOOTSTRAP 															--DONE
 -ADD TASK CREATION MODULE 												--DONE
 -ADD REGISTER OPTION													--DONE
@@ -207,6 +209,10 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+--0.10
+
+Added thread creation, logout link to layout, page somewhat functional
+
 --0.09
 
 Started creating layout

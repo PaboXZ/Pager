@@ -111,7 +111,15 @@ Redirect if not logged in
 		{
 			echo $error->getMessage();
 		}
-
+		
+		//Add task button
+		$task_button_html = "";
+		if($_SESSION['user_active_thread'] != 0)
+		{
+			$task_button_html = '	<div id="add-task-button" onclick="showDialogBox(\'add-task\')">
+									+ Dodaj wpis
+									</div>';
+		}
 ?>
 
 
@@ -135,7 +143,7 @@ Redirect if not logged in
 	</script>
 </head>
 <body>
-	<div id="add-task">
+	<div class="blur-background" id="add-task">
 		<div class="container">
 			<div class ="row">
 				<div class="col-lg-6 offset-lg-3" id="dialog-box">
@@ -173,22 +181,53 @@ Redirect if not logged in
 		</div>
 	</div>
 	
-	
-	<div id="add-task-button" onclick="showDialogBox('add-task')">
-	+ Dodaj wpis
+	<div class="blur-background" id="add-thread">
+		<div class="container">
+			<div class ="row">
+				<div class="col-lg-6 offset-lg-3" id="dialog-box">
+					<div class="row">
+						<div class="col-lg-5">
+							<h3>Tworzenie listy<h3>
+						</div>
+						<div class="offset-lg-6 col-lg-1 dialog-box-close" onclick="closeDialogBox('add-thread')">
+							<h3>X</h3>
+						</div>
+						<div class="offset-lg-1 col-lg-10">
+							<form action="create_thread.php" method="POST">
+								<label for="thread_name">Nazwa listy:</label>
+								<input type="text" name="thread_name"/>
+								<label for="thread_version">Wersja:</label>
+								<select name="thread_version" placeholder="Version">
+									<optgroup label="Version">
+										<option value="simple">Simple</option>
+										<option value="pro">Pro</option>
+									</optgroup>
+								</select>
+								<input type="submit" value="Utwórz"/>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+	
+	
+	<?=$task_button_html?>
+	
+	
 	<div id="topbar">
 		<div class="container">
 			<div class="row">
 				<div class="col-9" id="logo">Skippit</div>
-				<div class="col-2">Witaj user_name</div>
-				<div class="col-1">Log out</div>
+				<div class="col-2" id="user-name"><i><?=$_SESSION['user_name']?></i></div>
+				<div class="col-1" id="logout-button"><a href="logout.php">Log out</a></div>
 			</div>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
-			<nav class="col-2"><ul><?=$thread_html ?><li><a href="#" id="create-thread">+ Utwórz</a></li></ul></nav>
+			<nav class="col-2"><ul><?=$thread_html ?><li onclick="showDialogBox('add-thread')"><a href="#" id="create-thread">+ Utwórz</a></li></ul></nav>
 			<main class="col-10">
 				<div class="row">
 					<div id="thread-active-name"><?=$thread_active_name?></div>
