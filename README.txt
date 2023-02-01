@@ -188,6 +188,7 @@ TASKS
 -ADD RECAPTCHA TO REGISTER FORM
 -CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
 -CHECK VARIABLES, REVIEW CODE AND DOCUMENTATION
+--CONTINUE ADJUSTING CODE FOR CLARITY
 
 
 -HIDE ADD TASK BUTTON IF NO ACTIVE THREAD								--DONE
@@ -209,6 +210,11 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+
+--0.11
+
+Added index page layout, minor changes to clear the code
+
 --0.10
 
 Added thread creation, logout link to layout, page somewhat functional
