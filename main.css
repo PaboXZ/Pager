@@ -1,7 +1,23 @@
 :root
 {
-	--font-color: white;
-	--background: DarkSlateGray;
+	--font-color: black;
+	--background: Ivory;
+	
+	--topnav-button-text: white;
+	--topnav-button-background: Green;
+	--topnav-button-hover: #009000;
+	
+	
+	--input-field-color: SkyBlue;
+	--input-field-text: white;
+	--input-field-placeholder: DarkBlue;
+	--input-submit-color: Green;
+	--input-submit-text: white;
+	--input-submit-hover: #009000;
+	
+	--footer-background: SteelBlue;
+	--footer-text: Indigo;
+	
 	--task-level-low-color: #17a63d;
 	--task-level-midlow-color: #c2bf1f;
 	--task-level-mid-color: #d99a1c;
@@ -13,14 +29,125 @@ body
 	color: var(--font-color);
 	background-color: var(--background);
 }
+
+
+#topbar
+{	
+	padding: calc(5px + 1vh);
+	border-bottom: 2px solid var(--topnav-button-background);
+}
 #topbar #logo
 {
-	padding: calc(5px + 1vh);
+
 	font-size: calc(12px + 2vh);
 	min-font-size: 10px;	
 	font-weight: 900;
 }
 
+.topnav-button
+{
+	padding: 14px 0;
+	border-radius: 5px;
+	text-align: center;
+	color: var(--topnav-button-text);
+	text-decoration: none;
+	background-color: var(--topnav-button-background);
+	display: block;
+	font-weight: 700;
+}
+.topnav-button:hover
+{
+	cursor: pointer;
+	background-color: var(--topnav-button-hover);
+}
+.blur-background
+{
+	display: none;
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	background-color: rgba(127,127,127, 0.4);
+	color: black;
+	
+}
+
+
+.dialog-box
+{
+	margin-top: 15vh;
+	padding: 20px;
+	background-color: white;
+	border-radius: 15px;
+}
+.dialog-box-close
+{
+	cursor: pointer;
+}
+.dialog-box-title
+{
+	font-size: 200%;
+	font-weight: 700;
+}
+
+.dialog-box-content
+{
+	margin-top: 20px;
+}
+
+.dialog-box input
+{
+	width: 100%;
+	padding: 10px;
+	margin-top: 10px;
+	border-radius: 6px;
+	outline: none;
+	border: none;
+	background-color: var(--input-field-color);
+	color: var(--input-field-text);
+}
+.dialog-box input:focus
+{
+	-webkit-box-shadow: inset 0px 0px 22px -15px rgba(0, 0, 0, 1);
+	-moz-box-shadow: inset 0px 0px 22px -15px rgba(0, 0, 0, 1);
+	box-shadow: inset 0px 0px 22px -15px rgba(0, 0, 0, 1);
+}
+.dialog-box input::placeholder
+{
+	color: var(--input-field-placeholder);
+}
+
+.dialog-box input[type=submit]
+{
+	margin: 30px 0 30px 0;
+	font-size: 170%;
+	font-weight: 700;
+	background-color: var(--input-submit-color);
+	color: var(--input-submit-text);
+}
+.dialog-box input[type=submit]:hover
+{
+	background-color: var(--input-submit-hover);
+}
+.dialog-box input[type=radio],
+.dialog-box input[type=checkbox]
+{
+	width: auto;
+	margin-top: 18px;
+}
+
+footer
+{
+	margin-top: 400px;
+	min-height: 300px;
+	border-top: 2px solid var(--footer-text);
+	background-color: var(--footer-background);
+	color: var(--footer-text);
+}
+
+#footer-top-text
+{
+	margin-top: 10px;
+}
 
 nav ul
 {
@@ -119,23 +246,7 @@ nav ul a
 	background-color: rgba(255,255,255, 0.2);
 }
 
-.blur-background
-{
-	display: none;
-	width: 100%;
-	height: 100vh;
-	position: fixed;
-	background-color: rgba(127,127,127, 0.4);
-	color: black;
-	
-}
-#dialog-box
-{
-	margin-top: 15vh;
-	padding: 20px;
-	background-color: white;
-	border-radius: 15px;
-}
+
 #add-thread input[type=text],
 #add-thread select,
 #add-thread input[type=submit],
@@ -162,25 +273,4 @@ nav ul a
 	bottom: 50px;
 	right: 50px;
 	cursor: pointer;
-}
-.dialog-box-close
-{
-	cursor: pointer;
-}
-#logout-button a,
-#user-name i
-{
-	margin: 8px 0;
-	border-radius: 5px;
-	text-align: center;
-	color: white;
-	text-decoration: none;
-	background-color: rgba(255,255,255, 0.1);
-	display: block;
-	padding: 5px;
-	font-weight: 700;
-}
-#logout-button a:hover
-{
-	background-color: rgba(255,255,255, 0.2);
 }

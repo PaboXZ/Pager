@@ -179,7 +179,7 @@ tasks
 -----------------------------------------------------------------
 TASKS
 
-
+-ADD DUE TO TIME AND DEPEDENCY
 -RETHINK STRUCTURE: VIEWS(personal, owners - plus sorting)
 -TO RESOLVE: CREATE 3 PANELS WITH CHECK BEFORE OR 1 PANEL WITH CHECK WITHIN
 -CREATE TEMPLATE
