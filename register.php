@@ -44,6 +44,7 @@ optional temporary flag
 	if(!isset($_POST['user_name']) || !isset($_POST['user_password']) || !isset($_POST['user_password_confirm']))
 	{
 		header("Location: index.php");
+		exit();
 	}
 	
 	if(!ctype_alnum($_POST['user_name']))
@@ -128,13 +129,21 @@ optional temporary flag
 	catch(Exception $error)
 	{
 		$_SESSION['error_register'] = $error->getMessage();
+		
+		$_SESSION['error_register_return']['login'] = $_POST['user_name'];
+		$_SESSION['error_register_return']['password'] = $_POST['user_password'];
+		$_SESSION['error_register_return']['email'] = $_POST['user_email'];
+		
 		header("Location: index.php", );
+		if(isset($db_connection))
+		{
+			$db_connection->close();
+		}
 	}
 	
-	if(isset($db_connection))
-	{
-		$db_connection->close();
-	}
+	$db_connection->close();
+	$_SESSION['message'] = "Rejestracja ukończona, zaloguj się";
+	
 	header('Location: index.php');
 	
 ?>

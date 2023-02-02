@@ -7,7 +7,6 @@ Rules: redirect if logged in (beware admin/user panel)
 ?>
 
 <?php
-	/*Rules check*/
 	session_start();
 	
 	if(isset($_SESSION['user_id']))
@@ -15,13 +14,9 @@ Rules: redirect if logged in (beware admin/user panel)
 		header("Location: panel.php");
 		exit();
 	}
-	//to be repositioned
-	if(isset($_SESSION['error_login']))
-	{
-		echo $_SESSION['error_login'];
-		unset($_SESSION['error_login']);
-	}
-	/*END*/
+		
+	require_once('message_print.php');	
+	require_once('index_error_print.php');
 ?>
 
 <!DOCTYPE html>
@@ -33,10 +28,30 @@ Rules: redirect if logged in (beware admin/user panel)
 	<link rel="stylesheet" href="main.css"/>
 	<link rel="stylesheet" href="index.style.css"/>
 	
-	
+	<style><?=isset($error_style) ? $error_style : ""?><?=isset($message_style) ? $message_style : ""?></style>
 	<script src="dialog.box.js"></script>
 </head>
 <body>
+	
+	<aside class="blur-background" id="dialog-box-message">
+		<div class="container">
+			<div class="row">
+				<div class="dialog-box offset-1 col-10">
+					<div class="row">
+						<div class="offset-11 col-1">
+							<div class="dialog-box-title dialog-box-close" onclick="closeDialogBox('dialog-box-message')">
+								X
+							</div>
+						</div>
+						<div class="col-12 offset-md-1 col-md-10">
+							<div class="message-container" id="error-text"><?=isset($error_message) ? $error_message : ""?></div>
+							<div class="message-container" id="message-text"><?=isset($message) ? $message : ""?></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</aside>
 	
 	<main class="blur-background" id="dialog-box-login">
 		<div class="container">
@@ -53,8 +68,8 @@ Rules: redirect if logged in (beware admin/user panel)
 							<div class="offset-1 col-10">
 								<div class="dialog-box-content">
 									<form action="login.php" method="POST">
-										<input type="text" placeholder="login" name="user_name" onfocus="this.placeholder=''" onblur="this.placeholder='login'"/><br>
-										<input type="password" placeholder="hasło" name="user_password" onfocus="this.placeholder=''" onblur="this.placeholder='hasło'"/><br>
+										<input value="<?=isset($user_login_l) ? $user_login_l : ""?>" type="text" placeholder="login" name="user_name" onfocus="this.placeholder=''" onblur="this.placeholder='login'"/><br>
+										<input value="<?=isset($user_password_l) ? $user_password_l : ""?>"type="password" placeholder="hasło" name="user_password" onfocus="this.placeholder=''" onblur="this.placeholder='hasło'"/><br>
 										<input type="submit" value="Log in"/>
 									</form>
 								</div>
@@ -81,9 +96,9 @@ Rules: redirect if logged in (beware admin/user panel)
 							<div class="offset-1 col-10">
 								<div class="dialog-box-content">
 									<form action="register.php" method="POST">
-										<input type="text" name="user_name" placeholder="login"/>
-										<input type="text" name="user_email" placeholder="email"/>
-										<input type="password" name="user_password" placeholder="hasło"/>
+										<input value="<?=isset($user_login_r) ? $user_login_r : ""?>" type="text" name="user_name" placeholder="login"/>
+										<input value="<?=isset($user_email_r) ? $user_email_r : ""?>"type="text" name="user_email" placeholder="email"/>
+										<input value="<?=isset($user_password_r) ? $user_password_r : ""?>" type="password" name="user_password" placeholder="hasło"/>
 										<input type="password" name="user_password_confirm" placeholder="potwierdź hasło"/>
 										<input type="checkbox" name="tos" id="tos"/>
 										<label for="tos">Akceptuję regulamin</label>
@@ -101,30 +116,30 @@ Rules: redirect if logged in (beware admin/user panel)
 	<nav id="topbar">
 		<div class="container">
 			<div class="row">
-				<div id="logo" class="col-1 d-md-block d-none">
+				<div id="logo" class="col-1 d-lg-block d-none">
 					Skippit
 				</div>
-				<div class="offset-xl-7 col-xl-2 offset-lg-7 col-lg-2 offset-md-5 col-md-3 col-6">
+				<div class="d-lg-none" id="index-welcome-text">
+					<h1>Skippit</h1>
+					<p>Skip it, or complete it.</p>
+				</div>
+				<div class="offset-xl-7 col-xl-2 offset-lg-7 col-lg-2 offset-md-1 col-md-10 col-12">
 					<div class="topnav-button" onclick="showDialogBox('dialog-box-login')">Zaloguj</div>
 				</div>
-				<div class="col-xl-2 col-lg-2 col-md-3 col-6">
+				<div class="d-lg-none" style="height: 15px;">
+					
+				</div>
+				<div class="col-xl-2 offset-lg-0 col-lg-2 offset-md-1 col-md-10 col-12">
 					<div class="topnav-button" onclick="showDialogBox('dialog-box-register')">Zarejestruj</div>
 				</div>
 			</div>
 		</div>
 	</nav>
 	
-	<div id="index-welcome-text">
+	<div class="d-none d-lg-block" id="index-welcome-text">
 		<h1>Skippit</h1>
 		<p>Skip it, or complete it.</p>
 	</div>
-	<?php
-		if(isset($_SESSION['error_register']))
-		{
-			echo $_SESSION['error_register'];
-			unset($_SESSION['error_register']);
-		}
-	?>
 		
 	<footer>
 		<div class="container">

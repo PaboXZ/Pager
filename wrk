@@ -1,1 +1,74 @@
-<NotepadPlus />
+<NotepadPlus>
+    <Project name="Pager">
+        <Folder name="bootstrap">
+            <Folder name="css">
+                <File name="bootstrap\css\bootstrap-grid.css" />
+                <File name="bootstrap\css\bootstrap-grid.css.map" />
+                <File name="bootstrap\css\bootstrap-grid.min.css" />
+                <File name="bootstrap\css\bootstrap-grid.min.css.map" />
+                <File name="bootstrap\css\bootstrap-grid.rtl.css" />
+                <File name="bootstrap\css\bootstrap-grid.rtl.css.map" />
+                <File name="bootstrap\css\bootstrap-grid.rtl.min.css" />
+                <File name="bootstrap\css\bootstrap-grid.rtl.min.css.map" />
+                <File name="bootstrap\css\bootstrap-reboot.css" />
+                <File name="bootstrap\css\bootstrap-reboot.css.map" />
+                <File name="bootstrap\css\bootstrap-reboot.min.css" />
+                <File name="bootstrap\css\bootstrap-reboot.min.css.map" />
+                <File name="bootstrap\css\bootstrap-reboot.rtl.css" />
+                <File name="bootstrap\css\bootstrap-reboot.rtl.css.map" />
+                <File name="bootstrap\css\bootstrap-reboot.rtl.min.css" />
+                <File name="bootstrap\css\bootstrap-reboot.rtl.min.css.map" />
+                <File name="bootstrap\css\bootstrap-utilities.css" />
+                <File name="bootstrap\css\bootstrap-utilities.css.map" />
+                <File name="bootstrap\css\bootstrap-utilities.min.css" />
+                <File name="bootstrap\css\bootstrap-utilities.min.css.map" />
+                <File name="bootstrap\css\bootstrap-utilities.rtl.css" />
+                <File name="bootstrap\css\bootstrap-utilities.rtl.css.map" />
+                <File name="bootstrap\css\bootstrap-utilities.rtl.min.css" />
+                <File name="bootstrap\css\bootstrap-utilities.rtl.min.css.map" />
+                <File name="bootstrap\css\bootstrap.css" />
+                <File name="bootstrap\css\bootstrap.css.map" />
+                <File name="bootstrap\css\bootstrap.min.css" />
+                <File name="bootstrap\css\bootstrap.min.css.map" />
+                <File name="bootstrap\css\bootstrap.rtl.css" />
+                <File name="bootstrap\css\bootstrap.rtl.css.map" />
+                <File name="bootstrap\css\bootstrap.rtl.min.css" />
+                <File name="bootstrap\css\bootstrap.rtl.min.css.map" />
+                <File name="bootstrap\css\test.css" />
+            </Folder>
+            <Folder name="js">
+                <File name="bootstrap\js\bootstrap.bundle.js" />
+                <File name="bootstrap\js\bootstrap.bundle.js.map" />
+                <File name="bootstrap\js\bootstrap.bundle.min.js" />
+                <File name="bootstrap\js\bootstrap.bundle.min.js.map" />
+                <File name="bootstrap\js\bootstrap.esm.js" />
+                <File name="bootstrap\js\bootstrap.esm.js.map" />
+                <File name="bootstrap\js\bootstrap.esm.min.js" />
+                <File name="bootstrap\js\bootstrap.esm.min.js.map" />
+                <File name="bootstrap\js\bootstrap.js" />
+                <File name="bootstrap\js\bootstrap.js.map" />
+                <File name="bootstrap\js\bootstrap.min.js" />
+                <File name="bootstrap\js\bootstrap.min.js.map" />
+            </Folder>
+        </Folder>
+        <File name="change_active_thread.php" />
+        <File name="create_task.php" />
+        <File name="create_thread.php" />
+        <File name="db_credentials.php" />
+        <File name="dialog.box.js" />
+        <File name="index.php" />
+        <File name="index.style.css" />
+        <File name="login.php" />
+        <File name="logout.php" />
+        <File name="main.css" />
+        <File name="pager.sql" />
+        <File name="panel-admin.php" />
+        <File name="panel.php" />
+        <File name="panel_test.php" />
+        <File name="README.txt" />
+        <File name="register.php" />
+        <File name="rules.php" />
+        <File name="test.php" />
+        <File name="wrk" />
+    </Project>
+</NotepadPlus>

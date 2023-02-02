@@ -188,9 +188,12 @@ TASKS
 -ADD RECAPTCHA TO REGISTER FORM
 -CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
 -CHECK VARIABLES, REVIEW CODE AND DOCUMENTATION
---CONTINUE ADJUSTING CODE FOR CLARITY
+-CONTINUE ADJUSTING CODE FOR CLARITY
+-SPLIT CSS files
 
 
+-ADD ERROR/MESSAGE DIALOG BOX											--DONE
+-ADD RETURN VALUES AFRER LOGIN/REGISTER									--DONE
 -HIDE ADD TASK BUTTON IF NO ACTIVE THREAD								--DONE
 -ADD BOOTSTRAP 															--DONE
 -ADD TASK CREATION MODULE 												--DONE
@@ -210,6 +213,12 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+
+--0.12
+
+Minor layout adjustments
+Added dialog box to index page for error and message display
+Now after login/registration fail input values are returned
 
 --0.11
 

@@ -1,0 +1,37 @@
+<?php
+	
+	if(isset($_SESSION['error_login']))
+	{
+		
+		$error_message = $_SESSION['error_login'];
+		unset($_SESSION['error_login']);
+		
+		$error_style = "#dialog-box-login{display: block} #dialog-box-message{display: block;} #error-text{display: block;}";
+		
+		if(isset($_SESSION['error-login-return']['login']))
+		{			
+			$user_login_l = $_SESSION['error-login-return']['login'];
+			$user_password_l = $_SESSION['error-login-return']['password'];
+			
+			unset($_SESSION['error-login-return']['password']);
+			unset($_SESSION['error-login-return']['login']);
+		}
+	}
+	else if(isset($_SESSION['error_register']))
+	{
+		$error_message = $_SESSION['error_register'];
+		unset($_SESSION['error_register']);
+		
+		$error_style = "#dialog-box-register{display: block} #dialog-box-message{display: block;} #error-text{display: block;}";
+		if(isset($_SESSION['error_register_return']['login']))
+		{
+			$user_login_r = $_SESSION['error_register_return']['login'];
+			$user_password_r = $_SESSION['error_register_return']['password'];
+			$user_email_r = $_SESSION['error_register_return']['email'];
+			
+			unset($_SESSION['error_register_return']['login']);
+			unset($_SESSION['error_register_return']['password']);
+			unset($_SESSION['error_register_return']['email']);
+		}
+	}
+?>

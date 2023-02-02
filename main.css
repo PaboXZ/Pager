@@ -135,19 +135,35 @@ body
 	margin-top: 18px;
 }
 
-footer
+#dialog-box-message
 {
-	margin-top: 400px;
-	min-height: 300px;
-	border-top: 2px solid var(--footer-text);
-	background-color: var(--footer-background);
-	color: var(--footer-text);
+	z-index: 100;
+}
+.message-container
+{
+	margin: 10px 0;
+	padding: 10px;
+}
+#message-text
+{
+	display: none;
+	color: Green;
+	background-color: LightGreen;
+	border: 1px solid Green;
+	border-radius: 5px;
+}
+#error-text
+{
+	display: none;
+	color: red;
+	background-color: LightPink;
+	border: 1px solid Red;
+	border-radius: 5px;
 }
 
-#footer-top-text
-{
-	margin-top: 10px;
-}
+
+
+
 
 nav ul
 {

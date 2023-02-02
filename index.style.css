@@ -1,3 +1,7 @@
+#dialog-box-login
+{
+	z-index: 80;
+}
 #index-welcome-text
 {
 	margin-top: 100px;
@@ -12,4 +16,19 @@
 {
 	font-size: 4vw;
 	font-weight: 700;
+}
+
+footer
+{
+	width: 100%;
+	position: absolute;
+	top: 100vh;
+	border-top: 2px solid var(--footer-text);
+	background-color: var(--footer-background);
+	color: var(--footer-text);
+}
+
+#footer-top-text
+{
+	margin-top: 10px;
 }

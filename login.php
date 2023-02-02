@@ -90,6 +90,9 @@ Exceptions: all to index.php
 	catch(Exception $error)
 	{
 		$_SESSION['error_login'] = $error->getMessage();
+		$_SESSION['error-login-return']['login'] = $_POST['user_name'];
+		$_SESSION['error-login-return']['password'] = $_POST['user_password'];
+		
 		header("Location: index.php");
 		
 	}
