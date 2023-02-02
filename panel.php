@@ -130,109 +130,125 @@ Redirect if not logged in
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="main.css"/>
-	<script src="dialog.box.js"></script>
+	<link rel="stylesheet" href="css/main.css"/>
+	<link rel="stylesheet" href="css/task.css"/>
+	<link rel="stylesheet" href="css/thread.css"/>
+	<script src="js/dialog.box.js"></script>
 </head>
 <body>
-	<div class="blur-background" id="add-task">
-		<div class="container">
-			<div class ="row">
-				<div class="col-lg-6 offset-lg-3">
-					<div class="dialog-box">
-						<div class="row">
-							<div class="col-lg-5">
-								<h3>Tworzenie Wpisu<h3>
-							</div>
-							<div class="offset-lg-6 col-lg-1 dialog-box-close" onclick="closeDialogBox('add-task')">
-								<h3>X</h3>
-							</div>
-							<div class="offset-lg-1 col-lg-10">
-								<form action="create_task.php" method="POST">
-									Nazwa wpisu:<br>
-									<input type="text" name="task_title" placeholder="Nazwa wpisu"/><br>
-									Treść wpisu:<br>
-									<textarea name="task_content" rows="6" value="Treść wpisu"></textarea><br>
-									Priorytet:<br>
-									<input type="radio" name="task_power" value="1" id="power-low" checked/>
-									<label for="power-low">Niski</label><br>
-									<input type="radio" name="task_power" value="2" id="power-mid-low"/>
-									<label for="power-mid-low">Średnio-niski</label><br>
-									<input type="radio" name="task_power" value="3" id="power-mid"/>
-									<label for="power-mid">Średni</label><br>
-									<input type="radio" name="task_power" value="4" id="power-mid-high"/>
-									<label for="power-mid-high">Średnio-wysoki</label><br>
-									<input type="radio" name="task_power" value="5" id="power-high"/>
-									<label for="power-high">Wysoki</label><br>
-									<br>
-									<input type="submit" value="Dodaj wpis"/>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="blur-background" id="add-thread">
-		<div class="container">
-			<div class ="row">
-				<div class="col-lg-6 offset-lg-3">
-					<div class="dialog-box">
-						<div class="row">
-							<div class="col-lg-5">
-								<h3>Tworzenie listy<h3>
-							</div>
-							<div class="offset-lg-6 col-lg-1 dialog-box-close" onclick="closeDialogBox('add-thread')">
-								<h3>X</h3>
-							</div>
-							<div class="offset-lg-1 col-lg-10">
-								<form action="create_thread.php" method="POST">
-									<label for="thread_name">Nazwa listy:</label>
-									<input type="text" name="thread_name"/>
-									<label for="thread_version">Wersja:</label>
-									<select name="thread_version" placeholder="Version">
-										<optgroup label="Version">
-											<option value="simple">Simple</option>
-											<option value="pro">Pro</option>
-										</optgroup>
-									</select>
-									<input type="submit" value="Utwórz"/>
-								</form>
+	<aside>
+		<div class="blur-background" id="add-task">
+			<div class="container">
+				<div class ="row">
+					<div class="col-lg-6 offset-lg-3">
+						<div class="dialog-box">
+							<div class="row">
+								<div class="col-lg-5">
+									<h3>Tworzenie Wpisu<h3>
+								</div>
+								<div class="offset-lg-6 col-lg-1 dialog-box-close" onclick="closeDialogBox('add-task')">
+									<h3>X</h3>
+								</div>
+								<div class="offset-lg-1 col-lg-10">
+									<form action="create_task.php" method="POST">
+										Nazwa wpisu:<br>
+										<input type="text" name="task_title" placeholder="Nazwa wpisu"/><br>
+										Treść wpisu:<br>
+										<textarea name="task_content" rows="6" value="Treść wpisu"></textarea><br>
+										Priorytet:<br>
+										<input type="radio" name="task_power" value="1" id="power-low" checked/>
+										<label for="power-low">Niski</label><br>
+										<input type="radio" name="task_power" value="2" id="power-mid-low"/>
+										<label for="power-mid-low">Średnio-niski</label><br>
+										<input type="radio" name="task_power" value="3" id="power-mid"/>
+										<label for="power-mid">Średni</label><br>
+										<input type="radio" name="task_power" value="4" id="power-mid-high"/>
+										<label for="power-mid-high">Średnio-wysoki</label><br>
+										<input type="radio" name="task_power" value="5" id="power-high"/>
+										<label for="power-high">Wysoki</label><br>
+										<br>
+										<input type="submit" value="Dodaj wpis"/>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</aside>
 	
+	<aside>
+		<div class="blur-background" id="add-thread">
+			<div class="container">
+				<div class ="row">
+					<div class="col-lg-6 offset-lg-3">
+						<div class="dialog-box">
+							<div class="row">
+								<div class="col-lg-5">
+									<h3>Tworzenie listy<h3>
+								</div>
+								<div class="offset-lg-6 col-lg-1 dialog-box-close" onclick="closeDialogBox('add-thread')">
+									<h3>X</h3>
+								</div>
+								<div class="offset-lg-1 col-lg-10">
+									<form action="create_thread.php" method="POST">
+										<label for="thread_name">Nazwa listy:</label>
+										<input type="text" name="thread_name"/>
+										<label for="thread_version">Wersja:</label>
+										<select name="thread_version" placeholder="Version">
+											<optgroup label="Version">
+												<option value="simple">Simple</option>
+												<option value="pro">Pro</option>
+											</optgroup>
+										</select>
+										<input type="submit" value="Utwórz"/>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</aside>
 	
 	<?=$task_button_html?>
 	
 	
 	<div id="topbar">
+		<div class="d-lg-none topnav-button-mobile">
+			Threads
+		</div><div class="d-lg-none topnav-button-mobile topnav-button-mobile-right">
+			<?=$_SESSION['user_name']?>
+		</div>
+	
+	
 		<div class="container">
 			<div class="row">
-				<div class="col-9" id="logo">Skippit</div>
-				<div class="col-2" id="user-name"><div class="topnav-button"><?=$_SESSION['user_name']?></div></div>
-				<div class="col-1" id="logout-button"><a href="logout.php" class="topnav-button">Log out</a></div>
+				<div class="d-none d-lg-block col-8" id="logo">Skippit</div>
+				<div class="d-none d-lg-block col-2"><div class="topnav-button"><?=$_SESSION['user_name']?></div></div>
+				<div class="d-none d-lg-block col-2"><a href="logout.php" class="topnav-button" id="logout-button">Log out</a></div>
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<div class="row">
-			<nav class="col-2"><ul><?=$thread_html ?><li onclick="showDialogBox('add-thread')"><a href="#" id="create-thread">+ Utwórz</a></li></ul></nav>
-			<main class="col-10">
-				<div class="row">
-					<div id="thread-active-name"><?=$thread_active_name?></div>
-					<?=$task_html ?>
-				</div>
-			</main>
+	
+	
+	<nav class="sidemenu d-none d-lg-block"><ul><?=$thread_html ?><li onclick="showDialogBox('add-thread')"><a href="#" id="create-thread">+ Utwórz</a></li></ul></nav>
+	<main>	
+		<div class="container">
+			<div class="row">
+				
+				<main class="col-12 offset-lg-2 col-lg-10">
+					<div class="row">
+						<div id="thread-active-name"><?=$thread_active_name?></div>
+						<?=$task_html ?>
+					</div>
+				</main>
 
+			</div>
 		</div>
-	</div>
-
+	</main>
 
 
 

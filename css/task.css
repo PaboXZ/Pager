@@ -1,0 +1,75 @@
+:root
+{
+	--task-level-low-color: #17a63d;
+	--task-level-midlow-color: #c2bf1f;
+	--task-level-mid-color: #d99a1c;
+	--task-level-midhigh-color: #eb5e17;
+	--task-level-high-color: #c7311a;
+	
+	--task-text-color: Ivory;
+}
+
+
+.task-power-1
+{
+	background-color: var(--task-level-low-color);
+}
+.task-power-2
+{
+	background-color: var(--task-level-midlow-color);
+}
+.task-power-3
+{
+	background-color: var(--task-level-mid-color);
+}
+.task-power-4
+{
+	background-color: var(--task-level-midhigh-color);
+}
+.task-power-5
+{
+	background-color: var(--task-level-high-color);
+}
+
+.task-title
+{
+	padding: 15px;
+	font-size: calc(20px + 1vh);
+	font-weight: 700;
+}
+.task-content
+{
+	padding: 15px;
+	font-size: calc(12px + 0.5vh);
+	overflow: auto;
+	height: 30vh;
+}
+.task-show
+{
+	color: var(--task-text-color);
+	padding: 10px;
+	margin: 10px;
+	border-radius: 10px;
+}
+.task-content::-webkit-scrollbar
+{
+	width: 6px;
+}
+.task-content::-webkit-scrollbar-thumb
+{
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 3px;
+	width: 4px;
+}
+
+#add-task-button
+{
+	color: var(--task-text-color);
+	padding: 20px;
+	position: fixed;
+	background-color: var(--task-level-low-color);
+	border-radius: 100px;
+	bottom: 50px;
+	right: 50px;
+	cursor: pointer;
+}

@@ -1,0 +1,58 @@
+/*Requires task.css*/
+
+
+.sidemenu
+{
+	width: 200px;
+	position: fixed;
+}
+
+nav ul
+{
+	padding: 0;
+	margin: calc(2em + 10px) 0;
+	list-style-type: none;
+	text-align: center;
+}
+nav ul li:first-child
+{
+	border-radius: 0 30px 0 0;
+}
+nav .active-thread
+{
+	background-color: var(--task-level-low-color);
+}
+nav .inactive-thread
+{
+	background-color: var(--task-level-high-color);
+}
+nav .inactive-thread:hover,
+nav .active-thread:hover
+{
+	filter: grayscale(30%);
+}
+nav ul a
+{
+	padding: 3vh 0;
+	width: 100%;
+	color: white;
+	text-decoration: none;
+	display: inline-block;
+}
+#thread-active-name
+{
+	padding: 20px;
+	text-align: center;
+	font-size: 300%;
+	font-weight: 900;
+}
+
+#create-thread
+{
+	color: var(--task-level-low-color);
+	background-color: var(--background);
+}
+#create-thread:hover
+{
+	filter: grayscale(100%);
+}

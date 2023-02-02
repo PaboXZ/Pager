@@ -1,3 +1,8 @@
+:root
+{
+	--footer-background: SteelBlue;
+	--footer-text: Indigo;
+}
 #dialog-box-login
 {
 	z-index: 80;
