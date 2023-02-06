@@ -54,17 +54,19 @@ body
 .topnav-button-mobile
 {
 	display: inline-block;
-	width: 50%;
 	box-sizing: border-box;
 	padding: 20px;
 	color: var(--topnav-button-background);
 	font-size: 200%;
 	font-weight: 700;
+	cursor: pointer;
 }
 .topnav-button-mobile-right
 {
 	text-align: right;
 }
+
+
 
 .blur-background
 {
@@ -74,6 +76,7 @@ body
 	position: fixed;
 	background-color: rgba(127,127,127, 0.4);
 	color: black;
+	z-index: 100;
 	
 }
 .dialog-box
@@ -97,7 +100,8 @@ body
 {
 	margin-top: 20px;
 }
-
+.dialog-box select,
+.dialog-box textarea,
 .dialog-box input
 {
 	width: 100%;

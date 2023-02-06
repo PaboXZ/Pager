@@ -133,7 +133,9 @@ Redirect if not logged in
 	<link rel="stylesheet" href="css/main.css"/>
 	<link rel="stylesheet" href="css/task.css"/>
 	<link rel="stylesheet" href="css/thread.css"/>
+	<link rel="stylesheet" href="css/fontello.css"/>
 	<script src="js/dialog.box.js"></script>
+	<script src="js/thread.js"></script>
 </head>
 <body>
 	<aside>
@@ -143,11 +145,11 @@ Redirect if not logged in
 					<div class="col-lg-6 offset-lg-3">
 						<div class="dialog-box">
 							<div class="row">
-								<div class="col-lg-5">
+								<div class="col-9">
 									<h3>Tworzenie Wpisu<h3>
 								</div>
-								<div class="offset-lg-6 col-lg-1 dialog-box-close" onclick="closeDialogBox('add-task')">
-									<h3>X</h3>
+								<div class="offset-1 col-1 dialog-box-close" onclick="closeDialogBox('add-task')">
+									<h3><i class="icon-cancel"></i></h3>
 								</div>
 								<div class="offset-lg-1 col-lg-10">
 									<form action="create_task.php" method="POST">
@@ -185,18 +187,18 @@ Redirect if not logged in
 					<div class="col-lg-6 offset-lg-3">
 						<div class="dialog-box">
 							<div class="row">
-								<div class="col-lg-5">
+								<div class="col-9">
 									<h3>Tworzenie listy<h3>
 								</div>
-								<div class="offset-lg-6 col-lg-1 dialog-box-close" onclick="closeDialogBox('add-thread')">
-									<h3>X</h3>
+								<div class="offset-1 col-1 dialog-box-close" onclick="closeDialogBox('add-thread')">
+									<h3><i class="icon-cancel"></i></h3>
 								</div>
 								<div class="offset-lg-1 col-lg-10">
 									<form action="create_thread.php" method="POST">
 										<label for="thread_name">Nazwa listy:</label>
 										<input type="text" name="thread_name"/>
 										<label for="thread_version">Wersja:</label>
-										<select name="thread_version" placeholder="Version">
+										<select name="thread_version">
 											<optgroup label="Version">
 												<option value="simple">Simple</option>
 												<option value="pro">Pro</option>
@@ -217,11 +219,15 @@ Redirect if not logged in
 	
 	
 	<div id="topbar">
-		<div class="d-lg-none topnav-button-mobile">
-			Threads
-		</div><div class="d-lg-none topnav-button-mobile topnav-button-mobile-right">
-			<?=$_SESSION['user_name']?>
-		</div>
+				<div class="col-1 d-lg-none topnav-button-mobile" id="mobile-thread-menu-open" onclick="showSideMenu()">
+					<i class="icon-menu"></i>
+				</div>
+				<div class="d-none col-1 d-lg-none topnav-button-mobile" id="mobile-thread-menu-close" onclick="hideSideMenu()">
+					<i class="icon-left-open"></i>
+				</div>
+				<div class="offset-9 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right" onclick="window.location.href='logout.php'">
+					<i class="icon-off"></i><br>
+				</div>
 	
 	
 		<div class="container">
@@ -234,7 +240,7 @@ Redirect if not logged in
 	</div>
 	
 	
-	<nav class="sidemenu d-none d-lg-block"><ul><?=$thread_html ?><li onclick="showDialogBox('add-thread')"><a href="#" id="create-thread">+ Utwórz</a></li></ul></nav>
+	<nav class="sidemenu d-none d-lg-block" id="sidemenu"><ul><?=$thread_html ?><li onclick="showDialogBox('add-thread')"><a href="#" id="create-thread">+ Utwórz</a></li></ul></nav>
 	<main>	
 		<div class="container">
 			<div class="row">

@@ -27,6 +27,7 @@ Rules: redirect if logged in (beware admin/user panel)
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="css/main.css"/>
 	<link rel="stylesheet" href="css/index.style.css"/>
+	<link rel="stylesheet" href="css/fontello.css"/>
 	
 	<style><?=isset($error_style) ? $error_style : ""?><?=isset($message_style) ? $message_style : ""?></style>
 	<script src="js/dialog.box.js"></script>
@@ -40,7 +41,7 @@ Rules: redirect if logged in (beware admin/user panel)
 					<div class="row">
 						<div class="offset-11 col-1">
 							<div class="dialog-box-title dialog-box-close" onclick="closeDialogBox('dialog-box-message')">
-								X
+								<i class="icon-cancel"></i>
 							</div>
 						</div>
 						<div class="col-12 offset-md-1 col-md-10">
@@ -62,8 +63,8 @@ Rules: redirect if logged in (beware admin/user panel)
 							<div class="offset-1 col-8 offset-xl-1 col-xl-4">
 								<div class="dialog-box-title">Zaloguj</div>
 							</div>
-							<div class="offset-2 col-1 offset-xl-6 col-xl-1 dialog-box-close" onclick="closeDialogBox('dialog-box-login')">
-								<div class="dialog-box-title">X</div>
+							<div class="offset-1 col-1 offset-xl-5 col-xl-1 dialog-box-close" onclick="closeDialogBox('dialog-box-login')">
+								<div class="dialog-box-title"><i class="icon-cancel"></i></div>
 							</div>
 							<div class="offset-1 col-10">
 								<div class="dialog-box-content">
@@ -90,8 +91,8 @@ Rules: redirect if logged in (beware admin/user panel)
 							<div class="offset-1 col-8 offset-xl-1 col-xl-4">
 								<div class="dialog-box-title">Zarejestruj</div>
 							</div>
-							<div class="offset-2 col-1 offset-xl-6 col-xl-1 dialog-box-close" onclick="closeDialogBox('dialog-box-register')">
-								<div class="dialog-box-title">X</div>
+							<div class="offset-1 col-1 offset-xl-5 col-xl-1 dialog-box-close" onclick="closeDialogBox('dialog-box-register')">
+								<div class="dialog-box-title"><i class="icon-cancel"></i></div>
 							</div>
 							<div class="offset-1 col-10">
 								<div class="dialog-box-content">

@@ -38,7 +38,6 @@ Rights!!  power level
 	
 	if(!isset($_SESSION['user_active_thread']))
 	{
-		header('Location: panel.php');
 		exit();
 	}
 	

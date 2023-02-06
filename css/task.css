@@ -72,4 +72,9 @@
 	bottom: 50px;
 	right: 50px;
 	cursor: pointer;
+	border: 2px solid rgba(255,255,255, 0.5);
+}
+#add-task-button:hover
+{
+	filter: grayscale(30%);
 }

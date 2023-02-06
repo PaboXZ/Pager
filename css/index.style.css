@@ -3,7 +3,8 @@
 	--footer-background: SteelBlue;
 	--footer-text: Indigo;
 }
-#dialog-box-login
+#dialog-box-login,
+#dialog-box-register
 {
 	z-index: 80;
 }

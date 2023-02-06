@@ -3,8 +3,10 @@
 
 .sidemenu
 {
+	left: 0;
 	width: 200px;
 	position: fixed;
+	z-index: 70;
 }
 
 nav ul
@@ -14,9 +16,20 @@ nav ul
 	list-style-type: none;
 	text-align: center;
 }
+nav ul li
+{
+	border-color: rgba(255,255,255, 0.5);
+	border-style: solid;
+	border-width: 0 2px 0 0;
+}
 nav ul li:first-child
 {
 	border-radius: 0 30px 0 0;
+	border-width: 2px 2px 0 0;
+}
+nav ul li:last-child
+{
+	border-width: 0 2px 2px 0;
 }
 nav .active-thread
 {

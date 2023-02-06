@@ -189,9 +189,10 @@ TASKS
 -CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
 -CHECK VARIABLES, REVIEW CODE AND DOCUMENTATION
 -CONTINUE ADJUSTING CODE FOR CLARITY
--ADD ICONS
+-ADD MESSAGE SYSTEM TO PANEL
 
 
+-ADD ICONS																--DONE
 -SPLIT CSS files														--DONE
 -ADD ERROR/MESSAGE DIALOG BOX											--DONE
 -ADD RETURN VALUES AFRER LOGIN/REGISTER									--DONE
@@ -214,6 +215,10 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+--0.13
+
+Added icons, mobile panel menu
+Fixed some layout issues
 
 --0.12
 
