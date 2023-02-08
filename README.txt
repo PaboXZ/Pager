@@ -190,6 +190,7 @@ TASKS
 -CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
 -CHECK VARIABLES, REVIEW CODE AND DOCUMENTATION
 -CONTINUE ADJUSTING CODE FOR CLARITY
+-ADD THREAD DELETION
 
 
 -ADD MESSAGE SYSTEM TO PANEL											--DONE
@@ -217,6 +218,11 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+--0.15
+
+-Added function to clear confirmation box
+-Minor layout changes
+
 --0.14
 
 Added delete task module

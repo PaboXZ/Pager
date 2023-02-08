@@ -47,16 +47,13 @@ Redirect if not logged in
 	<style><?=isset($error_style) ? $error_style : ""?></style>
 </head>
 <body>
-<?php
-	if(isset($_SESSION['error_task_delete'])) echo $_SESSION['error_task_delete'];
-?>
 	<!--Message/error box-->
 	<aside class="blur-background" id="dialog-box-message">
 		<div class="container">
 			<div class="row">
 				<div class="dialog-box offset-1 col-10">
 					<div class="row">
-						<div class="offset-11 col-1">
+						<div class="offset-10 col-1 offset-lg-11">
 							<div class="dialog-box-title dialog-box-close" onclick="closeDialogBox('dialog-box-message')">
 								<i class="icon-cancel"></i>
 							</div>
@@ -77,21 +74,21 @@ Redirect if not logged in
 			<div class="row">
 				<div class="dialog-box offset-1 col-10">
 					<div class="row">
-						<div class="offset-11 col-1">
-							<div class="dialog-box-title dialog-box-close" onclick="closeDialogBox('confirm-action-box')">
+						<div class="offset-10 col-1 offset-lg-11">
+							<div class="dialog-box-title dialog-box-close" onclick="closeDialogBox('confirm-action-box'); clearConfirmActionBox();">
 								<i class="icon-cancel"></i>
 							</div>
 						</div>
 						<div class="col-12 offset-md-1 col-md-10">
 							<div class="message-container" id="confirm-action-text">Tekst</div>
 						</div>
-						<div class="offset-4 col-2">
+						<div class="offset-2 col-4 offset-lg-4 col-lg-2">
 							<div class="confirm-action-button" id="action-confirm">
 								Akceptuj
 							</div>
 						</div>						
-						<div class="col-2">
-							<div class="confirm-action-button" id="action-decline" onclick="closeDialogBox('confirm-action-box')">
+						<div class="col-4 col-lg-2">
+							<div class="confirm-action-button" id="action-decline" onclick="closeDialogBox('confirm-action-box'); clearConfirmActionBox();">
 								Powrót
 							</div>
 						</div>
