@@ -11,6 +11,7 @@
 	--input-field-color: SkyBlue;
 	--input-field-text: white;
 	--input-field-placeholder: DarkBlue;
+	--input-submit-warning: DarkRed;
 	--input-submit-color: Green;
 	--input-submit-text: white;
 	--input-submit-hover: #009000;
@@ -83,7 +84,7 @@ body
 {
 	margin-top: 15vh;
 	padding: 20px;
-	background-color: white;
+	background-color: var(--background);
 	border-radius: 15px;
 }
 .dialog-box-close
@@ -170,4 +171,33 @@ body
 	background-color: LightPink;
 	border: 1px solid Red;
 	border-radius: 5px;
+}
+
+#confirm-action-text
+{
+	color: Blue;
+	background-color: LightBlue;
+	border: 1px solid Blue;
+	border-radius: 5px;
+}
+.confirm-action-button
+{
+	padding: 0.6em 0;
+	border-radius: 0.5em;
+	text-align: center;
+	font-weight: 700;
+	color: var(--input-submit-text);
+	cursor: pointer;
+}
+.confirm-action-button:hover
+{
+	filter: brightness(80%);
+}
+#action-confirm
+{
+	background-color: var(--input-submit-color)
+}
+#action-decline
+{
+	background-color: var(--input-submit-warning);
 }

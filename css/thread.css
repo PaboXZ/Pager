@@ -33,16 +33,16 @@ nav ul li:last-child
 }
 nav .active-thread
 {
-	background-color: var(--task-level-low-color);
+	background-color: var(--topnav-button-background);
 }
 nav .inactive-thread
 {
-	background-color: var(--task-level-high-color);
+	background-color: var(--topnav-button-background);
+	filter: grayscale(50%);
 }
-nav .inactive-thread:hover,
-nav .active-thread:hover
+nav .inactive-thread:hover
 {
-	filter: grayscale(30%);
+	filter: grayscale(0%);
 }
 nav ul a
 {
@@ -62,7 +62,7 @@ nav ul a
 
 #create-thread
 {
-	color: var(--task-level-low-color);
+	color: var(--topnav-button-background);
 	background-color: var(--background);
 }
 #create-thread:hover

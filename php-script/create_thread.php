@@ -17,7 +17,7 @@
 <?php
 	if(!isset($_POST['thread_version']) || !isset($_POST['thread_name']))
 	{
-		header("Location: panel.php");
+		header("Location: ../panel.php");
 		exit();
 	}
 	
@@ -35,7 +35,7 @@
 	if(strlen($thread_name) > 24 OR strlen($thread_name) < 3)
 	{
 		$_SESSION['error_create_thread'] = "Niewłaściwa długość nazwy (3 - 24)";
-		Header("Location: panel.php");
+		Header("Location: ../panel.php");
 		exit();
 	}
 	
@@ -91,5 +91,5 @@
 	{
 		$db_connection->close();
 	}
-	header("Location: panel.php");
+	header("Location: ../panel.php");
 ?>

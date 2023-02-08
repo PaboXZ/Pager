@@ -110,13 +110,14 @@ user_temporary_flag - is user account temporary (local for single thread) or reg
 user_active_thread - stores id of an active thread
 
 ERRORS(remember to clear after shown)
-error_create_thread - for unsuccessful thread creation									-> panel.php
-error_login - for unsuscessful login													-> index.php
-error_change_active_thread -unsuccessful thread change									-> panel.php
 error_register																			-> index.php
+error_login																				-> index.php
+error_create_thread																		-> panel.php
+error_change_active_thread																-> panel.php
+error_task_delete																		-> panel.php
+error_create_task																		-> panel.php
 
 MESSAGE(remember to clear after use)
-to do
 
 
 -----------------------------------------------------------------
@@ -189,9 +190,10 @@ TASKS
 -CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
 -CHECK VARIABLES, REVIEW CODE AND DOCUMENTATION
 -CONTINUE ADJUSTING CODE FOR CLARITY
--ADD MESSAGE SYSTEM TO PANEL
 
 
+-ADD MESSAGE SYSTEM TO PANEL											--DONE
+-ADD TASK DELETION														--DONE
 -ADD ICONS																--DONE
 -SPLIT CSS files														--DONE
 -ADD ERROR/MESSAGE DIALOG BOX											--DONE
@@ -215,6 +217,12 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+--0.14
+
+Added delete task module
+Added error handling for panel
+Minor layout changes
+
 --0.13
 
 Added icons, mobile panel menu

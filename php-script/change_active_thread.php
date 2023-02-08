@@ -15,7 +15,7 @@ redirect to panel if temporary or id is not sent or has no access
 	if(!isset($_GET['id']))
 	{
 		$_SESSION['error_change_active_thread'] = "Błąd serwera";
-		header("Location: panel.php");
+		header("Location: ../panel.php");
 		exit();
 	}
 	
@@ -48,14 +48,14 @@ redirect to panel if temporary or id is not sent or has no access
 		{
 			$db_query_result->close();
 			$_SESSION['user_active_thread'] = $thread_id;
-			header("Location: panel.php");
+			header("Location: ../panel.php");
 		}
 		
 	}
 	catch(Exception $error)
 	{
 		$_SESSION['error_change_active_thread'] = $error->getMessage();
-		header("Location: panel.php");
+		header("Location: ../panel.php");
 	}
 	if(isset($db_connection))
 	{

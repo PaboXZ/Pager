@@ -8,110 +8,17 @@ Redirect if not logged in
 <?php
 	
 	session_start();
-	require_once("rules.php");
+	require_once("php-script/rules.php");
 	isLoggedIn();
-		$user_id = $_SESSION['user_id'];
-		
-		
-		//Thread HTML
-		try
-		{
-			mysqli_report(MYSQLI_REPORT_OFF);
-			error_reporting(E_ERROR);
-			
-			require_once("db_credentials.php");
 	
-			if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
-			{
-				throw new Exception("Błąd serwera", 1);
-			}
+	require_once('php-script/message_print.php');
+	require_once('php-script/panel_error_print.php');
+	
+	$user_id = $_SESSION['user_id'];
 			
-			if(!$db_query_result = $db_connection->query("SELECT thread_id, thread_name FROM connection_user_thread INNER JOIN thread_data ON connection_user_thread.connection_thread_id = thread_data.thread_id WHERE connection_user_thread.connection_user_id = '$user_id'"))
-			{
-				throw new Exception("Błąd serwera", 2);
-			}
-			else
-			{
-				if(!isset($_SESSION['user_active_thread']))
-				{
-					$_SESSION['user_active_thread'] = 0;
-				}
-				$thread_html = "";
-				$thread_active_name = "";
-				
-				for($i = $db_query_result->num_rows; $i > 0; $i--)
-				{
-					$db_result_row = $db_query_result->fetch_assoc();
-					
-					if($_SESSION['user_active_thread'] == $db_result_row['thread_id'])
-					{
-						$thread_active_name = $db_result_row['thread_name'];
-						$temp_html = '<li class="active-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
-					}
-					else
-					{
-						$temp_html = '<li class="inactive-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
-					}
-					$thread_html =  $thread_html.$temp_html;
-				}
-				$db_query_result->close();
-				
-			}
-			
-		}
-		catch(Exception $error)
-		{
-			echo $error->getMessage();
-		}
-		
-		
-		//Task HTML
-		try
-		{
-			if(!isset($_SESSION['user_active_thread']))
-			{
-				throw new Exception();
-			}
-			
-			
-			if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
-			{
-				throw new Exception("Błąd serwera", 11);
-			}
-			
-			$user_id = $_SESSION['user_id'];
-			$user_active_thread = $_SESSION['user_active_thread'];
-			
-			if(!$db_query_result = $db_connection->query("SELECT task_id, task_title, task_content, task_power FROM task_data WHERE task_user_id = '$user_id' AND task_thread_id = '$user_active_thread' ORDER BY task_power DESC, task_id ASC"))
-			{
-				throw new Exception("Błąd serwera", 12);
-			}
-			if(isset($db_connection))
-			{
-				$db_connection->close();
-				
-			}
-			$task_html = "";
-			for($i = $db_query_result->num_rows; $i > 0; $i--)
-			{
-				$db_result_row = $db_query_result->fetch_assoc();
-				
-				$temporary_html = '<div class="col-12 col-lg-6">
-					<div class="task-show task-power-'.$db_result_row['task_power'].'">
-						<div class="task-title">'.$db_result_row['task_title'].'</div>
-						<div class="task-content">'.$db_result_row['task_content'].'</div>
-					</div>
-				</div>';
-				
-				$task_html = $task_html.$temporary_html;
-			}
-			$db_query_result->close();
-		}
-		catch(Exception $error)
-		{
-			echo $error->getMessage();
-		}
-		
+	require_once('php-script/panel_thread_print.php');
+	require_once('php-script/panel_task_print.php');
+	
 		//Add task button
 		$task_button_html = "";
 		if($_SESSION['user_active_thread'] != 0)
@@ -136,8 +43,65 @@ Redirect if not logged in
 	<link rel="stylesheet" href="css/fontello.css"/>
 	<script src="js/dialog.box.js"></script>
 	<script src="js/thread.js"></script>
+	<script src="js/task.js"></script>
+	<style><?=isset($error_style) ? $error_style : ""?></style>
 </head>
 <body>
+<?php
+	if(isset($_SESSION['error_task_delete'])) echo $_SESSION['error_task_delete'];
+?>
+	<!--Message/error box-->
+	<aside class="blur-background" id="dialog-box-message">
+		<div class="container">
+			<div class="row">
+				<div class="dialog-box offset-1 col-10">
+					<div class="row">
+						<div class="offset-11 col-1">
+							<div class="dialog-box-title dialog-box-close" onclick="closeDialogBox('dialog-box-message')">
+								<i class="icon-cancel"></i>
+							</div>
+						</div>
+						<div class="col-12 offset-md-1 col-md-10">
+							<div class="message-container" id="error-text"><?=isset($error_message) ? $error_message : ""?></div>
+							<div class="message-container" id="message-text"><?=isset($message) ? $message : ""?></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</aside>
+	
+	<!--Confirm action box-->
+	<aside class="blur-background" id="confirm-action-box">
+		<div class="container">
+			<div class="row">
+				<div class="dialog-box offset-1 col-10">
+					<div class="row">
+						<div class="offset-11 col-1">
+							<div class="dialog-box-title dialog-box-close" onclick="closeDialogBox('confirm-action-box')">
+								<i class="icon-cancel"></i>
+							</div>
+						</div>
+						<div class="col-12 offset-md-1 col-md-10">
+							<div class="message-container" id="confirm-action-text">Tekst</div>
+						</div>
+						<div class="offset-4 col-2">
+							<div class="confirm-action-button" id="action-confirm">
+								Akceptuj
+							</div>
+						</div>						
+						<div class="col-2">
+							<div class="confirm-action-button" id="action-decline" onclick="closeDialogBox('confirm-action-box')">
+								Powrót
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</aside>
+	
+	<!--Add task box-->
 	<aside>
 		<div class="blur-background" id="add-task">
 			<div class="container">
@@ -152,7 +116,7 @@ Redirect if not logged in
 									<h3><i class="icon-cancel"></i></h3>
 								</div>
 								<div class="offset-lg-1 col-lg-10">
-									<form action="create_task.php" method="POST">
+									<form action="php-script/create_task.php" method="POST">
 										Nazwa wpisu:<br>
 										<input type="text" name="task_title" placeholder="Nazwa wpisu"/><br>
 										Treść wpisu:<br>
@@ -180,6 +144,7 @@ Redirect if not logged in
 		</div>
 	</aside>
 	
+	<!--Add thread box-->
 	<aside>
 		<div class="blur-background" id="add-thread">
 			<div class="container">
@@ -194,7 +159,7 @@ Redirect if not logged in
 									<h3><i class="icon-cancel"></i></h3>
 								</div>
 								<div class="offset-lg-1 col-lg-10">
-									<form action="create_thread.php" method="POST">
+									<form action="php-script/create_thread.php" method="POST">
 										<label for="thread_name">Nazwa listy:</label>
 										<input type="text" name="thread_name"/>
 										<label for="thread_version">Wersja:</label>
@@ -225,7 +190,7 @@ Redirect if not logged in
 				<div class="d-none col-1 d-lg-none topnav-button-mobile" id="mobile-thread-menu-close" onclick="hideSideMenu()">
 					<i class="icon-left-open"></i>
 				</div>
-				<div class="offset-9 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right" onclick="window.location.href='logout.php'">
+				<div class="offset-9 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right" onclick="window.location.href='php-script/logout.php'">
 					<i class="icon-off"></i><br>
 				</div>
 	
@@ -234,7 +199,7 @@ Redirect if not logged in
 			<div class="row">
 				<div class="d-none d-lg-block col-8" id="logo">Skippit</div>
 				<div class="d-none d-lg-block col-2"><div class="topnav-button"><?=$_SESSION['user_name']?></div></div>
-				<div class="d-none d-lg-block col-2"><a href="logout.php" class="topnav-button" id="logout-button">Log out</a></div>
+				<div class="d-none d-lg-block col-2"><a href="php-script/logout.php" class="topnav-button" id="logout-button">Log out</a></div>
 			</div>
 		</div>
 	</div>

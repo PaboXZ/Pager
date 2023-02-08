@@ -43,7 +43,7 @@ Rights!!  power level
 	
 	if(!isset($_POST['task_title']) || !isset($_POST['task_content']) || !isset($_POST['task_power']))
 	{
-		header('Location: panel.php');
+		header('Location: ../panel.php');
 		exit();
 	}
 	$task_title = htmlentities($_POST['task_title'], ENT_QUOTES);
@@ -118,6 +118,6 @@ Rights!!  power level
 	{
 		$db_connection->close();
 	}
-	header('Location: panel.php');
+	header('Location: ../panel.php');
 
 ?>

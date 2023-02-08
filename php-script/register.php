@@ -31,19 +31,19 @@ optional temporary flag
 	
 	if(isset($_SESSION['user_id']))
 	{
-		header("Location: panel.php");
+		header("Location: ../panel.php");
 		exit();
 	}
 	
 	if(!isset($_POST['user_email']))
 	{
-		header("Location: index.php");
+		header("Location: ../index.php");
 		exit();
 	}
 	
 	if(!isset($_POST['user_name']) || !isset($_POST['user_password']) || !isset($_POST['user_password_confirm']))
 	{
-		header("Location: index.php");
+		header("Location: ../index.php");
 		exit();
 	}
 	
@@ -134,7 +134,7 @@ optional temporary flag
 		$_SESSION['error_register_return']['password'] = $_POST['user_password'];
 		$_SESSION['error_register_return']['email'] = $_POST['user_email'];
 		
-		header("Location: index.php", );
+		header("Location: ../index.php", );
 		if(isset($db_connection))
 		{
 			$db_connection->close();
@@ -144,6 +144,6 @@ optional temporary flag
 	$db_connection->close();
 	$_SESSION['message'] = "Rejestracja ukończona, zaloguj się";
 	
-	header('Location: index.php');
+	header('Location: ../index.php');
 	
 ?>

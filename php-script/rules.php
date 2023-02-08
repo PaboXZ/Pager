@@ -8,7 +8,7 @@
 		}
 		else
 		{
-			header("Location: index.php");
+			header("Location: ../index.php");
 			exit();
 		}
 	}	
@@ -17,7 +17,7 @@
 	{
 		if($_SESSION['user_temporary_flag'])
 		{
-			header("Location: panel.php");
+			header("Location: ../panel.php");
 			exit();
 		}
 	}	

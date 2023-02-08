@@ -16,7 +16,7 @@ Exceptions: all to index.php
 	if(!isset($_POST["user_name"]) OR !isset($_POST["user_password"]))
 	{
 		$_SESSION['error_login'] = "Wprowadź dane logowania.";
-		Header("Location: index.php");
+		Header("Location: ../index.php");
 		exit();
 	}
 	/*END*/
@@ -25,7 +25,7 @@ Exceptions: all to index.php
 	/*Rules check*/
 	if(isset($_SESSION['user_id']))
 	{
-		Header("Location: panel.php");
+		Header("Location: ../panel.php");
 		exit();
 	}
 	/*END*/
@@ -67,7 +67,7 @@ Exceptions: all to index.php
 					$_SESSION['user_last_active'] = $db_temporary_row['user_id'];
 					if(!filter_var($db_temporary_row['user_email'], FILTER_VALIDATE_EMAIL)) $_SESSION['user_temporary_flag'] = TRUE;
 					else $_SESSION['user_temporary_flag'] = FALSE;
-					header("Location: panel.php");
+					header("Location: ../panel.php");
 				}
 				else
 				{
@@ -93,7 +93,7 @@ Exceptions: all to index.php
 		$_SESSION['error-login-return']['login'] = $_POST['user_name'];
 		$_SESSION['error-login-return']['password'] = $_POST['user_password'];
 		
-		header("Location: index.php");
+		header("Location: ../index.php");
 		
 	}
 	

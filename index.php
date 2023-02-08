@@ -15,8 +15,8 @@ Rules: redirect if logged in (beware admin/user panel)
 		exit();
 	}
 		
-	require_once('message_print.php');	
-	require_once('index_error_print.php');
+	require_once('php-script/message_print.php');	
+	require_once('php-script/index_error_print.php');
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +68,7 @@ Rules: redirect if logged in (beware admin/user panel)
 							</div>
 							<div class="offset-1 col-10">
 								<div class="dialog-box-content">
-									<form action="login.php" method="POST">
+									<form action="php-script/login.php" method="POST">
 										<input value="<?=isset($user_login_l) ? $user_login_l : ""?>" type="text" placeholder="login" name="user_name" onfocus="this.placeholder=''" onblur="this.placeholder='login'"/><br>
 										<input value="<?=isset($user_password_l) ? $user_password_l : ""?>"type="password" placeholder="hasło" name="user_password" onfocus="this.placeholder=''" onblur="this.placeholder='hasło'"/><br>
 										<input type="submit" value="Log in"/>
@@ -96,7 +96,7 @@ Rules: redirect if logged in (beware admin/user panel)
 							</div>
 							<div class="offset-1 col-10">
 								<div class="dialog-box-content">
-									<form action="register.php" method="POST">
+									<form action="php-script/register.php" method="POST">
 										<input value="<?=isset($user_login_r) ? $user_login_r : ""?>" type="text" name="user_name" placeholder="login"/>
 										<input value="<?=isset($user_email_r) ? $user_email_r : ""?>"type="text" name="user_email" placeholder="email"/>
 										<input value="<?=isset($user_password_r) ? $user_password_r : ""?>" type="password" name="user_password" placeholder="hasło"/>
