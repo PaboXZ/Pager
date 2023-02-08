@@ -5,7 +5,7 @@
 {
 	left: 0;
 	width: 200px;
-	position: fixed;
+	position: absolute;
 	z-index: 70;
 }
 
@@ -64,6 +64,7 @@ nav ul a
 {
 	color: var(--topnav-button-background);
 	background-color: var(--background);
+	cursor: pointer;
 }
 #create-thread:hover
 {
