@@ -4,6 +4,8 @@
 		exit("Access denied.");
 	}
 
+		
+		require_once('php-script/db_credentials.php');
 		try
 		{
 			if(!isset($_SESSION['user_active_thread']))

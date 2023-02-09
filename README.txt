@@ -193,6 +193,8 @@ TASKS
 -CHECK VARIABLES, REVIEW CODE AND DOCUMENTATION
 -CONTINUE ADJUSTING CODE FOR CLARITY
 -ADD THREAD DELETION
+-ADD SETTINGS PAGE
+-FIX PRINTING THREADS (add favorite tab)
 
 
 -ADD MESSAGE SYSTEM TO PANEL											--DONE
@@ -220,6 +222,11 @@ TASKS
 
 -----------------------------------------------------------------
 LOG
+--0.16
+
+-Tested functionality and access
+-Denied direct access to script files
+
 --0.15
 
 -Added function to clear confirmation box
