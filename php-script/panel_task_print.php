@@ -1,4 +1,9 @@
 <?php
+	if(count(get_included_files()) == 1)
+	{
+		exit("Access denied.");
+	}
+
 		try
 		{
 			if(!isset($_SESSION['user_active_thread']))

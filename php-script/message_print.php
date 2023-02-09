@@ -1,5 +1,9 @@
 <?php
-	
+	if(count(get_included_files()) == 1)
+	{
+		exit("Access denied.");
+	}
+
 	if(isset($_SESSION['message']))
 	{
 		$message = $_SESSION['message'];

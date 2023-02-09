@@ -1,5 +1,9 @@
 <?php
-
+	if(count(get_included_files()) == 1)
+	{
+		exit("Access denied.");
+	}
+	
 	function db_connect(){
 		
 		require('db_credentials.php');

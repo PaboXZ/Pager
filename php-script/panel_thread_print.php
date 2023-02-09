@@ -1,4 +1,9 @@
 <?php
+	if(count(get_included_files()) == 1)
+	{
+		exit("Access denied.");
+	}
+
 		try
 		{
 			$user_id = $_SESSION['user_id'];
