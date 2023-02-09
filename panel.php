@@ -185,8 +185,8 @@ Redirect if not logged in
 		<div class="d-none col-1 d-lg-none topnav-button-mobile" id="mobile-thread-menu-close" onclick="hideSideMenu()">
 			<i class="icon-left-open"></i>
 		</div>
-		<div class="offset-7 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right" onclick="">
-			<i class="icon-cog"></i><br>
+		<div class="offset-7 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right">
+			<a href="settings.php"><i class="icon-cog"></i></a><br>
 		</div>
 		<div class="offset-1 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right" onclick="window.location.href='logout.php'">
 			<i class="icon-off"></i><br>
@@ -196,7 +196,7 @@ Redirect if not logged in
 		<div class="container">
 			<div class="row">
 				<div class="d-none d-lg-block col-8" id="logo"><a href="panel.php">Skippit</a></div>
-				<div class="d-none d-lg-block col-2"><div class="topnav-button"><?=$_SESSION['user_name']?> <i class="icon-cog"></i></div></div>
+				<div class="d-none d-lg-block col-2"><a href="settings.php" class="topnav-button"><?=$_SESSION['user_name']?> <i class="icon-cog"></i></a></div>
 				<div class="d-none d-lg-block col-2"><a href="logout.php" class="topnav-button" id="logout-button">Log out <i class="icon-off"></i></a></div>
 			</div>
 		</div>

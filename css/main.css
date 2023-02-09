@@ -15,6 +15,9 @@
 	--input-submit-color: Green;
 	--input-submit-text: white;
 	--input-submit-hover: #009000;
+
+	--area-color: SeaGreen;
+	--area-font-color: White;
 }
 body
 {

@@ -1,0 +1,37 @@
+main .settings-title
+{
+	margin: 4vh 0 6vh 50px;
+	font-size: 2.8em;
+	font-weight: 700;
+}
+
+
+.settings-tab
+{
+	padding: 15px;
+	border-radius: 1em 1em 0 0;
+	background-color: var(--topnav-button-background);
+	text-align: center;
+	color: var(--topnav-button-text);
+	font-size: 2em;
+	font-weight: 700;
+}
+.settings-tab-inactive
+{
+	filter: grayscale(50%);
+}
+.settings-tab-inactive:hover
+{
+	filter: none;
+	cursor: pointer;
+}
+
+
+.settings-content
+{
+	padding: 30px;
+	min-height: 40vh;
+	background-color: var(--area-color);
+	color: var(--area-font-color);
+	font-size: 1.5em;
+}
