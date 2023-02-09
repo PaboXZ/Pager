@@ -17,16 +17,15 @@
 <?php
 	if(!isset($_POST['thread_version']) || !isset($_POST['thread_name']))
 	{
-		header("Location: ../panel.php");
+		header("Location: panel.php");
 		exit();
 	}
 	
 	session_start();
 	
-	require_once("rules.php");
+	require_once("php-script/rules.php");
 	
 	isLoggedIn();
-	isTemporary();
 	
 	$thread_owner_id = $_SESSION['user_id'];
 	$thread_name = htmlentities($_POST['thread_name'], ENT_QUOTES);
@@ -35,7 +34,7 @@
 	if(strlen($thread_name) > 24 OR strlen($thread_name) < 3)
 	{
 		$_SESSION['error_create_thread'] = "Niewłaściwa długość nazwy (3 - 24)";
-		Header("Location: ../panel.php");
+		header("Location: panel.php");
 		exit();
 	}
 	
@@ -48,9 +47,8 @@
 	
 	try
 	{
-		error_reporting(E_ERROR);
-		mysqli_report(MYSQLI_REPORT_OFF);
-		require_once("db_credentials.php");
+		
+		require_once("php-script/db_credentials.php");
 		if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
 		{
 			throw new Exception("Błąd serwera", 0);
@@ -87,9 +85,9 @@
 		$_SESSION['error_create_thread'] = $error->getMessage();
 	}
 	
-	if(isset($db_connection))
+	if(isset($db_connection->host_info))
 	{
 		$db_connection->close();
 	}
-	header("Location: ../panel.php");
+	header("Location: panel.php");
 ?>

@@ -35,7 +35,7 @@ function deleteTask(task_name)
 	showTaskMenu(task_name);
 	
 	document.getElementById('confirm-action-text').innerHTML = 'Czy chcesz usunąć wpis: "' + task_name + '" Ta operacja jest nieodwracalna.';
-	document.getElementById('action-confirm').setAttribute('onclick', 'window.location.href=\'php-script/task_delete.php?task_name=' + task_name + '\'');
+	document.getElementById('action-confirm').setAttribute('onclick', 'window.location.href=\'task_delete.php?task_name=' + task_name + '\'');
 	
 	document.getElementById('confirm-action-box').style.cssText='display: block;';
 }

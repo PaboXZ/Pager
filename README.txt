@@ -104,10 +104,12 @@ SESSION VALUES
 ON LOG IN:
 user_name
 user_id - main variable to check if user is logged in, also key in database
-user_is_admin - flag for admins: 1 is true, 0 is false
-user_last_active - timestamp with date of last activity (refresh page counts)
 user_temporary_flag - is user account temporary (local for single thread) or regular
-user_active_thread - stores id of an active thread
+user_active_thread - stores id of an active thread / 0 if there are no threads
+
+
+user_is_admin - ----NOT IN USE
+user_last_active - ----NOT IN USE
 
 ERRORS(remember to clear after shown)
 error_register																			-> index.php

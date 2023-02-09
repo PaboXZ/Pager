@@ -4,18 +4,18 @@
 	
 	session_start();
 	
-	require_once('rules.php');
+	require_once('php-script/rules.php');
 	isLoggedIn();
 
 	if(!isset($_GET['task_name']))
 	{
-		header('Location: ../panel.php');
+		header('Location: panel.php');
 		exit();
 	}
 	
 	try
 	{
-		require_once('db_credentials.php');
+		require_once('php-script/db_credentials.php');
 		$db_connection = new mysqli($db_host, $db_user, $db_password, $db_name);
 		
 		$user_id = $_SESSION['user_id'];
@@ -40,5 +40,5 @@
 	{
 		$db_connection->close();
 	}
-	header('Location: ../panel.php');
+	header('Location: panel.php');
 ?>

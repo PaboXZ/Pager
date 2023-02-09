@@ -13,8 +13,6 @@ Redirect if not logged in
 	
 	require_once('php-script/message_print.php');
 	require_once('php-script/panel_error_print.php');
-	
-	$user_id = $_SESSION['user_id'];
 			
 	require_once('php-script/panel_thread_print.php');
 	require_once('php-script/panel_task_print.php');
@@ -113,7 +111,7 @@ Redirect if not logged in
 									<h3><i class="icon-cancel"></i></h3>
 								</div>
 								<div class="offset-lg-1 col-lg-10">
-									<form action="php-script/create_task.php" method="POST">
+									<form action="create_task.php" method="POST">
 										Nazwa wpisu:<br>
 										<input type="text" name="task_title" placeholder="Nazwa wpisu"/><br>
 										Treść wpisu:<br>
@@ -156,7 +154,7 @@ Redirect if not logged in
 									<h3><i class="icon-cancel"></i></h3>
 								</div>
 								<div class="offset-lg-1 col-lg-10">
-									<form action="php-script/create_thread.php" method="POST">
+									<form action="create_thread.php" method="POST">
 										<label for="thread_name">Nazwa listy:</label>
 										<input type="text" name="thread_name"/>
 										<label for="thread_version">Wersja:</label>
@@ -187,7 +185,7 @@ Redirect if not logged in
 				<div class="d-none col-1 d-lg-none topnav-button-mobile" id="mobile-thread-menu-close" onclick="hideSideMenu()">
 					<i class="icon-left-open"></i>
 				</div>
-				<div class="offset-9 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right" onclick="window.location.href='php-script/logout.php'">
+				<div class="offset-9 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right" onclick="window.location.href='logout.php'">
 					<i class="icon-off"></i><br>
 				</div>
 	
@@ -196,7 +194,7 @@ Redirect if not logged in
 			<div class="row">
 				<div class="d-none d-lg-block col-8" id="logo">Skippit</div>
 				<div class="d-none d-lg-block col-2"><div class="topnav-button"><?=$_SESSION['user_name']?></div></div>
-				<div class="d-none d-lg-block col-2"><a href="php-script/logout.php" class="topnav-button" id="logout-button">Log out</a></div>
+				<div class="d-none d-lg-block col-2"><a href="logout.php" class="topnav-button" id="logout-button">Log out</a></div>
 			</div>
 		</div>
 	</div>

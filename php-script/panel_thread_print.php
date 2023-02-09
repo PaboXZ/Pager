@@ -1,8 +1,7 @@
 <?php
 		try
 		{
-			mysqli_report(MYSQLI_REPORT_OFF);
-			error_reporting(E_ERROR);
+			$user_id = $_SESSION['user_id'];
 			
 			require_once("php-script/db_credentials.php");
 	
@@ -31,11 +30,11 @@
 					if($_SESSION['user_active_thread'] == $db_result_row['thread_id'])
 					{
 						$thread_active_name = $db_result_row['thread_name'];
-						$temp_html = '<li class="active-thread"><a href="php-script/change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
+						$temp_html = '<li class="active-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
 					}
 					else
 					{
-						$temp_html = '<li class="inactive-thread"><a href="php-script/change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
+						$temp_html = '<li class="inactive-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
 					}
 					$thread_html =  $thread_html.$temp_html;
 				}

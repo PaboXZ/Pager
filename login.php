@@ -16,7 +16,7 @@ Exceptions: all to index.php
 	if(!isset($_POST["user_name"]) OR !isset($_POST["user_password"]))
 	{
 		$_SESSION['error_login'] = "Wprowadź dane logowania.";
-		Header("Location: ../index.php");
+		header("Location: index.php");
 		exit();
 	}
 	/*END*/
@@ -25,16 +25,14 @@ Exceptions: all to index.php
 	/*Rules check*/
 	if(isset($_SESSION['user_id']))
 	{
-		Header("Location: ../panel.php");
+		header("Location: panel.php");
 		exit();
 	}
 	/*END*/
 	
 	try
 	{
-		error_reporting(E_ERROR);
-		require_once('db_credentials.php');
-		mysqli_report(MYSQLI_REPORT_OFF);
+		require_once('php-script/db_credentials.php');
 		
 		if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
 		{
@@ -52,7 +50,7 @@ Exceptions: all to index.php
 			$user_name_credential = "user_name";
 		}
 		
-		if($db_temporary_query = $db_connection->query("SELECT user_id, user_name, user_password, user_is_admin, user_last_active, user_email FROM user_data WHERE $user_name_credential='$user_name'"))
+		if($db_temporary_query = $db_connection->query("SELECT user_id, user_name, user_password, user_email FROM user_data WHERE $user_name_credential='$user_name'"))
 		{
 			if($db_temporary_query->num_rows == 1)
 			{
@@ -61,13 +59,28 @@ Exceptions: all to index.php
 				
 				if(password_verify($_POST['user_password'], $db_temporary_row['user_password']))
 				{
+					if(!$db_query_result = $db_connection->query("SELECT thread_id FROM thread_data LIMIT 1"))
+					{
+						throw new Exception("Usługa niedostępna, za utrudnienia przepraszamy");
+					}
+					
+					if($db_query_result->num_rows == 1)
+					{
+						$db_thread = $db_query_result->fetch_assoc();
+						$_SESSION['user_active_thread'] = $db_thread['thread_id'];
+					}
+					else
+					{
+						$_SESSION['usere_active_thread'] = 0;
+					}
+					
 					$_SESSION['user_id'] = $db_temporary_row['user_id'];
 					$_SESSION['user_name'] = $db_temporary_row['user_name'];
-					$_SESSION['user_is_admin'] = $db_temporary_row['user_id'];
-					$_SESSION['user_last_active'] = $db_temporary_row['user_id'];
 					if(!filter_var($db_temporary_row['user_email'], FILTER_VALIDATE_EMAIL)) $_SESSION['user_temporary_flag'] = TRUE;
 					else $_SESSION['user_temporary_flag'] = FALSE;
-					header("Location: ../panel.php");
+					header("Location: panel.php");
+					
+					
 				}
 				else
 				{
@@ -93,7 +106,7 @@ Exceptions: all to index.php
 		$_SESSION['error-login-return']['login'] = $_POST['user_name'];
 		$_SESSION['error-login-return']['password'] = $_POST['user_password'];
 		
-		header("Location: ../index.php");
+		header("Location: index.php");
 		
 	}
 	

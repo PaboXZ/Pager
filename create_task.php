@@ -33,7 +33,7 @@ Rights!!  power level
 
 	session_start();
 	
-	require_once('rules.php');
+	require_once('php-script/rules.php');
 	isLoggedIn();
 	
 	if(!isset($_SESSION['user_active_thread']))
@@ -43,7 +43,7 @@ Rights!!  power level
 	
 	if(!isset($_POST['task_title']) || !isset($_POST['task_content']) || !isset($_POST['task_power']))
 	{
-		header('Location: ../panel.php');
+		header('Location: panel.php');
 		exit();
 	}
 	$task_title = htmlentities($_POST['task_title'], ENT_QUOTES);
@@ -65,12 +65,9 @@ Rights!!  power level
 		errorAdd("Nieznany błąd");
 	}
 	
-	error_reporting(E_ERROR);
-	mysqli_report(MYSQLI_REPORT_OFF);
-	
 	try
 	{
-		require_once("db_credentials.php");
+		require_once("php-script/db_credentials.php");
 		
 		if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
 		{
@@ -114,10 +111,10 @@ Rights!!  power level
 		$_SESSION['error_create_task'] = $error->getMessage();
 	}
 	
-	if(isset($db_connection))
+	if(isset($db_connection->host_info))
 	{
 		$db_connection->close();
 	}
-	header('Location: ../panel.php');
+	header('Location: panel.php');
 
 ?>
