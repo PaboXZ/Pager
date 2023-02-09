@@ -200,7 +200,7 @@ Redirect if not logged in
 	</div>
 	
 	
-	<nav class="sidemenu d-none d-lg-block" id="sidemenu"><ul><?=$thread_html ?><li onclick="showDialogBox('add-thread')"><a href="#" id="create-thread">+ Utwórz</a></li></ul></nav>
+	<nav class="sidemenu d-none d-lg-block" id="sidemenu"><ul><?=$thread_html ?><li onclick="showDialogBox('add-thread')"><a id="create-thread">+ Utwórz</a></li></ul></nav>
 	<main>	
 		<div class="container">
 			<div class="row">
