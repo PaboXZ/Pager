@@ -5,8 +5,9 @@
 	isLoggedIn();
 	
 	require_once("php-script/db_connect.php");
-	
 	$db_connection = db_connect();
+	
+	
 	
 	require_once('php-script/print_data.php');
 	
@@ -17,7 +18,7 @@
 	{
 		$temp_message = "Czy chcesz usunąć listę: $thread_name?";
 		$temp_target = "thread_delete.php/";
-		$temp_data = "?thread-name=$thread_name";
+		$temp_data = "?thread_name=$thread_name";
 		$threads_menu_html = $threads_menu_html.'
 				<div class="offset-1 col-6">
 					'.$thread_name.'
