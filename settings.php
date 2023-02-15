@@ -13,19 +13,19 @@
 	
 	require_once('php-script/print_data.php');
 	
-	$thread_names = printThreadNames($db_connection, $_SESSION['user_id']);
+	$thread_names = printThreadNamesId($db_connection, $_SESSION['user_id']);
 	
 	$threads_menu_html="";
 	if($thread_names)
 	{
 		foreach($thread_names as $thread_name)
 		{
-			$temp_message = "Czy chcesz usunąć listę: $thread_name?";
+			$temp_message = "Czy chcesz usunąć listę: $thread_name[1]?";
 			$temp_target = "thread_delete.php";
-			$temp_data = "?thread_name=$thread_name";
+			$temp_data = "?thread_name=$thread_name[1]";
 			$threads_menu_html = $threads_menu_html.'
 					<div class="offset-1 col-6">
-						'.$thread_name.'
+						<a href="change_active_thread.php?id='.$thread_name[0].'">'.$thread_name[1].'</a>
 					</div>
 					<div class="col-1" onclick="corfirmActionDisplay(\''.$temp_message.'\', \''.$temp_target.'\', \''.$temp_data.'\')">
 						x
@@ -40,6 +40,7 @@
 <html lang="pl">
 <head>
 	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/> 
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
 	<link rel="stylesheet" href="css/main.css"/>
 	<link rel="stylesheet" href="css/settings.css"/>
