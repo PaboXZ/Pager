@@ -35,7 +35,7 @@ optional temporary flag
 		exit();
 	}
 	
-	if(!isset($_POST['user_email']))
+	if(!isset($_POST['user_email']) || !isset($_POST['g-recaptcha-response']))
 	{
 		header("Location: index.php");
 		exit();
@@ -109,6 +109,10 @@ optional temporary flag
 		if(!isset($_POST['tos']))
 		{
 			error_add("Wymagana akceptacja regulaminu");
+		}
+		if(!$_POST['g-recaptcha-response'])
+		{
+			error_add("Weryfikacja reCaptcha nie powiodła się");
 		}
 		
 		if(isset($_SESSION['error_register']))

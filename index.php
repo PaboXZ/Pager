@@ -31,6 +31,12 @@ Rules: redirect if logged in (beware admin/user panel)
 	
 	<style><?=isset($error_style) ? $error_style : ""?><?=isset($message_style) ? $message_style : ""?></style>
 	<script src="js/dialog.box.js"></script>
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<script>
+       function onSubmit(token) {
+         document.getElementById("register-form").submit();
+       }
+     </script>
 </head>
 <body>
 	
@@ -96,14 +102,14 @@ Rules: redirect if logged in (beware admin/user panel)
 							</div>
 							<div class="offset-1 col-10">
 								<div class="dialog-box-content">
-									<form action="register.php" method="POST">
+									<form id="register-form" action="register.php" method="POST">
 										<input value="<?=isset($user_login_r) ? $user_login_r : ""?>" type="text" name="user_name" placeholder="login"/>
 										<input value="<?=isset($user_email_r) ? $user_email_r : ""?>"type="text" name="user_email" placeholder="email"/>
 										<input value="<?=isset($user_password_r) ? $user_password_r : ""?>" type="password" name="user_password" placeholder="hasło"/>
 										<input type="password" name="user_password_confirm" placeholder="potwierdź hasło"/>
 										<input type="checkbox" name="tos" id="tos"/>
 										<label for="tos">Akceptuję regulamin</label>
-										<input type="submit" value="Zarejestruj"/>
+										<input type="submit" class="g-recaptcha" data-callback="onSubmit" data-sitekey="6Lf60YIkAAAAAFcMt8GmhkvTf6YHPDU4da2arDUN" value="Zarejestruj"/>
 									</form>
 								</div>
 							</div>
