@@ -8,6 +8,8 @@
 	$db_connection = db_connect();
 	
 	
+	require_once('php-script/message_print.php');
+	require_once('php-script/settings_error_print.php');
 	
 	require_once('php-script/print_data.php');
 	
@@ -47,6 +49,8 @@
 	<link rel="icon" type="image/x-icon" href="favicon/favicon-32x32.png"/>
 	
 	<script src="js/dialog.box.js"></script>
+	
+	<style><?=isset($error_style) ? $error_style : ""?><?=isset($message_style) ? $message_style : ""?></style>
 </head>
 <body>
 
@@ -73,6 +77,26 @@
 							<div class="confirm-action-button" id="action-decline" onclick="closeDialogBox('confirm-action-box'); clearConfirmActionBox();">
 								Powrót
 							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</aside>
+	<!--Message/error box-->
+	<aside class="blur-background" id="dialog-box-message">
+		<div class="container">
+			<div class="row">
+				<div class="dialog-box offset-1 col-10">
+					<div class="row">
+						<div class="offset-10 col-1 offset-lg-11">
+							<div class="dialog-box-title dialog-box-close" onclick="closeDialogBox('dialog-box-message')">
+								<i class="icon-cancel"></i>
+							</div>
+						</div>
+						<div class="col-12 offset-md-1 col-md-10">
+							<div class="message-container" id="error-text"><?=isset($error_message) ? $error_message : ""?></div>
+							<div class="message-container" id="message-text"><?=isset($message) ? $message : ""?></div>
 						</div>
 					</div>
 				</div>

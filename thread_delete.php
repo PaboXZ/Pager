@@ -7,7 +7,7 @@
 	
 	if(!isset($_GET['thread_name']))
 	{
-		header('Location: panel.php');
+		header('Location: panel.php.php');
 		exit();
 	}
 	
@@ -54,11 +54,11 @@
 	{
 		$_SESSION['error_thread_delete'] = "Wystąpił błąd podczas usuwania listy";
 		db_close($db_connection);
-		header('Location: panel.php');
+		header('Location: settings.php');
 		exit();
 	}
 	
 	$_SESSION['message'] = "Usunięto listę: ".$thread_name;
 	db_close($db_connection);
-	header('Location: panel.php');
+	header('Location: settings.php');
 ?>

@@ -76,6 +76,15 @@ Rights!!  power level
 		$user_id = $_SESSION['user_id'];
 		$task_thread_id = $_SESSION['user_active_thread'];
 		
+		if(!$db_query_result = $db_connection->query("SELECT task_id FROM task_data WHERE task_thread_id = '$task_thread_id'"))
+		{
+			throw new Exception("Bład serwera", 21);
+		}
+		if($db_query_result->num_rows > 1024)
+		{
+			throw new Exception("Bład serwera", 22);
+		}
+		
 		if(!$db_query_result = $db_connection->query("SELECT thread_id FROM thread_data WHERE thread_id = '$task_thread_id'"))
 		{
 			throw new Exception("Bład serwera", 21);

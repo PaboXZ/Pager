@@ -118,9 +118,15 @@ error_create_thread																		-> panel.php
 error_change_active_thread																-> panel.php
 error_task_delete																		-> panel.php
 error_create_task																		-> panel.php
-error_thread_delete 																	-> panel.php
+error_thread_delete 																	-> settings.php
 
 MESSAGE(remember to clear after use)
+
+
+LIMITS
+
+Threads per user (owner): 10
+Tasks per thread: 1024
 
 
 -----------------------------------------------------------------
@@ -194,8 +200,10 @@ TASKS
 -CONTINUE ADJUSTING CODE FOR CLARITY
 -ADD SETTINGS PAGE
 -FIX PRINTING THREADS (add favorite tab)
+-ADD ERROR PRINTING TO SETTINGS
 
 
+-ADD THREADS AND TASKS LIMITS!!											--DONE
 -ADD RECAPTCHA TO REGISTER FORM											--DONE
 -ADD THREAD DELETION													--DONE
 -ADD MESSAGE SYSTEM TO PANEL											--DONE

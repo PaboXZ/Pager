@@ -53,8 +53,18 @@
 		{
 			throw new Exception("Błąd serwera", 0);
 		}
-		
-		$db_query_result = $db_connection->query("SELECT thread_id FROM thread_data WHERE thread_owner_id = '$thread_owner_id' AND thread_name = '$thread_name'");
+		if(!$db_query_result = $db_connection->query("SELECT thread_id FROM thread_data WHERE thread_owner_id = '$thread_owner_id'"))
+		{
+			throw new Exception("Błąd serwera", 0);
+		}
+		if($db_query_result->num_rows > 10)
+		{
+			throw new Exception("Osiągnięto maksymanlną ilość list: 10");
+		}
+		if(!$db_query_result = $db_connection->query("SELECT thread_id FROM thread_data WHERE thread_owner_id = '$thread_owner_id' AND thread_name = '$thread_name'"))
+		{
+			throw new Exception("Bład serwera", 10);
+		}
 		if($db_query_result->num_rows > 0)
 		{
 			throw new Exception("Wybrana nazwa już istnieje.");
