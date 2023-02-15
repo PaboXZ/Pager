@@ -14,21 +14,23 @@
 	$thread_names = printThreadNames($db_connection, $_SESSION['user_id']);
 	
 	$threads_menu_html="";
-	foreach($thread_names as $thread_name)
+	if($thread_names)
 	{
-		$temp_message = "Czy chcesz usunąć listę: $thread_name?";
-		$temp_target = "thread_delete.php";
-		$temp_data = "?thread_name=$thread_name";
-		$threads_menu_html = $threads_menu_html.'
-				<div class="offset-1 col-6">
-					'.$thread_name.'
-				</div>
-				<div class="col-1" onclick="corfirmActionDisplay(\''.$temp_message.'\', \''.$temp_target.'\', \''.$temp_data.'\')">
-					x
-				</div>
-		';
+		foreach($thread_names as $thread_name)
+		{
+			$temp_message = "Czy chcesz usunąć listę: $thread_name?";
+			$temp_target = "thread_delete.php";
+			$temp_data = "?thread_name=$thread_name";
+			$threads_menu_html = $threads_menu_html.'
+					<div class="offset-1 col-6">
+						'.$thread_name.'
+					</div>
+					<div class="col-1" onclick="corfirmActionDisplay(\''.$temp_message.'\', \''.$temp_target.'\', \''.$temp_data.'\')">
+						x
+					</div>
+			';
+		}
 	}
-	
 	
 	db_close($db_connection);
 ?>

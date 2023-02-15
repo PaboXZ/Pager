@@ -118,7 +118,7 @@ error_create_thread																		-> panel.php
 error_change_active_thread																-> panel.php
 error_task_delete																		-> panel.php
 error_create_task																		-> panel.php
-error_thread_delete 																	Not executed
+error_thread_delete 																	-> panel.php
 
 MESSAGE(remember to clear after use)
 
@@ -193,11 +193,11 @@ TASKS
 -CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
 -CHECK VARIABLES, REVIEW CODE AND DOCUMENTATION
 -CONTINUE ADJUSTING CODE FOR CLARITY
--ADD THREAD DELETION
 -ADD SETTINGS PAGE
 -FIX PRINTING THREADS (add favorite tab)
 
 
+-ADD THREAD DELETION													--DONE
 -ADD MESSAGE SYSTEM TO PANEL											--DONE
 -ADD TASK DELETION														--DONE
 -ADD ICONS																--DONE

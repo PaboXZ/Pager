@@ -27,6 +27,11 @@
 		$error_message = $_SESSION['error_create_task'];
 		$error_style = "#dialog-box-message{display: block;} #error-text{display: block;}";
 		unset($_SESSION['error_create_task']);
+	}else if(isset($_SESSION['error_thread_delete']))
+	{
+		$error_message = $_SESSION['error_thread_delete'];
+		$error_style = "#dialog-box-message{display: block;} #error-text{display: block;}";
+		unset($_SESSION['error_thread_delete']);
 	}
 
 ?>
