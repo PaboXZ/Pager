@@ -46,7 +46,6 @@
 			return $error->getMessage();
 		}
 	}
-	
 
 	function printArrayHTML($array, $htmlbefore, $htmlafter)
 	{

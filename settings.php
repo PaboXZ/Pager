@@ -33,6 +33,31 @@
 			';
 		}
 	}
+	if(isset($_SESSION['user_active_thread']))
+	{
+		try
+		{
+			$active_thread_id = $_SESSION['user_active_thread'];
+			if(!$db_query_result = $db_connection->query("SELECT thread_name FROM thread_data WHERE thread_id = '$active_thread_id'"))
+			{
+				throw new Exception("");
+			}
+			if($db_query_result->num_rows != 1)
+			{
+				throw new Exception("");
+			}
+			$db_result = $db_query_result->fetch_assoc();
+			$active_thread_button_html = '
+			<div class="settings-tab-inactive settings-tab col-4 offset-lg-1 col-lg-2" id="menu-tab-1" onclick="changeActiveTab(1)">
+				'.$db_result['thread_name'].'
+			</div>
+			';
+		}
+		catch(Exception $error)
+		{
+			$active_thread_button_html = "";
+		}
+	}
 	
 	db_close($db_connection);
 ?>
@@ -50,10 +75,23 @@
 	<link rel="icon" type="image/x-icon" href="favicon/favicon-32x32.png"/>
 	
 	<script src="js/dialog.box.js"></script>
+	<script>
+		tabIdOld = 0;
+		function changeActiveTab(tabIdNew)
+		{
+			document.getElementById('menu-content-' + tabIdOld).style.cssText = 'display: none';
+			document.getElementById('menu-tab-' + tabIdOld).classList.add('settings-tab-inactive');
+			
+			tabIdOld = tabIdNew;
+			
+			document.getElementById('menu-content-' + tabIdNew).style.cssText = 'display: flex';
+			document.getElementById('menu-tab-' + tabIdNew).classList.remove('settings-tab-inactive')
+		}
+	</script>
 	
 	<style><?=isset($error_style) ? $error_style : ""?><?=isset($message_style) ? $message_style : ""?></style>
 </head>
-<body>
+<body onload="changeActiveTab(0)">
 
 	<!--Confirm action box-->
 	<aside class="blur-background" id="confirm-action-box">
@@ -136,14 +174,24 @@
 		<div class="container">
 			<div class="row">
 				<div class="settings-title">Ustawienia</div>
-				<div class="settings-tab col-4 offset-lg-1 col-lg-2">
+				<div class="settings-tab-inactive settings-tab col-4 offset-lg-1 col-lg-2" id="menu-tab-0" onclick="changeActiveTab(0)">
 					Listy
+				</div>
+				<?=$active_thread_button_html?>
+				<div class="settings-tab-inactive settings-tab col-4 offset-lg-1 col-lg-2" id="menu-tab-2" onclick="changeActiveTab(2)">
+					Użytkownik
 				</div>
 			</div>
 			<div class="row">
 				<div class="settings-content col-12">
-					<div class="row">
+					<div class="row settings-content-tab" id="menu-content-0">
 							<?=isset($threads_menu_html) ? $threads_menu_html : ""?>
+					</div>
+					<div class="row settings-content-tab" id="menu-content-1">
+							Thread
+					</div>
+					<div class="row settings-content-tab" id="menu-content-2">
+							User
 					</div>
 				</div>
 			</div>
