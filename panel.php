@@ -13,6 +13,7 @@ Redirect if not logged in
 	
 	require_once('php-script/message_print.php');
 	require_once('php-script/panel_error_print.php');
+	require_once('php-script/message_print.php');
 			
 	require_once('php-script/panel_thread_print.php');
 	require_once('php-script/panel_task_print.php');
@@ -42,7 +43,7 @@ Redirect if not logged in
 	<script src="js/dialog.box.js"></script>
 	<script src="js/thread.js"></script>
 	<script src="js/task.js"></script>
-	<style><?=isset($error_style) ? $error_style : ""?></style>
+	<style><?=isset($error_style) ? $error_style : ""?><?=isset($message_style) ? $message_style : ""?></style>
 </head>
 <body>
 	<!--Message/error box-->

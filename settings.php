@@ -17,7 +17,7 @@
 	foreach($thread_names as $thread_name)
 	{
 		$temp_message = "Czy chcesz usunąć listę: $thread_name?";
-		$temp_target = "thread_delete.php/";
+		$temp_target = "thread_delete.php";
 		$temp_data = "?thread_name=$thread_name";
 		$threads_menu_html = $threads_menu_html.'
 				<div class="offset-1 col-6">

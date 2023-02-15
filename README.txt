@@ -118,6 +118,7 @@ error_create_thread																		-> panel.php
 error_change_active_thread																-> panel.php
 error_task_delete																		-> panel.php
 error_create_task																		-> panel.php
+error_thread_delete 																	Not executed
 
 MESSAGE(remember to clear after use)
 
