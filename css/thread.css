@@ -5,7 +5,7 @@
 {
 	left: 0;
 	width: 200px;
-	position: absolute;
+	position: fixed;
 	z-index: 70;
 }
 

@@ -42,6 +42,10 @@
 	<link rel="stylesheet" href="css/main.css"/>
 	<link rel="stylesheet" href="css/settings.css"/>
 	<link rel="stylesheet" href="css/fontello.css"/>
+	
+	<title>Skippit - ustawienia</title>
+	<link rel="icon" type="image/x-icon" href="favicon/favicon-32x32.png"/>
+	
 	<script src="js/dialog.box.js"></script>
 </head>
 <body>
@@ -78,8 +82,8 @@
 	
 	
 	<div id="topbar">
-		<div class="col-1 d-lg-none topnav-button-mobile" id="mobile-thread-menu-open" onclick="showSideMenu()">
-			<i class="icon-menu"></i>
+		<div class="logo col-1 d-lg-none topnav-button-mobile">
+			<a href="panel.php">Skippit</a>
 		</div>
 		<div class="d-none col-1 d-lg-none topnav-button-mobile" id="mobile-thread-menu-close" onclick="hideSideMenu()">
 			<i class="icon-left-open"></i>
@@ -94,7 +98,7 @@
 	
 		<div class="container">
 			<div class="row">
-				<div class="d-none d-lg-block col-8" id="logo"><a href="panel.php">Skippit</a></div>
+				<div class="logo d-none d-lg-block col-8"><a href="panel.php">Skippit</a></div>
 				<div class="d-none d-lg-block col-2"><a href="settings.php" class="topnav-button"><?=$_SESSION['user_name']?> <i class="icon-cog"></i></a></div>
 				<div class="d-none d-lg-block col-2"><a href="logout.php" class="topnav-button" id="logout-button">Log out <i class="icon-off"></i></a></div>
 			</div>

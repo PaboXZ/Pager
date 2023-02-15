@@ -3,11 +3,6 @@
 	--footer-background: SteelBlue;
 	--footer-text: Indigo;
 }
-#dialog-box-login,
-#dialog-box-register
-{
-	z-index: 80;
-}
 #index-welcome-text
 {
 	margin-top: 100px;

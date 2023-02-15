@@ -40,6 +40,10 @@ Redirect if not logged in
 	<link rel="stylesheet" href="css/task.css"/>
 	<link rel="stylesheet" href="css/thread.css"/>
 	<link rel="stylesheet" href="css/fontello.css"/>
+	
+	<title>Skippit - Panel</title>
+	<link rel="icon" type="image/x-icon" href="favicon/favicon-32x32.png"/>
+	
 	<script src="js/dialog.box.js"></script>
 	<script src="js/thread.js"></script>
 	<script src="js/task.js"></script>
@@ -105,11 +109,11 @@ Redirect if not logged in
 					<div class="col-lg-6 offset-lg-3">
 						<div class="dialog-box">
 							<div class="row">
-								<div class="col-9">
-									<h3>Tworzenie Wpisu<h3>
+								<div class="dialog-box-title col-9">
+									Tworzenie Wpisu
 								</div>
-								<div class="offset-1 col-1 dialog-box-close" onclick="closeDialogBox('add-task')">
-									<h3><i class="icon-cancel"></i></h3>
+								<div class="dialog-box-title offset-1 col-1 dialog-box-close" onclick="closeDialogBox('add-task')">
+									<i class="icon-cancel"></i>
 								</div>
 								<div class="offset-lg-1 col-lg-10">
 									<form action="create_task.php" method="POST">
@@ -148,11 +152,11 @@ Redirect if not logged in
 					<div class="col-lg-6 offset-lg-3">
 						<div class="dialog-box">
 							<div class="row">
-								<div class="col-9">
-									<h3>Tworzenie listy<h3>
+								<div class="dialog-box-title col-9">
+									Tworzenie listy
 								</div>
-								<div class="offset-1 col-1 dialog-box-close" onclick="closeDialogBox('add-thread')">
-									<h3><i class="icon-cancel"></i></h3>
+								<div class="dialog-box-title offset-1 col-1 dialog-box-close" onclick="closeDialogBox('add-thread')">
+									<i class="icon-cancel"></i>
 								</div>
 								<div class="offset-lg-1 col-lg-10">
 									<form action="create_thread.php" method="POST">
@@ -196,7 +200,7 @@ Redirect if not logged in
 	
 		<div class="container">
 			<div class="row">
-				<div class="d-none d-lg-block col-8" id="logo"><a href="panel.php">Skippit</a></div>
+				<div class="logo d-none d-lg-block col-8"><a href="panel.php">Skippit</a></div>
 				<div class="d-none d-lg-block col-2"><a href="settings.php" class="topnav-button"><?=$_SESSION['user_name']?> <i class="icon-cog"></i></a></div>
 				<div class="d-none d-lg-block col-2"><a href="logout.php" class="topnav-button" id="logout-button">Log out <i class="icon-off"></i></a></div>
 			</div>

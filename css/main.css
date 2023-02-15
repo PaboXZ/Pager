@@ -32,15 +32,19 @@ a
 
 #topbar
 {	
+	position: sticky;
+	top: 0;
+	z-index: 95;
 	padding: calc(5px + 1vh);
 	border-bottom: 2px solid var(--topnav-button-background);
+	background-color: var(--background);
 }
-#topbar #logo
+#topbar .logo
 {
 
-	font-size: calc(12px + 2vh);
-	min-font-size: 10px;	
+	font-size: 36px;	
 	font-weight: 900;
+	color: black;
 }
 
 .topnav-button
@@ -63,9 +67,9 @@ a
 {
 	display: inline-block;
 	box-sizing: border-box;
-	padding: 20px;
+	padding: 10px;
 	color: var(--topnav-button-background);
-	font-size: 200%;
+	font-size: 180%;
 	font-weight: 700;
 	cursor: pointer;
 }
@@ -81,15 +85,18 @@ a
 	display: none;
 	width: 100%;
 	height: 100vh;
+	top: 0;
 	position: fixed;
 	background-color: rgba(127,127,127, 0.4);
 	color: black;
-	z-index: 100;
+	z-index: 97;
 	
 }
 .dialog-box
 {
-	margin-top: 15vh;
+	max-height: 80vh;
+	overflow: auto;
+	margin-top: 10vh;
 	padding: 20px;
 	background-color: var(--background);
 	border-radius: 15px;

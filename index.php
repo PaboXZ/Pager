@@ -29,6 +29,9 @@ Rules: redirect if logged in (beware admin/user panel)
 	<link rel="stylesheet" href="css/index.style.css"/>
 	<link rel="stylesheet" href="css/fontello.css"/>
 	
+	<title>Skippit - Task manager</title>
+	<link rel="icon" type="image/x-icon" href="favicon/favicon-32x32.png"/>
+	
 	<style><?=isset($error_style) ? $error_style : ""?><?=isset($message_style) ? $message_style : ""?></style>
 	<script src="js/dialog.box.js"></script>
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -123,7 +126,7 @@ Rules: redirect if logged in (beware admin/user panel)
 	<nav id="topbar">
 		<div class="container">
 			<div class="row">
-				<div id="logo" class="col-1 d-lg-block d-none">
+				<div class="logo col-1 d-lg-block d-none">
 					Skippit
 				</div>
 				<div class="d-lg-none" id="index-welcome-text">

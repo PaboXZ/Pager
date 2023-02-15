@@ -74,7 +74,7 @@
 		{
 			throw new Exception("Błąd serwera", 3);
 		}
-		$_SESSION['thread_active'] = $thread_id;
+		$_SESSION['user_active_thread'] = $thread_id;
 	}
 	catch(Exception $error)
 	{

@@ -32,11 +32,20 @@
 		$db_result = $db_query_result->fetch_assoc();
 		$thread_id = $db_result['thread_id'];
 		
+		if(isset($_SESSION['user_active_thread']) && $_SESSION['user_active_thread'] == $thread_id)
+		{
+			$_SESSION['user_active_thread'] = 0;
+		}
+		
 		if(!$db_connection->query("DELETE FROM connection_user_thread WHERE connection_thread_id = '$thread_id'"))
 		{
 			throw new Exception();
 		}
 		if(!$db_connection->query("DELETE FROM thread_data WHERE thread_id = '$thread_id'"))
+		{
+			throw new Exception();
+		}
+		if(!$db_connection->query("DELETE FROM task_data WHERE task_thread_id = '$thread_id'"))
 		{
 			throw new Exception();
 		}

@@ -218,11 +218,20 @@ TASKS
 -REWRITE LOGIN OPTION TO WORK WITH NEW DATABASE LAYOUT 					--DONE
 -CREATE DB STRUCTURE 													--DONE
 
+Errors:
 
+--Can create task if thread does not exists								--Fixed		
+--Active thread is not reset after thread deletion						--Fixed
+--Tasks are not deleted after thread deletion							--Fixed
 
 
 -----------------------------------------------------------------
 LOG
+--0.17
+
+-Added reCaptcha
+-Added thread deletion-module
+
 --0.16
 
 -Tested functionality and access
