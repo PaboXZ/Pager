@@ -111,7 +111,7 @@ Rules: redirect if logged in (beware admin/user panel)
 										<input value="<?=isset($user_password_r) ? $user_password_r : ""?>" type="password" name="user_password" placeholder="hasło"/>
 										<input type="password" name="user_password_confirm" placeholder="potwierdź hasło"/>
 										<input type="checkbox" name="tos" id="tos"/>
-										<label for="tos">Akceptuję regulamin</label>
+										<label for="tos">Akceptuję <a href="ToS.pdf">regulamin</a></label>
 										<input type="submit" class="g-recaptcha" data-callback="onSubmit" data-sitekey="6Lf60YIkAAAAAFcMt8GmhkvTf6YHPDU4da2arDUN" value="Zarejestruj"/>
 									</form>
 								</div>
