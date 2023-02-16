@@ -64,5 +64,34 @@
 			return false;
 		}
 	}
+	
+	function checkThreadOwner($thread_id)
+	{
+		try
+		{
+			require_once('php-script/db_connect.php');
+			if(!$db_connection = db_connect())
+			{
+				throw new Exception();
+			}
+			if(!$db_result = $db_connection->query("SELECT thread_owner_id FROM thread_data WHRERE thread_id = '$thread_id'"))
+			{
+				throw new Exception();
+			}
+			if($db_result->num_rows != 1)
+			{
+				throw new Exception();
+			}
+			$db_result = $db_result->fetch_assoc();
+			
+			db_close($db_connection);
+			return $db_result['thread_owner_id'];
+		}
+		catch(Exception $error)
+		{
+			db_close($db_connection);
+			return false;
+		}
+	}
 
 ?>

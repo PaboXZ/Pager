@@ -83,6 +83,67 @@
 		}
 	}
 	
+	$user_id = $_SESSION['user_id'];
+	$active_thread_id = $_SESSION['user_active_thread'];
+	$settings_thread_users_html = "";
+	$add_user_form = "";
+	$add_temp_user_form = "";
+	try
+	{
+		if(!$db_result = $db_connection->query("SELECT thread_id FROM thread_data WHERE thread_id = '$active_thread_id' AND thread_owner_id = '$user_id'"))
+		{
+			throw new Exception();
+		}
+		if($db_result->num_rows == 1)
+		{
+			$is_owner_flag = true;
+		}
+		else
+		{
+			$is_owner_flag = false;
+		}
+		
+		if(!$db_result = $db_connection->query("SELECT user_name FROM user_data INNER JOIN connection_user_thread ON user_id = connection_user_id WHERE connection_thread_id = '$active_thread_id'"))
+		{
+			throw new Exception();
+		}
+		for($i = $db_result->num_rows; $i > 0; $i--)
+		{
+			if(!$is_owner_flag)
+			{
+				$db_result_row = $db_result->fetch_assoc();
+				$settings_thread_users_html = $settings_thread_users_html.$db_result_row['user_name']."<br>";
+			}
+			else
+			{
+				$db_result_row = $db_result->fetch_assoc();
+				$settings_thread_users_html = $settings_thread_users_html.$db_result_row['user_name']."Delete";
+			}
+		}
+		
+		if($is_owner_flag)
+		{
+			$add_user_form = '
+			Dodaj istniejącego użytkownika<br>
+			<form>
+				<input type="text" placeholder="Login/email"/>
+				<input type="submit"/>
+			</form>
+			';
+			$add_temp_user_form = '
+			Dodaj tymczasowego użytkownika<br>	
+			<form action="add_user.php" method="POST">
+				<input name="user_name" type="text" placeholder="Login"/>
+				<input name="user_password" type="password" placeholder="hasło"/>
+				<input type="submit"/>
+			</form>
+			';
+		}
+	}
+	catch(Exception $error)
+	{
+	}
+	
 	db_close($db_connection);
 ?>
 <!DOCTYPE html>
@@ -212,7 +273,14 @@
 							<?=isset($threads_menu_html) ? $threads_menu_html : ""?>
 					</div>
 					<div class="row settings-content-tab" id="menu-content-1">
-							Thread
+							<div>
+								Użytkownicy:<br>
+								<?=isset($settings_thread_users_html) ? $settings_thread_users_html : ""?><br>
+								<?=$add_user_form?><br>
+								<?=$add_temp_user_form?><br>
+							<div>
+							<div>
+							</div>
 					</div>
 					<div class="row settings-content-tab" id="menu-content-2">
 							User

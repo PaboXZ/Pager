@@ -202,6 +202,7 @@ TASKS
 -FIX PRINTING THREADS (add favorite tab)
 -ADD ERROR PRINT FUNCTION(for ongoing errors)
 -fix settings layout
+-CODE VERIFY
 
 
 -ADD TABS TO SETTINGS													--DONE

@@ -1,53 +1,41 @@
-<?php 
-/*
-Required data: Login(POST), Password(POST)  OK
-Access: all OK
-
-Rules: redirect if logged in OK
-
-Exceptions: all to index.php
-*/
-?>
-
 <?php
 
 	session_start();
-	/*Required data check*/
-	if(!isset($_POST["user_name"]) OR !isset($_POST["user_password"]))
-	{
-		$_SESSION['error_login'] = "Wprowadź dane logowania.";
-		header("Location: index.php");
-		exit();
-	}
-	/*END*/
 	
-	
-	/*Rules check*/
 	if(isset($_SESSION['user_id']))
 	{
 		header("Location: panel.php");
 		exit();
 	}
-	/*END*/
 	
+
 	try
 	{
-		require_once('php-script/db_credentials.php');
-		
-		if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
+		if(!isset($_POST["user_name"]) OR !isset($_POST["user_password"]))
 		{
-			throw new Exception("Usługa niedostępna, za utrudnienia przepraszamy");
+			throw new Exception("Wprowadź dane logowania");
 		}
-
-		$user_name = htmlentities($_POST['user_name'], ENT_QUOTES);
-
+		
+		$user_name = $_POST['user_name'];
+		
 		if(filter_var($user_name, FILTER_VALIDATE_EMAIL))
 		{
 			$user_name_credential = "user_email";
 		}
-		else
+		else if(ctype_alnum($user_name))
 		{
 			$user_name_credential = "user_name";
+		}
+		else
+		{
+			throw new Exception("Nieprawidłowe dane logowania");
+		}
+		
+		require_once('php-script/db_connect.php');
+		
+		if(!$db_connection = db_connect())
+		{
+			throw new Exception("Usługa niedostępna, za utrudnienia przepraszamy");
 		}
 		
 		if($db_temporary_query = $db_connection->query("SELECT user_id, user_name, user_password, user_email FROM user_data WHERE $user_name_credential='$user_name'"))
