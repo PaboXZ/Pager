@@ -30,9 +30,9 @@
 								<a href="change_active_thread.php?id='.$thread_name[0].'">'.$thread_name[1].'</a>
 							</div>
 						</div>
-						<div class="col-2 col-lg-1" onclick="corfirmActionDisplay(\''.$temp_message.'\', \''.$temp_target.'\', \''.$temp_data.'\')">
+						<div class="col-2 col-lg-1">
 							<div class="settings-thread-button">
-								<i class="icon-edit"></i>
+								<a href="settings.php?thread_id='.$thread_name[0].'" class="icon-edit"></a>
 							</div>
 						</div>
 						<div class="col-1" onclick="corfirmActionDisplay(\''.$temp_message.'\', \''.$temp_target.'\', \''.$temp_data.'\')">
@@ -44,6 +44,19 @@
 			';
 		}
 	}
+	if(isset($_GET['thread_id']))
+	{
+		require_once('php-script/check_thread.php');
+		if(checkThreadByID($_SESSION['user_id'], $_GET['thread_id']))
+		{
+			$_SESSION['user_active_thread'] = $_GET['thread_id'];
+			$change_active_tab = 1;
+		}
+	}
+	
+	
+	
+	
 	if(isset($_SESSION['user_active_thread']))
 	{
 		try
@@ -102,7 +115,7 @@
 	
 	<style><?=isset($error_style) ? $error_style : ""?><?=isset($message_style) ? $message_style : ""?></style>
 </head>
-<body onload="changeActiveTab(0)">
+<body onload="changeActiveTab(<?=isset($change_active_tab) ? $change_active_tab : "0"?>)">
 
 	<!--Confirm action box-->
 	<aside class="blur-background" id="confirm-action-box">

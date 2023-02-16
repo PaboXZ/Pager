@@ -59,6 +59,10 @@ main .settings-title
 	padding: 0.2em 0;
 	text-align: center;
 }
+.settings-thread-button a
+{
+	display: block;
+}
 .settings-thread-name a
 {
 	display: block;
