@@ -8,7 +8,10 @@
 	position: fixed;
 	z-index: 70;
 	max-height: 80vh;
-	overflow: auto;
+	white-space: nowrap;
+	overflow-x: hidden;
+	overflow-y: auto;
+	text-overflow: ellipsis;
 }
 
 nav ul
@@ -36,6 +39,7 @@ nav ul li:last-child
 nav .active-thread
 {
 	background-color: var(--topnav-button-background);
+	
 }
 nav .inactive-thread
 {

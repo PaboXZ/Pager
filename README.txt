@@ -201,6 +201,7 @@ TASKS
 -ADD SETTINGS PAGE
 -FIX PRINTING THREADS (add favorite tab)
 -ADD ERROR PRINT FUNCTION(for ongoing errors)
+-fix settings layout
 
 
 -ADD TABS TO SETTINGS													--DONE
@@ -239,6 +240,13 @@ Errors:
 
 -----------------------------------------------------------------
 LOG
+
+--0.18
+
+-Added ToS
+-Tabs in settings
+-Minor layout update
+
 --0.17
 
 -Added reCaptcha

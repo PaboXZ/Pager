@@ -10,11 +10,17 @@ main .settings-title
 {
 	padding: 15px;
 	border-radius: 1em 1em 0 0;
+	border-width: 2px 1px 0 1px;
+	border-style: solid;
+	border-color: rgba(255,255,255,0.3);
 	background-color: var(--topnav-button-background);
 	text-align: center;
 	color: var(--topnav-button-text);
-	font-size: 2em;
-	font-weight: 700;
+	font-size: 1.3em;
+	font-weight: 600;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .settings-tab-inactive
 {
@@ -38,4 +44,31 @@ main .settings-title
 .settings-content-tab
 {
 	display: none;
+}
+.settings-thread-button,
+.settings-thread-name a
+{
+	margin: 0.4em 0;
+	border-radius: 0.4em;
+	background-color: var(--topnav-button-background);
+	filter: grayscale(50%);
+	cursor: pointer;
+}
+.settings-thread-button
+{
+	padding: 0.2em 0;
+	text-align: center;
+}
+.settings-thread-name a
+{
+	display: block;
+	padding: 0.2em 0.5em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.settings-thread-button:hover,
+.settings-thread-name a:hover
+{
+	filter: none;
 }

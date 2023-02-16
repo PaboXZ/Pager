@@ -24,11 +24,22 @@
 			$temp_target = "thread_delete.php";
 			$temp_data = "?thread_name=$thread_name[1]";
 			$threads_menu_html = $threads_menu_html.'
-					<div class="offset-1 col-6">
-						<a href="change_active_thread.php?id='.$thread_name[0].'">'.$thread_name[1].'</a>
-					</div>
-					<div class="col-1" onclick="corfirmActionDisplay(\''.$temp_message.'\', \''.$temp_target.'\', \''.$temp_data.'\')">
-						x
+					<div class="row gx-1 gx-lg-3" gx-xl-5>
+						<div class="col-9 offset-lg-1 col-lg-8">
+							<div class="settings-thread-name">
+								<a href="change_active_thread.php?id='.$thread_name[0].'">'.$thread_name[1].'</a>
+							</div>
+						</div>
+						<div class="col-2 col-lg-1" onclick="corfirmActionDisplay(\''.$temp_message.'\', \''.$temp_target.'\', \''.$temp_data.'\')">
+							<div class="settings-thread-button">
+								<i class="icon-edit"></i>
+							</div>
+						</div>
+						<div class="col-1" onclick="corfirmActionDisplay(\''.$temp_message.'\', \''.$temp_target.'\', \''.$temp_data.'\')">
+							<div class="settings-thread-button" style="background-color: red;">
+								<i class="icon-trash"></i>
+							</div>
+						</div>
 					</div>
 			';
 		}
@@ -48,7 +59,7 @@
 			}
 			$db_result = $db_query_result->fetch_assoc();
 			$active_thread_button_html = '
-			<div class="settings-tab-inactive settings-tab col-4 offset-lg-1 col-lg-2" id="menu-tab-1" onclick="changeActiveTab(1)">
+			<div class="settings-tab-inactive settings-tab col-4 col-lg-2" id="menu-tab-1" onclick="changeActiveTab(1)">
 				'.$db_result['thread_name'].'
 			</div>
 			';
@@ -175,11 +186,11 @@
 			<div class="row">
 				<div class="settings-title">Ustawienia</div>
 				<div class="settings-tab-inactive settings-tab col-4 offset-lg-1 col-lg-2" id="menu-tab-0" onclick="changeActiveTab(0)">
-					Listy
+					<i class="icon-menu"></i><span class="d-none d-lg-inline">Listy<span>
 				</div>
 				<?=$active_thread_button_html?>
-				<div class="settings-tab-inactive settings-tab col-4 offset-lg-1 col-lg-2" id="menu-tab-2" onclick="changeActiveTab(2)">
-					Użytkownik
+				<div class="settings-tab-inactive settings-tab col-4 col-lg-2" id="menu-tab-2" onclick="changeActiveTab(2)">
+					<i class="icon-user"></i><span class="d-none d-lg-inline">Użytkownik</span>
 				</div>
 			</div>
 			<div class="row">
