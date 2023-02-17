@@ -17,7 +17,7 @@
 		}
 	}	
 		
-	function isTemporary()	
+	function redirectTemporary()	
 	{
 		if($_SESSION['user_temporary_flag'])
 		{

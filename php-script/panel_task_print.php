@@ -22,7 +22,7 @@
 			$user_id = $_SESSION['user_id'];
 			$user_active_thread = $_SESSION['user_active_thread'];
 			
-			if(!$db_query_result = $db_connection->query("SELECT task_id, task_title, task_content, task_power FROM task_data WHERE task_user_id = '$user_id' AND task_thread_id = '$user_active_thread' ORDER BY task_power DESC, task_id ASC"))
+			if(!$db_query_result = $db_connection->query("SELECT task_id, task_title, task_content, task_power FROM task_data WHERE task_thread_id = '$user_active_thread' ORDER BY task_power DESC, task_id ASC"))
 			{
 				throw new Exception("Błąd serwera", 12);
 			}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="doc.css"/>
+	
+	<title>Skippit - Dokumentacja</title>
+</head>
+<body>
+	<div>
+		<h1>DOCUMENTATION for Skippit<h1>
+	</div>
+	<div id="database">
+		<h2>DATABASE</h2>
+		<table>
+			<tr>
+				<th colspan="6">user_data</th>
+			</tr>
+			<tr>
+				<th>user_id</th>
+				<th>user_email</th>
+				<th>user_password</th>
+				<th>user_name</th>
+			</tr>
+			<tr>
+				<td>int(11), PRIMARY, AUTO INC</td>
+				<td>varchar(64)</td>
+				<td>varchar(256)</td>
+				<td>varchar(64)</td>
+			</tr>
+			<tr>
+				<td>AUTO</td>
+				<td>UNIQUE email(user) or 0(temp user)</td>
+				<td>password_hash()</td>
+				<td>UNIQE name, ALNUM</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<th colspan="4">thread_data</th>
+			</tr>
+			<tr>
+				<th>thread_id</th>
+				<th>thread_owner_id</th>
+				<th>thread_name</th>
+				<th>thread_version</th>
+			</tr>
+			<tr>
+				<td>int(11), PRIMARY, AUTO INC</td>
+				<td>int(11)</td>
+				<td>varchar(32)</td>
+				<td>int(2)</td>
+			</tr>
+			<tr>
+				<td>AUTO</td>
+				<td>Owners ID(external key)</td>
+				<td>UNIQUE name, ALNUM</td>
+				<td>not in use</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<th colspan="10">task_data</th>
+			</tr>
+			<tr>
+				<th>task_id</th>
+				<th>task_thread_id</th>
+				<th>task_user_id</th>
+				<th>task_title</th>
+				<th>task_content</th>
+				<th>task_create_timestamp</th>
+				<th>task_edit_timestamp</th>
+				<th>task_power</th>
+				<th>task_is_complete</th>
+				<th>task_is_pinned</th>
+			</tr>
+			<tr>
+				<td>int(11), PRIMARY, AUTO INC</td>
+				<td>int(11)</td>
+				<td>int(11)</td>
+				<td>varchar(127)</td>
+				<td>varchar(2024)</td>
+				<td>timestamp, DEF: current</td>
+				<td>timestamp, DEF: current</td>
+				<td>int(4), DEF: 1</td>
+				<td>tinyint(1), DEF: 0</td>
+				<td>tinyint(1), DEF: 0</td>
+			</tr>
+			<tr>
+				<td>AUTO</td>
+				<td>threads_id(external key)</td>
+				<td>authors id(external key)</td>
+				<td>UNIQUE name, ALNUM for each thread_id</td>
+				<td>htmlentities()</td>
+				<td>AUTO</td>
+				<td>not in use</td>
+				<td>1-5</td>
+				<td>not in use</td>
+				<td>not in use</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<th colspan="9">connection_user_thread</th>
+			</tr>
+			<tr>
+				<th>connection_id</th>
+				<th>connection_user_id</th>
+				<th>connection_thread_id</th>
+				<th>connection_view_power</th>
+				<th>connection_is_owner</th>
+				<th>connection_edit_permission</th>
+				<th>connection_delete_permission</th>
+				<th>connection_create_power</th>
+				<th>connection_complete_permission</th>
+			</tr>
+			<tr>
+				<td>int(11), PRIMARY, AUTO INC</td>
+				<td>int(11)</td>
+				<td>int(11)</td>
+				<td>int(4), DEF: 5</td>
+				<td>tinyint(1) DEF: 0</td>
+				<td>tinyint(1) DEF: 0</td>
+				<td>tinyint(1) DEF: 0</td>
+				<td>int(4) DEF: 0</td>
+				<td>tinyint(1) DEF: 0</td>
+			</tr>
+			<tr>
+				<td>AUTO</td>
+				<td>user_id(external key)</td>
+				<td>thread_id(external_key)</td>
+				<td>not in use</td>
+				<td>0-1</td>
+				<td>not in use</td>
+				<td>not in use</td>
+				<td>not in use</td>
+				<td>not in use</td>
+			</tr>
+		</table>
+	</div>
+	<hr>
+	<div id="session">
+		<h2>Session variables</h2>
+		<table>
+			<tr>
+				<th colspan="2">User Data</th>
+			</tr>
+			<tr>
+				<td colspan="2">Names begin with "user_"</td>
+			</tr>
+			<tr>
+				<td>user_id</td>
+				<td>Set on login, read only</td>
+			</tr>
+			<tr>
+				<td>user_name</td>
+				<td>set on login, read only</td>
+			</tr>
+			<tr>
+				<td>user_temporary_flag</td>
+				<td>set on login, read only, FALSE for regular user, TRUE for temporary</td>
+			</tr>
+			<tr>
+				<td>user_active_thread</td>
+				<td>set on login, set to 0 if no connected threads exists, change to thread_id with thread change</td>
+			</tr>
+		</table>
+		
+		<table>
+			<tr>
+				<th colspan="2">ERRORS</th>
+			</tr>
+			<tr>
+				<td colspan="2">Naming scheme: error_origin_file_name, clear after displayed</td>
+			</tr>
+			<tr>
+				<td>error_login</td>
+				<td>Destination: index.php</td>
+			</tr>
+			<tr>
+				<td>error_register</td>
+				<td>Destination: index.php</td>
+			</tr>
+			<tr>
+				<td>error_create_thread</td>
+				<td>Destination: panel.php</td>
+			</tr>
+			<tr>
+				<td>error_change_active_thread</td>
+				<td>Destination: panel.php</td>
+			</tr>
+			<tr>
+				<td>error_task_delete</td>
+				<td>Destination: panel.php</td>
+			</tr>
+			<tr>
+				<td>error_create_task</td>
+				<td>Destination: panel.php</td>
+			</tr>
+			<tr>
+				<td>error_thread_delete</td>
+				<td>Destination: settings.php</td>
+			</tr>
+			<tr>
+				<td>TO DO</td>
+				<td><span style="color: red;">error_add_user, later change errors with just one error and addition function</span></td>
+			</tr>
+		</table>
+	</div>
+	<hr>
+	<div id="users">
+		<h2>Users types</h2>
+		<table>
+			<tr>
+				<th>Type</th>
+				<th>Access Deny</th>
+				<th>Data</th>
+			</tr>
+			<tr>
+				<td>Not logged in</td>
+				<td>all but index.php, register.php, login.php</td>
+				<td>none</td>
+			</tr>
+			<tr>
+				<td>Regular</td>
+				<td>index.php, register.php</td>
+				<td>
+					set SESSION values on login(check <a href="#session">Session Variables</a>)<br>
+					<span style="color: red;">TODO: set flag for thread ownership</span>
+				</td>
+			</tr>
+			<tr>
+				<td>Temporary</td>
+				<td>all but panel.php</td>
+				<td>
+					set SESSION variables on login<br>
+					temporary user flag set to TRUE
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="index">
+		<h2>index.php</h2>
+		<p>
+			Access
+		</p>
+	</div>
+</body>
+</html>

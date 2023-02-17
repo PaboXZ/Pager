@@ -4,6 +4,7 @@
 	
 	require_once('php-script/rules.php');
 	isLoggedIn();
+	redirectTemporary();
 	
 	if(!isset($_GET['thread_name']))
 	{

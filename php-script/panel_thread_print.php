@@ -35,6 +35,11 @@
 					if($_SESSION['user_active_thread'] == $db_result_row['thread_id'])
 					{
 						$thread_active_name = $db_result_row['thread_name'];
+						if($_SESSION['user_temporary_flag'])
+						{
+							throw new Exception();
+						}
+						
 						$temp_html = '<li class="active-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
 					}
 					else
@@ -42,7 +47,10 @@
 						$temp_html = '<li class="inactive-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
 					}
 					$thread_html =  $thread_html.$temp_html;
+					
 				}
+				$thread_html = '<nav class="sidemenu d-none d-lg-block" id="sidemenu"><ul>'.$thread_html.'<li onclick="showDialogBox(\'add-thread\')"><a id="create-thread">+ Utwórz</a></li></ul></nav>';
+				
 				$db_query_result->close();
 				
 			}

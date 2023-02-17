@@ -3,6 +3,7 @@
 	
 	require_once('php-script/rules.php');
 	isLoggedIn();
+	redirectTemporary();
 	
 	require_once('php-script/check_thread.php');
 	
@@ -16,19 +17,19 @@
 		exit("Access denied");
 	}
 	try
-	{
-		$user_name = $_POST['new_user_name'];
-		if(!ctype_alnum($new_user_name))
-		{
-			throw new Exception("1");
-		}
-		
+	{		
 		require_once('php-script/db_connect.php');
 		$db_connection = db_connect();
 		
+		$user_name = $_POST['user_name'];
+		if(!ctype_alnum($user_name))
+		{
+			throw new Exception("1");
+		}
+
+		
 		if(isset($_POST['user_password']))
 		{
-			if($_POST['user'])
 			$user_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
 			if(!$db_result = $db_connection->query("SELECT user_id FROM user_data WHERE user_name = '$user_name'"))
 			{
@@ -60,11 +61,12 @@
 		else
 		{
 		}
+		db_close($db_connection);
 	}
 	catch(Exception $error)
 	{
+		db_close($db_connection);
 		echo $error->getMessage();
 	}
-	db_close($db_connection);
 
 ?>

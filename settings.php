@@ -3,6 +3,7 @@
 
 	require_once('php-script/rules.php');
 	isLoggedIn();
+	redirectTemporary();
 	
 	require_once("php-script/db_connect.php");
 	$db_connection = db_connect();

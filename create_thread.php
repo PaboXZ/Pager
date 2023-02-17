@@ -26,6 +26,7 @@
 	require_once("php-script/rules.php");
 	
 	isLoggedIn();
+	redirectTemporary();
 	
 	$thread_owner_id = $_SESSION['user_id'];
 	$thread_name = htmlentities($_POST['thread_name'], ENT_QUOTES);

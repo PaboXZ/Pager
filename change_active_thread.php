@@ -21,6 +21,7 @@ redirect to panel if temporary or id is not sent or has no access
 	
 	require_once("php-script/rules.php");
 	isLoggedIn();
+	redirectTemporary();
 	
 	try
 	{

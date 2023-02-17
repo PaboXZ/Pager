@@ -13,7 +13,6 @@ Redirect if not logged in
 	
 	require_once('php-script/message_print.php');
 	require_once('php-script/panel_error_print.php');
-	require_once('php-script/message_print.php');
 			
 	require_once('php-script/panel_thread_print.php');
 	require_once('php-script/panel_task_print.php');
@@ -208,7 +207,7 @@ Redirect if not logged in
 	</div>
 	
 	
-	<nav class="sidemenu d-none d-lg-block" id="sidemenu"><ul><?=$thread_html ?><li onclick="showDialogBox('add-thread')"><a id="create-thread">+ Utwórz</a></li></ul></nav>
+	<?=$thread_html ?>
 	<main>	
 		<div class="container">
 			<div class="row">

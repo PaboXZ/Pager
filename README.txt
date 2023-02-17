@@ -125,6 +125,7 @@ MESSAGE(remember to clear after use)
 
 LIMITS
 
+Temporary users per thread
 Threads per user (owner): 10
 Tasks per thread: 1024
 
