@@ -309,38 +309,114 @@
 					<th>Directions</th>
 					<th>Input data</th>
 				</tr>
-				<tr>
+				<tr class="status-ok">
 					<td>Regular(owner)</td>
 					<td>
 						<b class="status-ok">logout.php</b><br>
-						<b class="status-ok">change_active_thread.php</b><br>
-						<b class="status-ok">create_thread.php</b><br>
-						<b class="status-ok">create_task.php</b><br>
-						<b class="status-ok">task_delete.php</b><br>
+						<b class="status-ok">change_active_thread.php: </b>send thread_id<br>
+						<b class="status-ok">create_thread.php: </b>send name(unique, alnum 3-24) and version(0-1)<br>
+						<b class="status-ok">create_task.php: </b><span class="status-to-do">send name(alnum 3-64), content(alnum, 0-1900)</span>, power(1-5)<br>
+						<b class="status-ok">task_delete.php: </b>send task_id<br>
 						<b class="status-ok">settings.php</b><br>
 					</td>
 					<td>_SESSION user, error, message data</td>
 				</tr>
-				<tr>
+				<tr class="status-ok">
 					<td>Regular(guest)</td>
 					<td>
 						<b class="status-ok">logout.php</b><br>
-						<b class="status-ok">change_active_thread.php</b><br>
-						<b class="status-ok">create_thread.php</b><br>
-						<b class="status-ok">create_task.php</b><br>
-						<b class="status-ok">task_delete.php</b><br>
+						<b class="status-ok">change_active_thread.php: </b>send thread_id<br>
+						<b class="status-ok">create_thread.php: </b>send name(unique, alnum 3-24) and version(0-1)<br>
+						<b class="status-ok">create_task.php: </b><span class="status-to-do">send name(alnum 3-64), content(alnum, 0-1900)</span>, power(1-5)<br>
+						Visible if create power high enough<br>
+						<b class="status-ok">task_delete.php: </b>send task_id<br>
+						Visible if has permission<br>
 						<b class="status-ok">settings.php</b><br>
 					</td>
 					<td>_SESSION user, error, message data</td>
 				</tr>
-				<tr>
+				<tr class="status-ok">
 					<td>Temporary</td>
 					<td>
 						<b class="status-ok">logout.php</b><br>
-						<b class="status-ok">create_task.php</b><br>
-						<b class="status-ok">task_delete.php</b><br>
+						<b class="status-ok">create_task.php: </b><span class="status-to-do">send name(alnum 3-64), content(alnum, 0-1900)</span>, power(1-5)<br>
+						Visible if create power high enough<br>
+						<b class="status-ok">task_delete.php: </b>send task_id<br>
+						Visible if has permission<br>
 					</td>
 					<td>_SESSION user, error, message data</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="create_task">
+		<h2>create_task.php</h2>
+		<p class="status-to-do">Unique names(?)</p>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input Data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular(owner)</td>
+					<td><b>panel.php</b><br>
+					On success - no action needed<br>
+					On fail - send error msg</td>
+					<td><span class="status-to-do">Name(3-64),Content(0-1900),</span> power(1-5)</td>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular(guest)</td>
+					<td><b>panel.php</b><br>
+					On success - no action needed<br>
+					On fail - send error msg</td>
+					<td><span class="status-to-do">Name(3-64),Content(0-1900),</span> power(1-5)<br>
+					Check if has permission to create tasks</td>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular(owner)</td>
+					<td><b>panel.php</b><br>
+					On success - no action needed<br>
+					On fail - send error msg</td>
+					<td><span class="status-to-do">Name(3-64),Content(0-1900),</span> power(1-5)<br>
+					Check if has permission to create tasks</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="task_delete">
+		<h2>task_delete.php</h2>
+		<p class="status-to-do">
+			beware to split deletion of own and others tasks
+		</p>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input Data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular(owner)</td>
+					<td><b>panel.php: </b> on fail return values<br>
+					On success no action needed</td>
+					<td>task id -> alnum -> intval<br>
+					Check for ownership, check if thread/task exists</td>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular(guest)</td>
+					<td><b>panel.php: </b> on fail return values<br>
+					On success no action needed</td>
+					<td>task id -> alnum -> intval<br>
+					Check for permission to delete, check if thread/task exists</td>
+				</tr>
+				<tr class="status-ok">
+					<td>Temporary</td>
+					<td><b>panel.php: </b> on fail return values<br>
+					On success no action needed</td>
+					<td>task id -> alnum -> intval<br>
+					Check for permission to delete, check if thread/task exists</td>
 				</tr>
 			</table>
 		</p>

@@ -192,13 +192,9 @@ TASKS
 
 -ADD DUE TO TIME AND DEPEDENCY
 -RETHINK STRUCTURE: VIEWS(personal, owners - plus sorting)
--TO RESOLVE: CREATE 3 PANELS WITH CHECK BEFORE OR 1 PANEL WITH CHECK WITHIN
--CREATE TEMPLATE
 -FIX HTML ENTITIES string length(double-check strlen)
 -ADD TIMESTAMP ON EDIT FUNCTION
 -CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
--CHECK VARIABLES, REVIEW CODE AND DOCUMENTATION
--CONTINUE ADJUSTING CODE FOR CLARITY
 -ADD SETTINGS PAGE
 -FIX PRINTING THREADS (add favorite tab)
 -ADD ERROR PRINT FUNCTION(for ongoing errors)
@@ -245,6 +241,13 @@ Errors:
 
 -----------------------------------------------------------------
 LOG
+--0.20
+
+-Permisions for panel.php view task create/delete set
+
+--0.19
+
+-Working on access permissions
 
 --0.18
 

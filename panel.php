@@ -37,7 +37,7 @@ Redirect if not logged in
 	<script src="js/dialog.box.js"></script>
 	<script src="js/thread.js"></script>
 	<script src="js/task.js"></script>
-	<style><?=isset($error_style) ? $error_style : ""?><?=isset($message_style) ? $message_style : ""?></style>
+	<style><?=isset($error_style) ? $error_style : ""//panel_error_print.php?><?=isset($message_style) ? $message_style : ""//message_print.php?></style>
 </head>
 <body>
 	<!--Message/error box-->
@@ -52,8 +52,8 @@ Redirect if not logged in
 							</div>
 						</div>
 						<div class="col-12 offset-md-1 col-md-10">
-							<div class="message-container" id="error-text"><?=isset($error_message) ? $error_message : ""?></div>
-							<div class="message-container" id="message-text"><?=isset($message) ? $message : ""?></div>
+							<div class="message-container" id="error-text"><?=isset($error_message) ? $error_message : ""//panel_error_print.php?></div>
+							<div class="message-container" id="message-text"><?=isset($message) ? $message : ""//message_print.php?></div>
 						</div>
 					</div>
 				</div>
@@ -91,50 +91,8 @@ Redirect if not logged in
 		</div>
 	</aside>
 	
-	<!--
-	<aside>
-		<div class="blur-background" id="add-task">
-			<div class="container">
-				<div class ="row">
-					<div class="col-lg-6 offset-lg-3">
-						<div class="dialog-box">
-							<div class="row">
-								<div class="dialog-box-title col-9">
-									Tworzenie Wpisu
-								</div>
-								<div class="dialog-box-title offset-1 col-1 dialog-box-close" onclick="closeDialogBox('add-task')">
-									<i class="icon-cancel"></i>
-								</div>
-								<div class="offset-lg-1 col-lg-10">
-									<form action="create_task.php" method="POST">
-										Nazwa wpisu:<br>
-										<input type="text" name="task_title" placeholder="Nazwa wpisu"/><br>
-										Treść wpisu:<br>
-										<textarea name="task_content" rows="6" value="Treść wpisu"></textarea><br>
-										Priorytet:<br>
-										<input type="radio" name="task_power" value="1" id="power-low" checked/>
-										<label for="power-low">Niski</label><br>
-										<input type="radio" name="task_power" value="2" id="power-mid-low"/>
-										<label for="power-mid-low">Średnio-niski</label><br>
-										<input type="radio" name="task_power" value="3" id="power-mid"/>
-										<label for="power-mid">Średni</label><br>
-										<input type="radio" name="task_power" value="4" id="power-mid-high"/>
-										<label for="power-mid-high">Średnio-wysoki</label><br>
-										<input type="radio" name="task_power" value="5" id="power-high"/>
-										<label for="power-high">Wysoki</label><br>
-										<br>
-										<input type="submit" value="Dodaj wpis"/>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</aside>-->
-	
-	<?=isset($add_task_html) ? $add_task_html : ""?>
+	<!--Add task box-->
+	<?=isset($add_task_html) ? $add_task_html : ""//panel_task_print.php?>
 	
 	<!--Add thread box-->
 	<aside>
@@ -172,7 +130,8 @@ Redirect if not logged in
 		</div>
 	</aside>
 	
-	<?=isset($task_button_html) ? $task_button_html : ""?>
+	<!--Add task button-->
+	<?=isset($task_button_html) ? $task_button_html : ""//panel_task_print.php?>
 	
 	
 	<div id="topbar">
@@ -200,15 +159,16 @@ Redirect if not logged in
 	</div>
 	
 	
-	<?=$thread_html?>
+	<?=$thread_html//panel_thread_print.php?>
 	<main>	
 		<div class="container">
 			<div class="row">
 				
 				<main class="col-12 offset-lg-2 col-lg-10">
 					<div class="row">
-						<div id="thread-active-name"><?=$thread_active_name?></div>
-						<?=$task_html ?>
+						<div id="thread-active-name"><?=$thread_active_name//panel_thread_print.php?></div>
+						
+						<?=$task_html //panel_task_print.php?>
 					</div>
 				</main>
 

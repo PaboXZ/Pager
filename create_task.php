@@ -36,16 +36,12 @@ Rights!!  power level
 	require_once('php-script/rules.php');
 	isLoggedIn();
 	
-	if(!isset($_SESSION['user_active_thread']))
-	{
-		exit();
-	}
-	
 	if(!isset($_POST['task_title']) || !isset($_POST['task_content']) || !isset($_POST['task_power']))
 	{
 		header('Location: panel.php');
 		exit();
 	}
+	
 	$task_title = htmlentities($_POST['task_title'], ENT_QUOTES);
 	$task_content = htmlentities($_POST['task_content'], ENT_QUOTES);
 	$task_power = intval($_POST['task_power']);
@@ -67,36 +63,39 @@ Rights!!  power level
 	
 	try
 	{
-		require_once("php-script/db_credentials.php");
+		require_once("php-script/db_connect.php");
 		
-		if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
+		if(!$db_connection = db_connect())
 		{
 			throw new Exception("Błąd serwera", 1);
 		}
+		
 		$user_id = $_SESSION['user_id'];
 		$task_thread_id = $_SESSION['user_active_thread'];
-		
+
+
 		if(!$db_query_result = $db_connection->query("SELECT task_id FROM task_data WHERE task_thread_id = '$task_thread_id'"))
 		{
-			throw new Exception("Bład serwera", 21);
+			throw new Exception("Bład serwera", 2);
 		}
-		if($db_query_result->num_rows > 1024)
+		if($db_query_result->num_rows >= 1024)
 		{
-			throw new Exception("Bład serwera", 22);
+			throw new Exception("Przekroczono dozwoloną ilość wpisów (1024)", 21);
 		}
 		
 		if(!$db_query_result = $db_connection->query("SELECT thread_id FROM thread_data WHERE thread_id = '$task_thread_id'"))
 		{
-			throw new Exception("Bład serwera", 21);
+			throw new Exception("Bład serwera", 3);
 		}
 		if($db_query_result->num_rows != 1)
 		{
-			throw new Exception("Bład serwera", 22);
+			throw new Exception("Bład serwera", 4);
 		}
+		
 		
 		if(!$db_query_result = $db_connection->query("SELECT task_id FROM task_data WHERE task_user_id = '$user_id' AND task_thread_id = '$task_thread_id' AND task_title = '$task_title'"))
 		{
-			throw new Exception("Bład serwera", 4);
+			throw new Exception("Bład serwera", 5);
 		}
 		if($db_query_result->num_rows > 0)
 		{
@@ -105,34 +104,32 @@ Rights!!  power level
 		
 		if(!$db_query_result = $db_connection->query("SELECT connection_create_power FROM connection_user_thread WHERE connection_user_id = '$user_id' AND connection_thread_id = '$task_thread_id'"))
 		{
-			throw new Exception("Bład serwera", 2);
+			throw new Exception("Bład serwera", 6);
 		}
 		
 		$db_result_row = $db_query_result->fetch_assoc();
 		if($task_power < $connection_create_power)
 		{
 			errorAdd("Przekroczono dozwoloną siłę wpisu");
-			throw new Exception($_SESSION['error_create_task']);
 		}
 		if(isset($_SESSION['error_create_task']))
 		{
-			throw new Exception($_SESSION['error_create_task']);
+			throw new Exception($_SESSION['error_create_task'], 22);
 		}
 		
 		if(!$db_connection->query("INSERT INTO task_data (task_thread_id, task_user_id, task_title, task_content, task_power) VALUES ('$task_thread_id', '$user_id', '$task_title', '$task_content', '$task_power')"))
 		{
-			throw new Exception("Błąd serwera", 3);
+			throw new Exception("Błąd serwera", 7);
 		}
 	}
 	catch(Exception $error)
 	{
 		$_SESSION['error_create_task'] = $error->getMessage();
+		$_SESSION['create_task_return_name'] = $_POST['task_title'];
+		$_SESSION['create_task_return_content'] = $_POST['task_content'];
 	}
 	
-	if(isset($db_connection->host_info))
-	{
-		$db_connection->close();
-	}
+	db_close($db_connection);
 	header('Location: panel.php');
 
 ?>

@@ -38,10 +38,6 @@
 						if($_SESSION['user_active_thread'] == $db_result_row['thread_id'])
 						{
 							$thread_active_name = $db_result_row['thread_name'];
-							if($_SESSION['user_temporary_flag'])
-							{
-								throw new Exception();
-							}
 							
 							$temp_html = '<li class="active-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
 						}

@@ -30,12 +30,12 @@ function showTaskMenu(task_title)
 
 
 
-function deleteTask(task_name)
+function deleteTask(task_name, task_id)
 {
 	showTaskMenu(task_name);
 	
 	document.getElementById('confirm-action-text').innerHTML = 'Czy chcesz usunąć wpis: "' + task_name + '" Ta operacja jest nieodwracalna.';
-	document.getElementById('action-confirm').setAttribute('onclick', 'window.location.href=\'task_delete.php?task_name=' + task_name + '\'');
+	document.getElementById('action-confirm').setAttribute('onclick', 'window.location.href=\'task_delete.php?task_id=' + task_id + '\'');
 	
 	document.getElementById('confirm-action-box').style.cssText='display: block;';
 }
