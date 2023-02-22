@@ -16,15 +16,6 @@ Redirect if not logged in
 			
 	require_once('php-script/panel_thread_print.php');
 	require_once('php-script/panel_task_print.php');
-	
-		//Add task button
-		$task_button_html = "";
-		if($_SESSION['user_active_thread'] != 0)
-		{
-			$task_button_html = '	<div id="add-task-button" onclick="showDialogBox(\'add-task\')">
-									+ Dodaj wpis
-									</div>';
-		}
 ?>
 
 
@@ -100,7 +91,7 @@ Redirect if not logged in
 		</div>
 	</aside>
 	
-	<!--Add task box-->
+	<!--
 	<aside>
 		<div class="blur-background" id="add-task">
 			<div class="container">
@@ -141,7 +132,9 @@ Redirect if not logged in
 				</div>
 			</div>
 		</div>
-	</aside>
+	</aside>-->
+	
+	<?=isset($add_task_html) ? $add_task_html : ""?>
 	
 	<!--Add thread box-->
 	<aside>
@@ -179,7 +172,7 @@ Redirect if not logged in
 		</div>
 	</aside>
 	
-	<?=$task_button_html?>
+	<?=isset($task_button_html) ? $task_button_html : ""?>
 	
 	
 	<div id="topbar">
@@ -190,7 +183,7 @@ Redirect if not logged in
 			<i class="icon-left-open"></i>
 		</div>
 		<div class="offset-7 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right">
-			<a href="settings.php"><i class="icon-cog"></i></a><br>
+			<?=$_SESSION['user_temporary_flag'] ? "" : '<a href="settings.php"><i class="icon-cog"></i></a>'?><br>
 		</div>
 		<div class="offset-1 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right" onclick="window.location.href='logout.php'">
 			<i class="icon-off"></i><br>
@@ -200,14 +193,14 @@ Redirect if not logged in
 		<div class="container">
 			<div class="row">
 				<div class="logo d-none d-lg-block col-8"><a href="panel.php">Skippit</a></div>
-				<div class="d-none d-lg-block col-2"><a href="settings.php" class="topnav-button"><?=$_SESSION['user_name']?> <i class="icon-cog"></i></a></div>
+				<div class="d-none d-lg-block col-2"><?= $_SESSION['user_temporary_flag'] ? '<span class="topnav-button">'.$_SESSION['user_name'].'</span>' : '<a href="settings.php" class="topnav-button">'.$_SESSION['user_name'].' <i class="icon-cog"></i></a>'?></div>
 				<div class="d-none d-lg-block col-2"><a href="logout.php" class="topnav-button" id="logout-button">Log out <i class="icon-off"></i></a></div>
 			</div>
 		</div>
 	</div>
 	
 	
-	<?=$thread_html ?>
+	<?=$thread_html?>
 	<main>	
 		<div class="container">
 			<div class="row">

@@ -203,6 +203,9 @@ TASKS
 -FIX PRINTING THREADS (add favorite tab)
 -ADD ERROR PRINT FUNCTION(for ongoing errors)
 -fix settings layout
+-change links to contain IDs only
+-sanitize all GET/POST data
+-check for multiple user addition
 -CODE VERIFY
 
 

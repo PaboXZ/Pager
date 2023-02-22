@@ -8,9 +8,9 @@
 		{
 			$user_id = $_SESSION['user_id'];
 			
-			require_once("php-script/db_credentials.php");
+			require_once("php-script/db_connect.php");
 	
-			if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
+			if(!$db_connection = db_connect())
 			{
 				throw new Exception("Błąd serwera", 1);
 			}
@@ -21,35 +21,40 @@
 			}
 			else
 			{
-				if(!isset($_SESSION['user_active_thread']))
-				{
-					$_SESSION['user_active_thread'] = 0;
-				}
 				$thread_html = "";
 				$thread_active_name = "";
 				
-				for($i = $db_query_result->num_rows; $i > 0; $i--)
+				if($_SESSION['user_temporary_flag'])
 				{
 					$db_result_row = $db_query_result->fetch_assoc();
-					
-					if($_SESSION['user_active_thread'] == $db_result_row['thread_id'])
-					{
-						$thread_active_name = $db_result_row['thread_name'];
-						if($_SESSION['user_temporary_flag'])
-						{
-							throw new Exception();
-						}
-						
-						$temp_html = '<li class="active-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
-					}
-					else
-					{
-						$temp_html = '<li class="inactive-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
-					}
-					$thread_html =  $thread_html.$temp_html;
-					
+					$thread_active_name = $db_result_row['thread_name'];
 				}
-				$thread_html = '<nav class="sidemenu d-none d-lg-block" id="sidemenu"><ul>'.$thread_html.'<li onclick="showDialogBox(\'add-thread\')"><a id="create-thread">+ Utwórz</a></li></ul></nav>';
+				else
+				{
+					for($i = $db_query_result->num_rows; $i > 0; $i--)
+					{
+						$db_result_row = $db_query_result->fetch_assoc();
+						
+						if($_SESSION['user_active_thread'] == $db_result_row['thread_id'])
+						{
+							$thread_active_name = $db_result_row['thread_name'];
+							if($_SESSION['user_temporary_flag'])
+							{
+								throw new Exception();
+							}
+							
+							$temp_html = '<li class="active-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
+						}
+						else
+						{
+							$temp_html = '<li class="inactive-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
+						}
+						$thread_html =  $thread_html.$temp_html;
+						
+					}
+					$thread_html = '<nav class="sidemenu d-none d-lg-block" id="sidemenu"><ul>'.$thread_html.'<li onclick="showDialogBox(\'add-thread\')"><a id="create-thread">+ Utwórz</a></li></ul></nav>';
+				}
+				
 				
 				$db_query_result->close();
 				
@@ -60,4 +65,5 @@
 		{
 			echo $error->getMessage();
 		}
+		db_close($db_connection);
 ?>

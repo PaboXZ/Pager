@@ -8,7 +8,6 @@
 		exit();
 	}
 	
-
 	try
 	{
 		if(!isset($_POST["user_name"]) OR !isset($_POST["user_password"]))
