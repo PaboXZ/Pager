@@ -26,14 +26,14 @@ redirect to panel if temporary or id is not sent or has no access
 	try
 	{
 		
-		require_once("php-script/db_credentials.php");
-		if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
+		require_once("php-script/db_connect.php");
+		if(!$db_connection = db_connect())
 		{
 			throw new Exception("Błąd serwera", 1);
 		}
 		
 		$user_id = $_SESSION['user_id'];
-		$thread_id = $_GET['id'];
+		$thread_id = intval($_GET['id']);
 		
 		if(!$db_query_result = $db_connection->query("SELECT connection_thread_id FROM connection_user_thread WHERE connection_user_id = '$user_id' AND connection_thread_id = '$thread_id'"))
 		{
@@ -47,18 +47,14 @@ redirect to panel if temporary or id is not sent or has no access
 		{
 			$db_query_result->close();
 			$_SESSION['user_active_thread'] = $thread_id;
-			header("Location: panel.php");
 		}
 		
 	}
 	catch(Exception $error)
 	{
 		$_SESSION['error_change_active_thread'] = $error->getMessage();
-		header("Location: panel.php");
 	}
-	if(isset($db_connection->host_info))
-	{
-		$db_connection->close();
-	}
+	db_close($db_connection);
+	header("Location: panel.php");
 	
 ?>

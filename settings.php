@@ -23,7 +23,7 @@
 		{
 			$temp_message = "Czy chcesz usunąć listę: $thread_name[1]?";
 			$temp_target = "thread_delete.php";
-			$temp_data = "?thread_name=$thread_name[1]";
+			$temp_data = "?thread_id=$thread_name[0]";
 			$threads_menu_html = $threads_menu_html.'
 					<div class="row gx-1 gx-lg-3" gx-xl-5>
 						<div class="col-9 offset-lg-1 col-lg-8">

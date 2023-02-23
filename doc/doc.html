@@ -30,7 +30,7 @@
 			</tr>
 			<tr>
 				<td>AUTO</td>
-				<td>UNIQUE email(user) or 0(temp user)</td>
+				<td>UNIQUE email(user) or thread_id(temp user)</td>
 				<td>password_hash()</td>
 				<td>UNIQE name, ALNUM</td>
 			</tr>
@@ -231,7 +231,7 @@
 			</tr>
 			<tr>
 				<td>Temporary</td>
-				<td>all but panel.php</td>
+				<td>all but panel.php, create_task.php, task_delete.php</td>
 				<td>
 					set SESSION variables on login<br>
 					temporary user flag set to TRUE
@@ -349,7 +349,7 @@
 			</table>
 		</p>
 	</div>
-	<div id="create_task">
+	<div id="create-task">
 		<h2>create_task.php</h2>
 		<p class="status-to-do">Unique names(?)</p>
 		<p>
@@ -385,7 +385,7 @@
 			</table>
 		</p>
 	</div>
-	<div id="task_delete">
+	<div id="task-delete">
 		<h2>task_delete.php</h2>
 		<p class="status-to-do">
 			beware to split deletion of own and others tasks
@@ -417,6 +417,87 @@
 					On success no action needed</td>
 					<td>task id -> alnum -> intval<br>
 					Check for permission to delete, check if thread/task exists</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="change-active-thread">
+		<h2>change_active_thread.php</h2>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input Data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular User</td>
+					<td><b>panel.php: </b>on fail - send error<br>
+					on success no action needed</td>
+					<td>thread_id -> intval</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="create-thread">
+		<h2>create_thread.php</h2>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input Data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>Regular User</td>
+					<td>panel.php: on fail return name</td>
+					<td><b class="status-to-do">Thread name: </b>3-24<br>
+					<b>Thread version: </b>0: simple 1: pro<br>
+					Max 10 ownership</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="thread-delete">
+		<h2>thread_delete.php</h2>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>User(owner)</td>
+					<td><b>settings.php: </b>On success show message<br>on fail display error</td>
+					<td>thread_id - destroy all thread data: connections, temporary users, tasks within thread and thread itself</td>
+				</tr>
+				<tr class="status-ok">
+					<td>User(Guest)</td>
+					<td><b>settings.php: </b>On success show message<br>on fail display error</td>
+					<td>thread_id - remove connection with thread</td>
+				</tr>
+			</table>
+		</p>
+	</div>
+	<div id="add-user">
+		<h2>add_user.php</h2>
+		<p class="status-to-do">only works to add temporary users, later on add regular user option<br>
+		Error sending<br>
+		Message sending<br>
+		Return values on error(tricky one, change tab)
+		</p>
+		<p>
+			<table>
+				<tr>
+					<th>Access</th>
+					<th>Directions</th>
+					<th>Input data</th>
+				</tr>
+				<tr class="status-ok">
+					<td>User(owner)</td>
+					<td>settings.php</td>
+					<td class="status-to-do">user_name - alnum, user_password - no req.</td>
 				</tr>
 			</table>
 		</p>

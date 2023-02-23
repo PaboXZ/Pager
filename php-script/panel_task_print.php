@@ -162,7 +162,7 @@
 		}
 		catch(Exception $error)
 		{
-			echo $error->getMessage();
+			echo $error->getCode();
 		}
 		db_close($db_connection);
 ?>

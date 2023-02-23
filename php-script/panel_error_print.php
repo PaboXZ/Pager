@@ -9,6 +9,11 @@
 		$error_message = $_SESSION['error_create_thread'];
 		$error_style = "#dialog-box-message{display: block;} #error-text{display: block;}";
 		unset($_SESSION['error_create_thread']);
+		
+		$create_thread_name_r = $_SESSION['create_thread_return_name'];
+		unset($_SESSION['create_thread_return_name']);
+		
+		$create_thread_return_style = "display: block;";
 	}
 	else if(isset($_SESSION['error_change_active_thread']))
 	{

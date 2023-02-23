@@ -96,7 +96,7 @@ Redirect if not logged in
 	
 	<!--Add thread box-->
 	<aside>
-		<div class="blur-background" id="add-thread">
+		<div class="blur-background" id="add-thread" style="<?=isset($create_thread_return_style) ? $create_thread_return_style : ""?>">
 			<div class="container">
 				<div class ="row">
 					<div class="col-lg-6 offset-lg-3">
@@ -111,7 +111,7 @@ Redirect if not logged in
 								<div class="offset-lg-1 col-lg-10">
 									<form action="create_thread.php" method="POST">
 										<label for="thread_name">Nazwa listy:</label>
-										<input type="text" name="thread_name"/>
+										<input type="text" name="thread_name" value="<?=isset($create_thread_name_r) ? $create_thread_name_r : ""?>"/>
 										<label for="thread_version">Wersja:</label>
 										<select name="thread_version">
 											<optgroup label="Version">
@@ -168,7 +168,7 @@ Redirect if not logged in
 					<div class="row">
 						<div id="thread-active-name"><?=$thread_active_name//panel_thread_print.php?></div>
 						
-						<?=$task_html //panel_task_print.php?>
+						<?=isset($task_html) ? $task_html : "" //panel_task_print.php?>
 					</div>
 				</main>
 
