@@ -13,6 +13,7 @@
 	require_once('php-script/settings_error_print.php');
 	
 	require_once('php-script/print_data.php');
+	require_once('php-script/check_thread.php');
 	
 	$thread_names = printThreadNamesId($db_connection, $_SESSION['user_id']);
 	
@@ -21,18 +22,29 @@
 	{
 		foreach($thread_names as $thread_name)
 		{
-			$temp_message = "Czy chcesz usunąć listę: $thread_name[1]?";
+			$owner_text = "";
+			$guest_edit_button = "";
+			if(checkThreadOwner($thread_name[0]) == $_SESSION['user_id'])
+			{
+				$temp_message = "Czy chcesz usunąć listę: $thread_name[1]? Wszystkie dane oraz użytkownicy tymczasowi zostaną usunięci.";
+				$owner_text = '<sup style="font-size: 0.6em"> <i class="icon-user"></i>administrator<sup>';
+			}
+			else
+			{
+				$temp_message = "Czy chcesz opuścić listę: $thread_name[1]?";
+				$guest_edit_button = ' style="background-color:gray;"';
+			}
 			$temp_target = "thread_delete.php";
 			$temp_data = "?thread_id=$thread_name[0]";
 			$threads_menu_html = $threads_menu_html.'
 					<div class="row gx-1 gx-lg-3" gx-xl-5>
 						<div class="col-9 offset-lg-1 col-lg-8">
 							<div class="settings-thread-name">
-								<a href="change_active_thread.php?id='.$thread_name[0].'">'.$thread_name[1].'</a>
+								<a href="change_active_thread.php?id='.$thread_name[0].'">'.$thread_name[1].$owner_text.'</a>
 							</div>
 						</div>
 						<div class="col-2 col-lg-1">
-							<div class="settings-thread-button">
+							<div class="settings-thread-button"'.$guest_edit_button.'>
 								<a href="settings.php?thread_id='.$thread_name[0].'" class="icon-edit"></a>
 							</div>
 						</div>
@@ -47,7 +59,6 @@
 	}
 	if(isset($_GET['thread_id']))
 	{
-		require_once('php-script/check_thread.php');
 		if(checkThreadByID($_SESSION['user_id'], $_GET['thread_id']))
 		{
 			$_SESSION['user_active_thread'] = $_GET['thread_id'];
@@ -104,23 +115,49 @@
 			$is_owner_flag = false;
 		}
 		
-		if(!$db_result = $db_connection->query("SELECT user_name FROM user_data INNER JOIN connection_user_thread ON user_id = connection_user_id WHERE connection_thread_id = '$active_thread_id'"))
+		if(!$db_result = $db_connection->query("SELECT user_name, user_id, connection_is_owner FROM user_data INNER JOIN connection_user_thread ON user_id = connection_user_id WHERE connection_thread_id = '$active_thread_id'"))
 		{
 			throw new Exception();
 		}
+		$settings_thread_users_html = '
+		<div class="row">
+			<div class="col-12 offset-lg-1 col-lg-11 settings-thread-header">
+				Użytkownicy:
+			</div>
+		';
 		for($i = $db_result->num_rows; $i > 0; $i--)
 		{
 			if(!$is_owner_flag)
 			{
 				$db_result_row = $db_result->fetch_assoc();
-				$settings_thread_users_html = $settings_thread_users_html.$db_result_row['user_name']."<br>";
+				$settings_thread_users_html .= '
+				<div class="offset-1 col-10 offset-lg-2 col-lg-8">
+					<div class="settings-user-name">'.$db_result_row['user_name'].'</div>
+				</div>
+				';
 			}
 			else
 			{
 				$db_result_row = $db_result->fetch_assoc();
-				$settings_thread_users_html = $settings_thread_users_html.$db_result_row['user_name']."Delete";
+				$settings_thread_users_html .= '
+				<div class="col-8 offset-lg-1 col-lg-7">
+					<div class="settings-user-name">'.$db_result_row['user_name'].'</div>
+				</div>';
+				
+				if($db_result_row['connection_is_owner'] == 0)
+				{
+					$settings_thread_users_html .= '
+					<div class="col-2 col-lg-1">
+						<div class="icon-cog settings-thread-button"></div>
+					</div>
+					<div class="col-2 col-lg-1">
+						<div class="icon-trash settings-thread-button" style="background-color: red;"></div>
+					</div>
+					';
+				}
 			}
 		}
+		$settings_thread_users_html .= '</div>';
 		
 		if($is_owner_flag)
 		{
@@ -269,13 +306,12 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="settings-content col-12">
+				<div class="settings-content col-12 col-xl-11">
 					<div class="row settings-content-tab" id="menu-content-0">
 							<?=isset($threads_menu_html) ? $threads_menu_html : ""?>
 					</div>
 					<div class="row settings-content-tab" id="menu-content-1">
 							<div>
-								Użytkownicy:<br>
 								<?=isset($settings_thread_users_html) ? $settings_thread_users_html : ""?><br>
 								<?=$add_user_form?><br>
 								<?=$add_temp_user_form?><br>

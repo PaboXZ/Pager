@@ -18,7 +18,7 @@
 		}
 		catch(Exception $error)
 		{
-			return $error->getMessage();
+			return FALSE;
 		}
 	}
 	
@@ -43,7 +43,7 @@
 		}
 		catch(Exception $error)
 		{
-			return $error->getMessage();
+			return FALSE;
 		}
 	}
 
@@ -52,7 +52,7 @@
 		$returnVal = "";
 		foreach($array as $value)
 		{
-			$returnVal = $returnVal.$htmlbefore.$value.$htmlafter;
+			$returnVal .= $htmlbefore.$value.$htmlafter;
 		}
 		return $returnVal;
 	}

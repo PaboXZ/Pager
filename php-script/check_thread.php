@@ -74,7 +74,7 @@
 			{
 				throw new Exception();
 			}
-			if(!$db_result = $db_connection->query("SELECT thread_owner_id FROM thread_data WHRERE thread_id = '$thread_id'"))
+			if(!$db_result = $db_connection->query("SELECT thread_owner_id FROM thread_data WHERE thread_id = '$thread_id'"))
 			{
 				throw new Exception();
 			}

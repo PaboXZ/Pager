@@ -19,6 +19,11 @@
 				throw new Exception("Błąd serwera", 11);
 			}
 			
+			if($_SESSION['user_active_thread'] == 0)
+			{
+				 throw new Exception();
+			}				
+			
 			$user_id = $_SESSION['user_id'];
 			$user_active_thread = $_SESSION['user_active_thread'];
 			
@@ -162,7 +167,7 @@
 		}
 		catch(Exception $error)
 		{
-			echo $error->getCode();
+			echo $error->getMessage();
 		}
 		db_close($db_connection);
 ?>

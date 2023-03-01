@@ -202,6 +202,9 @@ TASKS
 -change links to contain IDs only
 -sanitize all GET/POST data
 -check for multiple user addition
+-join thread accept for regular user
+-add authors to tasks
+-add edit to tasks
 -CODE VERIFY
 
 
