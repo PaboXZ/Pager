@@ -36,7 +36,7 @@ main .settings-title
 .settings-content
 {
 	padding: 30px;
-	min-height: 40vh;
+	min-height: 35vh;
 	background-color: var(--area-color);
 	color: var(--area-font-color);
 	font-size: 1.5em;
@@ -85,7 +85,8 @@ main .settings-title
 {
 	font-weight: 700;
 	font-size: 120%;
-	margin-bottom: 20px;
+	margin-top: 20px;
+	margin-bottom: 30px;
 }
 
 .settings-user-name
@@ -98,4 +99,25 @@ main .settings-title
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.settings-content input
+{
+	margin-bottom: 8px;
+	display: block;
+	background-color: var(--input-field-text);
+	padding: 0.3em 0.5em;
+	border: 2px solid var(--font-color);
+	border-radius: 0.3em;
+	color: var(--font-color);
+	width: 300px;
+}
+.settings-content input[type=submit]
+{
+	background-color: var(--input-field-color);
+	color: var(--input-field-placeholder);
+}
+.settings-content input[type=submit]:hover
+{
+	filter: brightness(110%);
 }

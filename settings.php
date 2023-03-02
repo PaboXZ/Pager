@@ -155,28 +155,36 @@
 					</div>
 					';
 				}
+				
+				$add_user_form = '
+				<hr>
+				<div class="col-12 offset-lg-1 col-lg-11 settings-thread-header">
+					Dodaj istniejącego użytkownika:
+				</div>
+				<div class="col-12 offset-lg-1 col-lg-11">
+					<form>
+						<input type="text" placeholder="Login/email"/>
+						<input type="submit" value="Dodaj"/>
+					</form>
+				</div>
+				';
+				$add_temp_user_form = '
+				<hr>
+				<div class="col-12 offset-lg-1 col-lg-11 settings-thread-header">
+					Dodaj tymczasowego użytkownika:
+				</div>
+				<div class="col-12 offset-lg-1 col-lg-11">
+					<form action="add_user.php" method="POST">
+						<input name="user_name" type="text" placeholder="Login"/>
+						<input name="user_password" type="password" placeholder="hasło"/>
+						<input type="submit" value="Dodaj"/>
+					</form>
+				</div>
+				';
 			}
 		}
 		$settings_thread_users_html .= '</div>';
 		
-		if($is_owner_flag)
-		{
-			$add_user_form = '
-			Dodaj istniejącego użytkownika<br>
-			<form>
-				<input type="text" placeholder="Login/email"/>
-				<input type="submit"/>
-			</form>
-			';
-			$add_temp_user_form = '
-			Dodaj tymczasowego użytkownika<br>	
-			<form action="add_user.php" method="POST">
-				<input name="user_name" type="text" placeholder="Login"/>
-				<input name="user_password" type="password" placeholder="hasło"/>
-				<input type="submit"/>
-			</form>
-			';
-		}
 	}
 	catch(Exception $error)
 	{
@@ -312,9 +320,9 @@
 					</div>
 					<div class="row settings-content-tab" id="menu-content-1">
 							<div>
-								<?=isset($settings_thread_users_html) ? $settings_thread_users_html : ""?><br>
-								<?=$add_user_form?><br>
-								<?=$add_temp_user_form?><br>
+								<?=isset($settings_thread_users_html) ? $settings_thread_users_html : ""?>
+								<?=$add_user_form?>
+								<?=$add_temp_user_form?>
 							<div>
 							<div>
 							</div>
