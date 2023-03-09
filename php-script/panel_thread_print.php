@@ -9,13 +9,17 @@
 			$user_id = $_SESSION['user_id'];
 			
 			require_once("php-script/db_connect.php");
+			require_once("php-script/print_data.php");
+			
 	
 			if(!$db_connection = db_connect())
 			{
 				throw new Exception("Błąd serwera", 1);
 			}
 			
-			if(!$db_query_result = $db_connection->query("SELECT thread_id, thread_name FROM connection_user_thread INNER JOIN thread_data ON connection_user_thread.connection_thread_id = thread_data.thread_id WHERE connection_user_thread.connection_user_id = '$user_id'"))
+			$favorite_threads = favoriteThreadsGet($db_connection, $_SESSION['user_id']);
+			
+			if(!$db_query_result = $db_connection->query("SELECT thread_id, thread_name FROM connection_user_thread INNER JOIN thread_data ON connection_user_thread.connection_thread_id = thread_data.thread_id WHERE connection_user_thread.connection_user_id = '$user_id' AND thread_id IN ('{$favorite_threads[0]}', '{$favorite_threads[1]}', '{$favorite_threads[2]}', '{$favorite_threads[3]}', '{$favorite_threads[4]}') ORDER BY FIND_IN_SET(thread_id, '{$favorite_threads[0]},{$favorite_threads[1]},{$favorite_threads[2]},{$favorite_threads[3]},{$favorite_threads[4]}')"))
 			{
 				throw new Exception("Błąd serwera", 2);
 			}

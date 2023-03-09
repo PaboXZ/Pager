@@ -101,7 +101,8 @@ main .settings-title
 	text-overflow: ellipsis;
 }
 
-.settings-content input
+.settings-content input,
+.settings-content select
 {
 	margin-bottom: 8px;
 	display: block;

@@ -25,6 +25,7 @@
 	
 	require_once("php-script/rules.php");
 	require_once("php-script/db_connect.php");
+	require_once("php-script/print_data.php");
 	
 	isLoggedIn();
 	redirectTemporary();
@@ -79,6 +80,18 @@
 		}
 		
 		$thread_id = $db_query_result->fetch_assoc()['thread_id'];
+		
+		$favorite_threads = favoriteThreadsGet($db_connection, $_SESSION['user_id']);
+		
+		for($i = 0; $i < 5; $i++)
+		{
+			if($favorite_threads[$i] == '0')
+			{
+				$favorite_threads[$i] = $thread_id;
+				favoriteThreadsSet($db_connection, $_SESSION['user_id'], $favorite_threads);
+				break;
+			}
+		}
 		
 		if(!$db_connection->query("INSERT INTO connection_user_thread (connection_user_id, connection_thread_id, connection_view_power, connection_is_owner, connection_edit_permission, connection_delete_permission, connection_create_power, connection_complete_permission) VALUES ('$thread_owner_id', '$thread_id', '15', '1', '1', '1', '15', '1')"))
 		{

@@ -56,5 +56,40 @@
 		}
 		return $returnVal;
 	}
+	
+	function favoriteThreadsSet($db_connection, $user_id, $threads_array)
+	{
+		$string = implode(" ", $threads_array);
+		
+		try
+		{
+			if(!$db_connection->query("UPDATE user_data SET user_fav_threads = '$string' WHERE user_id = '$user_id'"))
+			{
+				throw new Exception();
+			}
+			return true;
+		}
+		catch(Exception $error)
+		{
+			return false;
+		}
+	}
+	
+	function favoriteThreadsGet($db_connection, $user_id)
+	{
+		try
+		{
+			if(!$db_result_row = $db_connection->query("SELECT user_fav_threads FROM user_data WHERE user_id = '$user_id'"))
+			{
+				throw new Exception();
+			}
+			$db_result = $db_result_row->fetch_assoc()['user_fav_threads'];
+			return explode(" ", $db_result);	
+		}
+		catch(Exception $error)
+		{
+			return false;
+		}
+	}
 
 ?>

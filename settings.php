@@ -56,7 +56,49 @@
 					</div>
 			';
 		}
+		
+		
+		
+		
+		
+		
+		$threads_menu_html .= '
+				<hr>
+				<div class="col-12 offset-lg-1 col-lg-11 settings-thread-header">
+					Szybki dostęp:
+				</div>
+				<form action="set_favorite_threads.php" method="POST">
+				';		
+				
+		if(count($thread_names) > 5) $thread_count = 5;
+		else $thread_count = count($thread_names);
+		
+		$favorite_threads = favoriteThreadsGet($db_connection, $_SESSION['user_id']);
+				
+		for($i = 1; $i < $thread_count + 1; $i++)
+		{
+			$threads_menu_html .= '
+					<label for="favorite-'.$i.'">Lista '.$i.':</label>
+					<select id="favorite-'.$i.'" name="favorite-'.$i.'">
+					';
+			
+			foreach($thread_names as $thread_name)
+			{
+				
+				if($favorite_threads[$i-1] == $thread_name[0]) $selected_option_text = 'selected="true"';
+				
+				else $selected_option_text = '';
+				$threads_menu_html .= '<option '.$selected_option_text.'value="'.$thread_name[0].'">'.$thread_name[1].'</option>';
+			}
+			
+			$threads_menu_html .= '</select>';
+		}
+		$threads_menu_html .= '
+					<input type="submit" value="Ustaw"/>
+				</form>
+		';
 	}
+	
 	if(isset($_GET['thread_id']))
 	{
 		if(checkThreadByID($_SESSION['user_id'], $_GET['thread_id']))
