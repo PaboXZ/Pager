@@ -16,6 +16,7 @@
 	$user_id = $_SESSION['user_id'];
 	
 	require_once('php-script/db_connect.php');
+	require_once('php-script/print_data.php');
 	
 	try
 	{
@@ -63,6 +64,23 @@
 			{
 				throw new Exception("Błąd serwera", 6);
 			}
+			$favorite_threads = favoriteThreadsGet($db_connection, $_SESSION['user_id']);
+			
+			for($i = 0; $i < 5; $i++)
+			{
+				if($favorite_threads[$i] == $thread_id)
+				{
+					for($j = $i; $j < 4; $j++)
+					{
+						$favorite_threads[$j] = $favorite_threads[$j+1];
+					}
+					$favorite_threads[4] = '0';
+					break;
+				}
+			}
+			
+			favoriteThreadsSet($db_connection, $_SESSION['user_id'], $favorite_threads);
+			
 			$_SESSION['message'] = "Usunięto listę: ".$thread_name;
 		}
 	}

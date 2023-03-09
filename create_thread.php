@@ -89,8 +89,14 @@
 			{
 				$favorite_threads[$i] = $thread_id;
 				favoriteThreadsSet($db_connection, $_SESSION['user_id'], $favorite_threads);
+				$changed_flag = true;
 				break;
 			}
+		}
+		
+		if(!isset($changed_flag))
+		{
+			$_SESSION['message'] = "Utworzono listę: ".$thread_name.". Jest dostępna z poziomu ustawień.";
 		}
 		
 		if(!$db_connection->query("INSERT INTO connection_user_thread (connection_user_id, connection_thread_id, connection_view_power, connection_is_owner, connection_edit_permission, connection_delete_permission, connection_create_power, connection_complete_permission) VALUES ('$thread_owner_id', '$thread_id', '15', '1', '1', '1', '15', '1')"))

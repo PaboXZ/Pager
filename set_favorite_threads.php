@@ -68,7 +68,7 @@
 		$threads_counter = count($thread_names);
 		
 		$j = 1;
-		while($next_free_index < 4 AND $next_free_index < $threads_counter)
+		while($next_free_index < 5 AND $next_free_index < $threads_counter)
 		{
 			$found_flag = false;
 			

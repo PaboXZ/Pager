@@ -26,7 +26,6 @@
 			else
 			{
 				$thread_html = "";
-				$thread_active_name = "";
 				
 				if($_SESSION['user_temporary_flag'])
 				{
@@ -40,9 +39,7 @@
 						$db_result_row = $db_query_result->fetch_assoc();
 						
 						if($_SESSION['user_active_thread'] == $db_result_row['thread_id'])
-						{
-							$thread_active_name = $db_result_row['thread_name'];
-							
+						{	
 							$temp_html = '<li class="active-thread"><a href="change_active_thread.php?id='.$db_result_row['thread_id'].'">'.$db_result_row['thread_name']."</a><br></li>";
 						}
 						else
@@ -54,12 +51,19 @@
 					}
 					$thread_html = '<nav class="sidemenu d-none d-lg-block" id="sidemenu"><ul>'.$thread_html.'<li onclick="showDialogBox(\'add-thread\')"><a id="create-thread">+ Utwórz</a></li></ul></nav>';
 				}
-				
-				
 				$db_query_result->close();
-				
 			}
 			
+			$thread_active_name = "";
+			
+			if(!$db_result = $db_connection->query("SELECT thread_name FROM thread_data WHERE thread_id = '{$_SESSION['user_active_thread']}'"))
+			{
+				throw new Exception("Błąd serwera", 3);
+			}
+			if($db_result->num_rows == 1)
+			{
+				$thread_active_name = $db_result->fetch_assoc()['thread_name'];
+			}
 		}
 		catch(Exception $error)
 		{

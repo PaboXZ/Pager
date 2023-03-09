@@ -196,7 +196,6 @@ TASKS
 -ADD TIMESTAMP ON EDIT FUNCTION
 -CHANGE TEMPORARY FLAG TO thread_id so when thread is deleted its easier to delete temporary users
 -ADD SETTINGS PAGE
--FIX PRINTING THREADS (add favorite tab)
 -ADD ERROR PRINT FUNCTION(for ongoing errors)
 -fix settings layout
 -change links to contain IDs only
@@ -206,8 +205,10 @@ TASKS
 -add authors to tasks
 -add edit to tasks
 -CODE VERIFY
+-update doc(new: favorite tab, new db value(fav))
 
 
+-FIX PRINTING THREADS (add favorite tab)								--DONE
 -ADD TABS TO SETTINGS													--DONE
 -ADD LINKS TO CHANGE THREAD												--DONE
 -ADD TOS(but not really)												--DONE
@@ -244,6 +245,10 @@ Errors:
 
 -----------------------------------------------------------------
 LOG
+--0.21
+
+-changed Quick Access tab to show only favorites(threads)
+
 --0.20
 
 -Permisions for panel.php view task create/delete set
