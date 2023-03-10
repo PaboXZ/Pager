@@ -60,6 +60,9 @@ optional temporary flag
 			throw new Exception("Bład serwera:", 1);
 		}
 		
+		
+		
+		
 		$user_name = htmlentities($_POST['user_name'], ENT_QUOTES);
 		if(strlen($user_name) < 3 || strlen($user_name) > 20)
 		{
@@ -76,6 +79,18 @@ optional temporary flag
 			error_add("Wybrana nazwa użytkownika już istnieje");
 		}
 		
+		if(!$db_query_result = $db_connection->query("SELECT not_confirmed_name FROM not_confirmed_user_data WHERE not_confirmed_name = '$user_name'"))
+		{
+			throw new Exception("Błąd serwera", 5);
+		}
+		if($db_query_result->num_rows > 0)
+		{
+			error_add("Wybrana nazwa użytkownika już istnieje");
+		}
+		
+		
+		
+		
 		$user_email = $_POST['user_email'];
 		
 		if(!filter_var($user_email, FILTER_VALIDATE_EMAIL))
@@ -87,11 +102,23 @@ optional temporary flag
 		{
 			throw new Exception("Bład serwera", 3);
 		}
-		
 		if($db_query_result->num_rows > 0)
 		{
 			error_add("Podany adres email istnieje już w systemie");
 		}
+		if(!$db_query_result = $db_connection->query("SELECT not_confirmed_email FROM not_confirmed_user_data WHERE not_confirmed_email = '$user_email'"))
+		{
+			throw new Exception("Bład serwera", 6);
+		}
+		if($db_query_result->num_rows > 0)
+		{
+			error_add("Podany adres email istnieje już w systemie");
+		}
+		
+		
+		
+		
+		
 		if(strlen($_POST['user_password']) < 8 OR strlen($_POST['user_password']) > 48)
 		{
 			error_add("Niepoprawna długość hasła (8-48)");
@@ -122,21 +149,65 @@ optional temporary flag
 		
 		$user_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
 		
-		if(!$db_connection->query("INSERT INTO user_data (user_name, user_email, user_password) VALUES ('$user_name', '$user_email', '$user_password')"))
+		$confirmation_key = bin2hex(random_bytes(20));
+		$repeat_flag = true;
+		
+		while($repeat_flag)
+		{
+			if(!$db_result = $db_connection->query("SELECT not_confirmed_key FROM not_confirmed_user_data WHERE not_confirmed_key = '$confirmation_key'"))
+			{
+				throw new Exception("Błąd serwera", 6);
+			}
+			if($db_result->num_rows == 0)
+			{
+				$repeat_flag = false;
+			}
+		}
+		
+
+		
+		require_once('php-script/mail_settings.php');
+		
+		$mail = getMail();
+		
+		
+		$mail->addAddress($user_email);
+		$mail->Subject = 'Skippit - potwierdzenie rejestracji';
+		$mail->Body = '
+		<html>
+		<head>
+			<style>
+				
+			</style>
+		</head>
+		<body>
+			<h2 style="text-align: center;">Witaj '.$user_name.'.</h2>
+			<p>
+				Aby potwierdzić rejestrację wejdź w link poniżej:<br>
+				<a href="https://skippit.pl"><b>Skippit.pl</b></a>
+			</p>
+		</body>
+		</html>
+		';
+		
+		
+		$mail->send();
+		
+		if(!$db_connection->query("INSERT INTO not_confirmed_user_data (not_confirmed_name, not_confirmed_email, not_confirmed_password, not_confirmed_key) VALUES ('$user_name', '$user_email', '$user_password', '$confirmation_key')"))
 		{
 			throw new Exception("Błąd serwera", 4);
 		}
-		$_SESSION['message'] = "Rejestracja ukończona, zaloguj się";
+		$_SESSION['message'] = "Rejestracja ukończona, sprawdź email w celu aktywacji konta";
 	}
 	catch(Exception $error)
 	{
+		
+		echo $error->getMessage();
 		$_SESSION['error_register'] = $error->getMessage();
 		
 		$_SESSION['error_register_return']['login'] = $_POST['user_name'];
 		$_SESSION['error_register_return']['password'] = $_POST['user_password'];
 		$_SESSION['error_register_return']['email'] = $_POST['user_email'];
-		
-		header("Location: index.php", );
 
 	}
 	
