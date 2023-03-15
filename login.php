@@ -71,12 +71,38 @@
 				}
 				else
 				{
-					throw new Exception("Nieprawidłowe dane logowania.");
+					throw new Exception("Nieprawidłowe dane logowania.", 21);
 				}
 			}
 			else
 			{
-				throw new Exception("Nieprawidłowe dane logowania.");
+				if($user_name_credential == "user_name")
+				{
+					$user_name_credential = "not_confirmed_name";
+				}
+				else
+				{
+					$user_name_credential = "not_confirmed_email";
+				}
+				
+				if(!$db_result = $db_connection->query("SELECT not_confirmed_name, not_confirmed_password FROM not_confirmed_user_data WHERE $user_name_credential = '$user_name'"))
+				{
+					throw new Exception("Bład serwera", 21);
+				}
+				
+				if($db_result->num_rows != 1)
+				{
+					throw new Exception("Nieprawidłowe dane logowania.");
+				}
+				
+				$db_result = $db_result->fetch_assoc();
+				
+				if(!password_verify($_POST['user_password'], $db_result['not_confirmed_password']))
+				{
+					throw new Exception("Nieprawidłowe dane logowania.");
+				}
+				
+				throw new Exception('Konto nieaktywne, sprawdź skrzynkę email. Aby ponownie wysłać link aktywacyjny kliknij link poniżej:<br><br><a href="send_activation_mail.php?user_name='.$db_result['not_confirmed_name'].'" style="display:block; text-align: center; font-size: 140%; font-weight: 700; color: white;">Prześlij ponownie</a>', 31);
 			}
 		}
 		else

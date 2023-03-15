@@ -37,5 +37,22 @@
 			unset($_SESSION['error_register_return']['password']);
 			unset($_SESSION['error_register_return']['email']);
 		}
+	}	
+	if(isset($_SESSION['error_send_activation_mail']))
+	{
+		
+		$error_message = $_SESSION['error_send_activation_mail'];
+		unset($_SESSION['error_send_activation_mail']);
+		
+		$error_style = "#dialog-box-message{display: block;} #error-text{display: block;}";
 	}
+	if(isset($_SESSION['error_activate_user']))
+	{
+		
+		$error_message = $_SESSION['error_activate_user'];
+		unset($_SESSION['error_activate_user']);
+		
+		$error_style = "#dialog-box-message{display: block;} #error-text{display: block;}";
+	}
+	
 ?>

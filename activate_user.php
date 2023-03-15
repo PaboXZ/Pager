@@ -21,7 +21,7 @@
 	
 	require_once('php-script/db_connect.php');
 	
-	
+	session_start();
 	
 	try
 	{
@@ -57,9 +57,10 @@
 	}
 	catch(Exception $error)
 	{
-		echo $error->getCode();
+		$_SESSION['error_activate_user'] = $error->getMessage();
 	}
 
 	db_close($db_connection);
+	header('Location: index.php');
 
 ?>
