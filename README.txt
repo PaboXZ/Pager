@@ -206,6 +206,7 @@ TASKS
 -add edit to tasks
 -CODE VERIFY
 -update doc(new: favorite tab, new db value(fav))
+-changed db structure, new files added, changed register, added new errors
 
 
 -FIX PRINTING THREADS (add favorite tab)								--DONE
