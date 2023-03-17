@@ -10,4 +10,10 @@
 		$error_style = "#dialog-box-message{display: block;} #error-text{display: block;}";
 		unset($_SESSION['error_thread_delete']);
 	}
+	if(isset($_SESSION['error_change_user_password']))
+	{
+		$error_message = $_SESSION['error_change_user_password'];
+		$error_style = "#dialog-box-message{display: block;} #error-text{display: block;}";
+		unset($_SESSION['error_change_user_password']);
+	}
 ?>

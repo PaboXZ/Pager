@@ -36,7 +36,7 @@
 			}
 			$temp_target = "thread_delete.php";
 			$temp_data = "?thread_id=$thread_name[0]";
-			$threads_menu_html = $threads_menu_html.'
+			$threads_menu_html .= '
 					<div class="row gx-1 gx-lg-3" gx-xl-5>
 						<div class="col-9 offset-lg-1 col-lg-8">
 							<div class="settings-thread-name">
@@ -106,6 +106,11 @@
 			$_SESSION['user_active_thread'] = $_GET['thread_id'];
 			$change_active_tab = 1;
 		}
+	}
+	
+	if(isset($_GET['user']))
+	{
+		$change_active_tab = 2;
 	}
 	
 	
@@ -365,12 +370,61 @@
 								<?=isset($settings_thread_users_html) ? $settings_thread_users_html : ""?>
 								<?=$add_user_form?>
 								<?=$add_temp_user_form?>
-							<div>
+							</div>
 							<div>
 							</div>
 					</div>
 					<div class="row settings-content-tab" id="menu-content-2">
-							User
+								<div class="settings-thread-header">Ignorowanie powiadomień</div>
+								<div class="row">
+									<div class="offset-1 col-5">
+									<p>Zignoruj powiadomienia od użytkownika:</p>
+										<form>
+											<input type="text" placeholder="Nazwa użytkownika"/>
+											<input type="submit"/>
+										</form>
+										<p><?=$_SESSION['user_notifications_ignore'] ? "Odblokuj" : "Zablokuj"?> wszystkie powiadomienia:</p>
+										<form method="POST" action="ignore_notifications.php">
+											<input type="submit" value="<?=$_SESSION['user_notifications_ignore'] ? "Odblokuj" : "Zablokuj"?>"/>
+										</form>
+									</div>
+									<div class="offset-1 col-4">
+										<p>
+											Lista zablokowanych:
+										</p>
+										<ol>
+											<li>xD</li>
+											<li>xD</li>
+											<li>xD</li>
+											<li>xD</li>
+											<li>xD</li>
+											<li>xD</li>
+										</ol>
+									</div>
+								</div>
+							<hr>
+								<div class="settings-thread-header" id="zmien-haslo">Zmień hasło</div>
+								<div class="row">
+									<div class="offset-1 col-5">
+										<form method="POST" action="change_user_password.php">
+											<input type="password" name="user_password" placeholder="hasło"/>
+											<input type="password" name="user_new_password" placeholder="nowe hasło"/>
+											<input type="password" name="user_confirm_password" placeholder="powtórz nowe hasło"/>
+											<input type="submit"/>
+										</form>
+									</div>
+								</div>
+							<hr>
+								<div class="settings-thread-header">Usuwanie konta</div>
+								<div class="row">
+									<div class="offset-1 col-5">
+										<form>
+											<input type="text" placeholder="hasło"/>
+											<input type="text" placeholder="powtórz hasło"/>
+											<input type="submit"/>
+										</form>
+									</div>
+								</div>
 					</div>
 				</div>
 			</div>

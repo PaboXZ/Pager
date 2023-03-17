@@ -206,7 +206,7 @@ TASKS
 -add edit to tasks
 -CODE VERIFY
 -update doc(new: favorite tab, new db value(fav))
--changed db structure, new files added, changed register, added new errors
+-update doc: changed db structure, new files added, changed register, added new errors
 
 
 -FIX PRINTING THREADS (add favorite tab)								--DONE
@@ -246,6 +246,10 @@ Errors:
 
 -----------------------------------------------------------------
 LOG
+--0.22
+
+-user activation module completed
+
 --0.21
 
 -changed Quick Access tab to show only favorites(threads)

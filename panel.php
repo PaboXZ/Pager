@@ -151,7 +151,13 @@ Redirect if not logged in
 	
 		<div class="container">
 			<div class="row">
-				<div class="logo d-none d-lg-block col-8"><a href="panel.php">Skippit</a></div>
+				<div class="logo d-none d-lg-block col-6"><a href="panel.php">Skippit</a></div>
+				<div class="d-none d-lg-block col-2">
+					<div id="notification-window">
+						asgd
+					</div>
+					<div class="topnav-button" onclick="showDialogBox('notification-window')"><i class="icon-bell"></i></div>
+				</div>
 				<div class="d-none d-lg-block col-2"><?= $_SESSION['user_temporary_flag'] ? '<span class="topnav-button">'.$_SESSION['user_name'].'</span>' : '<a href="settings.php" class="topnav-button">'.$_SESSION['user_name'].' <i class="icon-cog"></i></a>'?></div>
 				<div class="d-none d-lg-block col-2"><a href="logout.php" class="topnav-button" id="logout-button">Log out <i class="icon-off"></i></a></div>
 			</div>

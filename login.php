@@ -37,7 +37,7 @@
 			throw new Exception("Usługa niedostępna, za utrudnienia przepraszamy");
 		}
 		
-		if($db_temporary_query = $db_connection->query("SELECT user_id, user_name, user_password, user_email FROM user_data WHERE $user_name_credential='$user_name'"))
+		if($db_temporary_query = $db_connection->query("SELECT user_id, user_name, user_password, user_email, user_notifications_ignore FROM user_data WHERE $user_name_credential='$user_name'"))
 		{
 			if($db_temporary_query->num_rows == 1)
 			{
@@ -61,6 +61,7 @@
 						$_SESSION['user_active_thread'] = 0;
 					}
 					
+					$_SESSION['user_notifications_ignore'] = $db_temporary_row['user_notifications_ignore'];
 					$_SESSION['user_id'] = $db_temporary_row['user_id'];
 					$_SESSION['user_name'] = $db_temporary_row['user_name'];
 					if(!filter_var($db_temporary_row['user_email'], FILTER_VALIDATE_EMAIL)) $_SESSION['user_temporary_flag'] = TRUE;

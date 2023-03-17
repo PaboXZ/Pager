@@ -78,7 +78,15 @@ a
 	text-align: right;
 }
 
-
+#notification-window
+{
+	position: absolute;
+	background-color: white;
+	height: 40vh;
+	bottom: -40vh;
+	width: 360px;
+	display: none;
+}
 
 .blur-background
 {
