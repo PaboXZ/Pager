@@ -379,8 +379,8 @@
 								<div class="row">
 									<div class="offset-1 col-5">
 									<p>Zignoruj powiadomienia od użytkownika:</p>
-										<form>
-											<input type="text" placeholder="Nazwa użytkownika"/>
+										<form method="POST" action="ignore_user.php">
+											<input type="text" name="ignored_user" placeholder="Nazwa użytkownika"/>
 											<input type="submit"/>
 										</form>
 										<p><?=$_SESSION['user_notifications_ignore'] ? "Odblokuj" : "Zablokuj"?> wszystkie powiadomienia:</p>

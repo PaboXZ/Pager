@@ -11,15 +11,16 @@
 	try
 	{
 		
+		if(!$db_connection = db_connect())
+		{
+			throw new Exception("Usługa niedostępna, za utrudnienia przepraszamy.", 11);
+		}
+		
 		if(!isset($_POST['user_password']) || !isset($_POST['user_new_password']) || !isset($_POST['user_confirm_password']))
 		{
 			throw new Exception("Brak dostępu.", 01);
 		}
 		
-		if(!$db_connection = db_connect())
-		{
-			throw new Exception("Usługa niedostępna, za utrudnienia przepraszamy.", 11);
-		}
 		
 		if(!$db_result = $db_connection->query("SELECT user_password FROM user_data WHERE user_id = '{$_SESSION['user_id']}'"))
 		{

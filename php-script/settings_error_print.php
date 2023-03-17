@@ -16,4 +16,16 @@
 		$error_style = "#dialog-box-message{display: block;} #error-text{display: block;}";
 		unset($_SESSION['error_change_user_password']);
 	}
+	if(isset($_SESSION['error_ignore_user']))
+	{
+		$error_message = $_SESSION['error_ignore_user'];
+		$error_style = "#dialog-box-message{display: block;} #error-text{display: block;}";
+		unset($_SESSION['error_ignore_user']);
+	}
+	if(isset($_SESSION['error_ignore_notifications']))
+	{
+		$error_message = $_SESSION['error_ignore_notifications'];
+		$error_style = "#dialog-box-message{display: block;} #error-text{display: block;}";
+		unset($_SESSION['error_ignore_notifications']);
+	}
 ?>

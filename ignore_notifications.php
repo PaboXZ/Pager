@@ -47,9 +47,10 @@
 	}
 	catch(Exception $error)
 	{
-		echo $error->getMessage();
+		$_SESSION['error_ignore_notifications'] = $error->getMessage();
 	}
 
+	db_close($db_connection);
 	header('Location: settings.php?user=1');
 
 
