@@ -210,6 +210,7 @@ TASKS
 -update doc: ignored users fields
 -check SQL injection
 -add special mode while ignoring self
+-change names to ID's if not exposed
 
 
 -FIX PRINTING THREADS (add favorite tab)								--DONE

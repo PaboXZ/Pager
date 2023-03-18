@@ -16,6 +16,24 @@ Redirect if not logged in
 			
 	require_once('php-script/panel_thread_print.php');
 	require_once('php-script/panel_task_print.php');
+	
+	require_once('php-script/notification_print.php');
+	
+	$notifications = getNewNotifications(3);
+	
+	if($notifications)
+	{
+		$notifications_html = '<div>';
+		
+		foreach($notifications as $notification)
+		{
+			$notifications_html .= '<div>'.$notification.'</div>';
+		}
+		
+		
+		$notifications_html .= '</div>';
+	}
+
 ?>
 
 
@@ -154,7 +172,7 @@ Redirect if not logged in
 				<div class="logo d-none d-lg-block col-6"><a href="panel.php">Skippit</a></div>
 				<div class="d-none d-lg-block col-2">
 					<div id="notification-window">
-						asgd
+						<?= isset($notifications_html) ? $notifications_html : ''?>
 					</div>
 					<div class="topnav-button" onclick="showDialogBox('notification-window')"><i class="icon-bell"></i></div>
 				</div>
