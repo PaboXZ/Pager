@@ -70,7 +70,10 @@
 			
 		$ignored_users = implode(",", $ignored_users);
 		
-		$ignored_users .= ",".$_POST['ignored_user'];
+		if(strlen($ignored_users) > 0)
+			$ignored_users .= ',';
+		
+		$ignored_users .= $_POST['ignored_user'];
 		
 		if(!$db_connection->query("UPDATE user_data SET user_ignored = '$ignored_users' WHERE user_id = '{$_SESSION['user_id']}'"))
 		{

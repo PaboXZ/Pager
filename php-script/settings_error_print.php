@@ -28,4 +28,10 @@
 		$error_style = "#dialog-box-message{display: block;} #error-text{display: block;}";
 		unset($_SESSION['error_ignore_notifications']);
 	}
+	if(isset($_SESSION['error_unignore_user']))
+	{
+		$error_message = $_SESSION['error_unignore_user'];
+		$error_style = "#dialog-box-message{display: block;} #error-text{display: block;}";
+		unset($_SESSION['error_unignore_user']);
+	}
 ?>

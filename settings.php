@@ -232,6 +232,38 @@
 		}
 		$settings_thread_users_html .= '</div>';
 		
+		if(!$db_result = $db_connection->query("SELECT user_ignored FROM user_data WHERE user_id = '{$_SESSION['user_id']}'"))
+		{
+			throw new Exception();
+		}
+		
+		if($db_result->num_rows != 1)
+		{
+			throw new Exception();
+		}
+		
+		$db_result = $db_result->fetch_column();
+		
+		
+		if(strlen($db_result) > 0)
+		{
+			$ignored_users_html = '
+										<p>
+											Lista zablokowanych:
+										</p>
+										<ol>';
+			
+			$db_result = explode(',', $db_result);
+			
+			foreach($db_result as $ignored_user)
+			{
+				$ignored_users_html .= '<li>'.$ignored_user.' <a href="unignore_user.php?unignored_user='.$ignored_user.'">USUŃ</a></li>';
+			}
+			
+			$ignored_users_html .= '</ol>';
+		}
+		
+		
 	}
 	catch(Exception $error)
 	{
@@ -383,23 +415,13 @@
 											<input type="text" name="ignored_user" placeholder="Nazwa użytkownika"/>
 											<input type="submit"/>
 										</form>
-										<p><?=$_SESSION['user_notifications_ignore'] ? "Odblokuj" : "Zablokuj"?> wszystkie powiadomienia:</p>
+										<p><?=$_SESSION['user_notifications_ignore'] ? "Odblokuj" : "Zablokuj wszystkie"?> powiadomienia:</p>
 										<form method="POST" action="ignore_notifications.php">
 											<input type="submit" value="<?=$_SESSION['user_notifications_ignore'] ? "Odblokuj" : "Zablokuj"?>"/>
 										</form>
 									</div>
 									<div class="offset-1 col-4">
-										<p>
-											Lista zablokowanych:
-										</p>
-										<ol>
-											<li>xD</li>
-											<li>xD</li>
-											<li>xD</li>
-											<li>xD</li>
-											<li>xD</li>
-											<li>xD</li>
-										</ol>
+										<?= isset($ignored_users_html) ? $ignored_users_html : ''?>
 									</div>
 								</div>
 							<hr>
