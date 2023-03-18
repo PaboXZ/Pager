@@ -418,9 +418,9 @@
 								<div class="settings-thread-header">Usuwanie konta</div>
 								<div class="row">
 									<div class="offset-1 col-5">
-										<form>
-											<input type="text" placeholder="hasło"/>
-											<input type="text" placeholder="powtórz hasło"/>
+										<form method="POST" action="delete_user.php">
+											<input type="password" name="user_password_delete" placeholder="hasło"/>
+											<input type="password" name="user_password_delete_confirm" placeholder="powtórz hasło"/>
 											<input type="submit"/>
 										</form>
 									</div>

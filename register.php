@@ -184,7 +184,7 @@ optional temporary flag
 			<h2 style="text-align: center;">Witaj '.$user_name.'.</h2>
 			<p>
 				Aby potwierdzić rejestrację wejdź w link poniżej:<br>
-				<a href="https://skippit.pl/activate_user.php?key=$'.$confirmation_key.'"><b>Skippit.pl</b></a>
+				<a href="https://skippit.pl/activate_user.php?key='.$confirmation_key.'"><b>Skippit.pl</b></a>
 			</p>
 		</body>
 		</html>

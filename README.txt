@@ -207,6 +207,9 @@ TASKS
 -CODE VERIFY
 -update doc(new: favorite tab, new db value(fav))
 -update doc: changed db structure, new files added, changed register, added new errors
+-update doc: ignored users fields
+-check SQL injection
+-add special mode while ignoring self
 
 
 -FIX PRINTING THREADS (add favorite tab)								--DONE
@@ -246,6 +249,15 @@ Errors:
 
 -----------------------------------------------------------------
 LOG
+
+--0.24
+
+-User delete module complete
+
+--0.23
+
+-Started work on notifications - blocking users
+
 --0.22
 
 -user activation module completed
