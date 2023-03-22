@@ -195,10 +195,10 @@
 				{
 					$settings_thread_users_html .= '
 					<div class="col-2 col-lg-1">
-						<div class="icon-cog settings-thread-button"></div>
+						<div class="icon-cog settings-thread-button" style="background-color: slategray;"></div>
 					</div>
 					<div class="col-2 col-lg-1">
-						<div class="icon-trash settings-thread-button" style="background-color: red;"></div>
+						<a class="icon-trash settings-thread-button" style="background-color: red; display: block;" href="remove_user.php?user_id='.$db_result_row['user_id'].'"></a>
 					</div>
 					';
 				}
@@ -209,8 +209,8 @@
 					Dodaj istniejącego użytkownika:
 				</div>
 				<div class="col-12 offset-lg-1 col-lg-11">
-					<form>
-						<input type="text" placeholder="Login/email"/>
+					<form action="add_user.php" method="POST">
+						<input type="text" name="user_name" placeholder="Login/email"/>
 						<input type="submit" value="Dodaj"/>
 					</form>
 				</div>
@@ -221,7 +221,7 @@
 					Dodaj tymczasowego użytkownika:
 				</div>
 				<div class="col-12 offset-lg-1 col-lg-11">
-					<form action="add_user.php" method="POST">
+					<form action="add_user_temp.php" method="POST">
 						<input name="user_name" type="text" placeholder="Login"/>
 						<input name="user_password" type="password" placeholder="hasło"/>
 						<input type="submit" value="Dodaj"/>

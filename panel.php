@@ -23,16 +23,19 @@ Redirect if not logged in
 	
 	if($notifications)
 	{
+		$new_notifications = "-alt";
 		$notifications_html = '<div>';
 		
 		foreach($notifications as $notification)
 		{
-			$notifications_html .= '<div>'.$notification.'</div>';
+			$notifications_html .= '<div class="notification">'.notificationTranslate($notification).'</div>';
 		}
 		
 		
 		$notifications_html .= '</div>';
 	}
+	else
+		$notifications_html = '<div class="notification">Brak powiadomień</div>';
 
 ?>
 
@@ -171,10 +174,10 @@ Redirect if not logged in
 			<div class="row">
 				<div class="logo d-none d-lg-block col-6"><a href="panel.php">Skippit</a></div>
 				<div class="d-none d-lg-block col-2">
-					<div id="notification-window">
+					<div id="notification-window" class="display-none">
 						<?= isset($notifications_html) ? $notifications_html : ''?>
 					</div>
-					<div class="topnav-button" onclick="showDialogBox('notification-window')"><i class="icon-bell"></i></div>
+					<div class="topnav-button" onclick="document.getElementById('notification-window').classList.toggle('display-none')"><i class="icon-bell<?=isset($new_notifications) ? $new_notifications : ''?>"></i></div>
 				</div>
 				<div class="d-none d-lg-block col-2"><?= $_SESSION['user_temporary_flag'] ? '<span class="topnav-button">'.$_SESSION['user_name'].'</span>' : '<a href="settings.php" class="topnav-button">'.$_SESSION['user_name'].' <i class="icon-cog"></i></a>'?></div>
 				<div class="d-none d-lg-block col-2"><a href="logout.php" class="topnav-button" id="logout-button">Log out <i class="icon-off"></i></a></div>

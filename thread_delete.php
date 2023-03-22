@@ -41,7 +41,7 @@
 			$_SESSION['user_active_thread'] = 0;
 		}
 		
-		if(!$db_connection->query("DELETE FROM connection_user_thread WHERE connection_thread_id = '$thread_id'"))
+		if(!$db_connection->query("DELETE FROM connection_user_thread WHERE connection_thread_id = '$thread_id' AND connection_user_id = '{$_SESSION['user_id']}'"))
 		{
 			throw new Exception("Błąd serwera", 2);
 		}

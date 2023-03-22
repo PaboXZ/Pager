@@ -82,11 +82,28 @@ a
 {
 	position: absolute;
 	background-color: white;
-	height: 40vh;
-	bottom: -40vh;
 	width: 360px;
-	display: none;
+	top: 80px;
 }
+
+.notification
+{
+	padding: 20px;
+}
+
+.notification a
+{
+	display: inline-block;
+	padding: 0.5em;
+	margin: 0.5em 0 0.5em 2em;
+	width: 32%;
+	text-align: center;
+	border-radius: 0.3em;
+	background-color: var(--input-submit-color);
+	color: var(--area-font-color);
+}
+
+
 
 .blur-background
 {
@@ -223,4 +240,9 @@ a
 #action-decline
 {
 	background-color: var(--input-submit-warning);
+}
+
+.display-none
+{
+	display: none;
 }
