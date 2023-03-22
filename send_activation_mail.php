@@ -2,7 +2,7 @@
 
 	session_start();
 		
-	if(isset($_SESSION['user_if']))
+	if(isset($_SESSION['user_id']))
 	{
 		header('Location: panel.php');
 		exit();

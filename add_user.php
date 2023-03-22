@@ -40,6 +40,9 @@
 		}
 		else
 		{
+			if(!ctype_alnum($_POST['user_name']))
+				throw new Exception("Nie znaleziono użytkownika", 34);
+			
 			if(!$db_result = $db_connection->query("SELECT user_id FROM user_data WHERE user_name = '{$_POST['user_name']}'"))
 				throw new Exception('Usługa niedostępna, przepraszamy.', 14);
 			

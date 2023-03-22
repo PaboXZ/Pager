@@ -17,6 +17,9 @@
 		if(!isset($_GET['user_id']))
 			throw new Exception();
 		
+		if(!ctype_digit($_GET['user_id']))
+			throw new Exception();
+		
 		if(!$db_result = $db_connection->query("SELECT connection_is_owner FROM connection_user_thread WHERE connection_user_id = '{$_SESSION['user_id']}' AND connection_thread_id = '{$_SESSION['user_active_thread']}'"))
 			throw new Exception();
 		
