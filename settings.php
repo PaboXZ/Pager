@@ -67,8 +67,9 @@
 				<div class="col-12 offset-lg-1 col-lg-11 settings-thread-header">
 					Szybki dostęp:
 				</div>
-				<form action="set_favorite_threads.php" method="POST">
-				';		
+				<div class="col-12 offset-lg-1 col-lg-11">
+					<form action="set_favorite_threads.php" method="POST">
+					';		
 				
 		if(count($thread_names) > 5) $thread_count = 5;
 		else $thread_count = count($thread_names);
@@ -96,6 +97,7 @@
 		$threads_menu_html .= '
 					<input type="submit" value="Ustaw"/>
 				</form>
+			</div>
 		';
 	}
 	
@@ -248,19 +250,21 @@
 		if(strlen($db_result) > 0)
 		{
 			$ignored_users_html = '
-										<p>
+									<div>
+										<hr>
+										<h4>
 											Lista zablokowanych:
-										</p>
-										<ol>';
+										</h4>
+										<div class="row">';
 			
 			$db_result = explode(',', $db_result);
 			
 			foreach($db_result as $ignored_user)
 			{
-				$ignored_users_html .= '<li>'.$ignored_user.' <a href="unignore_user.php?unignored_user='.$ignored_user.'">USUŃ</a></li>';
+				$ignored_users_html .= '<div class="col-9">'.$ignored_user.'</div> <div class="col-2"><a href="unignore_user.php?unignored_user='.$ignored_user.'">USUŃ</a></div>';
 			}
 			
-			$ignored_users_html .= '</ol>';
+			$ignored_users_html .= '</div></div>';
 		}
 		
 		
@@ -407,43 +411,44 @@
 							</div>
 					</div>
 					<div class="row settings-content-tab" id="menu-content-2">
-								<div class="settings-thread-header">Ignorowanie powiadomień</div>
+								<div class="col-12 offset-lg-1 col-lg-11 settings-thread-header">Ignorowanie powiadomień</div>
 								<div class="row">
-									<div class="offset-1 col-5">
+									<div class="offset-1 col-10 col-lg-5">
 									<p>Zignoruj powiadomienia od użytkownika:</p>
 										<form method="POST" action="ignore_user.php">
 											<input type="text" name="ignored_user" placeholder="Nazwa użytkownika"/>
 											<input type="submit"/>
 										</form>
+										<hr>
 										<p><?=$_SESSION['user_notifications_ignore'] ? "Odblokuj" : "Zablokuj wszystkie"?> powiadomienia:</p>
 										<form method="POST" action="ignore_notifications.php">
 											<input type="submit" value="<?=$_SESSION['user_notifications_ignore'] ? "Odblokuj" : "Zablokuj"?>"/>
 										</form>
 									</div>
-									<div class="offset-1 col-4">
+									<div class="offset-1 col-10 col-lg-5">
 										<?= isset($ignored_users_html) ? $ignored_users_html : ''?>
 									</div>
 								</div>
 							<hr>
-								<div class="settings-thread-header" id="zmien-haslo">Zmień hasło</div>
+								<div class="col-12 offset-lg-1 col-lg-11 settings-thread-header" id="zmien-haslo">Zmień hasło</div>
 								<div class="row">
 									<div class="offset-1 col-5">
 										<form method="POST" action="change_user_password.php">
 											<input type="password" name="user_password" placeholder="hasło"/>
 											<input type="password" name="user_new_password" placeholder="nowe hasło"/>
 											<input type="password" name="user_confirm_password" placeholder="powtórz nowe hasło"/>
-											<input type="submit"/>
+											<input type="submit" value="Potwierdź"/>
 										</form>
 									</div>
 								</div>
 							<hr>
-								<div class="settings-thread-header">Usuwanie konta</div>
+								<div class="col-12 offset-lg-1 col-lg-11 settings-thread-header">Usuwanie konta</div>
 								<div class="row">
 									<div class="offset-1 col-5">
 										<form method="POST" action="delete_user.php">
 											<input type="password" name="user_password_delete" placeholder="hasło"/>
 											<input type="password" name="user_password_delete_confirm" placeholder="powtórz hasło"/>
-											<input type="submit"/>
+											<input type="submit" value="Usuń"/>
 										</form>
 									</div>
 								</div>

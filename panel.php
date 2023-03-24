@@ -162,7 +162,14 @@ Redirect if not logged in
 		<div class="d-none col-1 d-lg-none topnav-button-mobile" id="mobile-thread-menu-close" onclick="hideSideMenu()">
 			<i class="icon-left-open"></i>
 		</div>
-		<div class="offset-7 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right">
+		
+		<div class="offset-5 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right" onclick="document.getElementById('notification-window-mobile').classList.toggle('display-none')">
+			<i class="icon-bell<?=isset($new_notifications) ? $new_notifications : ''?>"></i><br>
+		</div>
+		<div id="notification-window-mobile" class="display-none">
+			<?= isset($notifications_html) ? $notifications_html : ''?>
+		</div>
+		<div class="offset-1 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right">
 			<?=$_SESSION['user_temporary_flag'] ? "" : '<a href="settings.php"><i class="icon-cog"></i></a>'?><br>
 		</div>
 		<div class="offset-1 col-1 d-lg-none topnav-button-mobile topnav-button-mobile-right" onclick="window.location.href='logout.php'">

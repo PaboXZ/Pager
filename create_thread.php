@@ -1,20 +1,4 @@
 <?php
-	/*
-	Required data:
-	thread_version : 0-3
-	thread_name : 3-24
-	
-	Access: logged in, not TEMPORARY
-	
-	Rules: Redirect if not logged in
-	Redirect if temporary user
-	
-	Check for thread_name length, max is 24
-	Sanitize thread_name
-	*/
-?>
-
-<?php
 	if(!isset($_POST['thread_version']) || !isset($_POST['thread_name']))
 	{
 		header("Location: panel.php");
@@ -34,9 +18,8 @@
 	$thread_name = htmlentities($_POST['thread_name'], ENT_QUOTES);
 	$thread_version = htmlentities($_POST['thread_version'], ENT_QUOTES);
 	
-
-	
 	$db_thread_version = 0;
+	
 	switch ($thread_version)
 	{
 		case "pro":
@@ -45,39 +28,30 @@
 	
 	try
 	{
-		
 		if(strlen($thread_name) > 24 OR strlen($thread_name) < 3)
-		{
 			throw new Exception("Niewłaściwa długość nazwy (3 - 24)", 21);
-		}
+		
 		if(!$db_connection = db_connect())
-		{
 			throw new Exception("Błąd serwera", 0);
-		}
+		
 		if(!$db_query_result = $db_connection->query("SELECT thread_id FROM thread_data WHERE thread_owner_id = '$thread_owner_id'"))
-		{
 			throw new Exception("Błąd serwera", 1);
-		}
+		
 		if($db_query_result->num_rows > 10)
-		{
 			throw new Exception("Osiągnięto maksymanlną ilość list: 10", 10);
-		}
+		
 		if(!$db_query_result = $db_connection->query("SELECT thread_id FROM thread_data WHERE thread_owner_id = '$thread_owner_id' AND thread_name = '$thread_name'"))
-		{
 			throw new Exception("Bład serwera", 2);
-		}
+		
 		if($db_query_result->num_rows > 0)
-		{
 			throw new Exception("Wybrana nazwa już istnieje.");
-		}
+		
 		if(!$db_connection->query("INSERT INTO thread_data (thread_owner_id, thread_name, thread_version) VALUES ('$thread_owner_id', '$thread_name', '$db_thread_version')"))
-		{
 			throw new Exception("Błąd serwera", 3);
-		}			
+		
 		if(!$db_query_result = $db_connection->query("SELECT thread_id FROM thread_data WHERE thread_owner_id = '$thread_owner_id' AND thread_name = '$thread_name'"))
-		{
 			throw new Exception("Błąd serwera", 4);
-		}
+		
 		
 		$thread_id = $db_query_result->fetch_assoc()['thread_id'];
 		
@@ -100,9 +74,8 @@
 		}
 		
 		if(!$db_connection->query("INSERT INTO connection_user_thread (connection_user_id, connection_thread_id, connection_view_power, connection_is_owner, connection_edit_permission, connection_delete_permission, connection_create_power, connection_complete_permission) VALUES ('$thread_owner_id', '$thread_id', '15', '1', '1', '1', '15', '1')"))
-		{
 			throw new Exception("Błąd serwera", 5);
-		}
+			
 		$_SESSION['user_active_thread'] = $thread_id;
 	}
 	catch(Exception $error)
@@ -111,6 +84,7 @@
 		{
 			$db_connection->query("DELETE FROM thread_data WHERE thread_owner_id = '$thread_owner_id' AND thread_name = '$thread_name'");
 		}
+		
 		$_SESSION['error_create_thread'] = $error->getMessage();
 		$_SESSION['create_thread_return_name'] = $_POST['thread_name'];
 	}

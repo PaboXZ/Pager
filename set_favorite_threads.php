@@ -18,9 +18,7 @@
 	try
 	{
 		if(!$db_connection = db_connect())
-		{
 			throw new Exception("Bład serwera", 0);
-		}
 		
 		$i = 1;
 		$next_free_index = 0;
@@ -54,14 +52,10 @@
 		}
 		
 		if(!$db_result = $db_connection->query("SELECT connection_id FROM connection_user_thread WHERE connection_user_id = '{$_SESSION['user_id']}' AND connection_thread_id IN ('{$favorite_threads_array[0]}', '{$favorite_threads_array[1]}', '{$favorite_threads_array[2]}', '{$favorite_threads_array[3]}', '{$favorite_threads_array[4]}')"))
-		{
 			throw new Exception("Błąd serwera", 1);
-		}
 		
 		if($db_result->num_rows != $next_free_index)
-		{
 			throw new Exception("Access Denied", 11);
-		}
 		
 		$thread_names = printThreadNamesId($db_connection, $_SESSION['user_id']);
 		

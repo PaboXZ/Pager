@@ -11,37 +11,24 @@
 	
 	
 	try
-	{
-			
+	{		
 		if(!$db_connection = db_connect())
-		{
 			throw new Exception('Usługa niedostępna, przepraszamy.', 11);
-		}
 		
 		if(!isset($_POST['ignored_user']))
-		{
 			throw new Exception('Brak dostępu', 31);
-		}
 		
 		if(strlen($_POST['ignored_user']) > 20 || strlen($_POST['ignored_user']) < 3)
-		{
 			throw new Exception('Nie znaleziono użytkownika', 21);
-		}
-		if(!ctype_alnum($_POST['ignored_user']))
-		{
-			throw new Exception('Nie znaleziono użytkownika', 22);
-		}
 		
+		if(!ctype_alnum($_POST['ignored_user']))
+			throw new Exception('Nie znaleziono użytkownika', 22);
 		
 		if(!$db_result = $db_connection->query("SELECT user_ignored FROM user_data WHERE user_id = '{$_SESSION['user_id']}'"))
-		{
 			throw new Exception('Usługa niedostępna, przepraszamy.', 12);
-		}
 			
 		if($db_result->num_rows != 1)
-		{
 			throw new Exception('Usługa niedostępna, przepraszamy.', 13);
-		}
 
 		$db_result = $db_result->fetch_column();
 		
@@ -54,19 +41,13 @@
 		}
 		
 		if(!$db_result = $db_connection->query("SELECT user_id FROM user_data WHERE user_name = '{$_POST['ignored_user']}'"))
-		{
 			throw new Exception('Usługa niedostępna, przepraszamy.', 14);
-		}
 		
 		if($db_result->num_rows == 0)
-		{
 			throw new Exception('Nie znaleziono użytkownika', 24);
-		}
 		
 		if($db_result->num_rows > 1)
-		{
 			throw new Exception('Usługa niedostępna, przepraszamy.', 15);
-		}
 			
 		$ignored_users = implode(",", $ignored_users);
 		
@@ -76,9 +57,7 @@
 		$ignored_users .= $_POST['ignored_user'];
 		
 		if(!$db_connection->query("UPDATE user_data SET user_ignored = '$ignored_users' WHERE user_id = '{$_SESSION['user_id']}'"))
-		{
 			throw new Exception('Usługa niedostępna, przepraszamy.', 16);
-		}
 		
 		$_SESSION['message'] = "Zablokowano użytkownika: ".$_POST['ignored_user'];
 		

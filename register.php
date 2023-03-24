@@ -1,29 +1,10 @@
 <?php
-/*
-Access: not logged in
-
-Required data:
-Name: alnum, length : 3-20, not existing
-email: email verify, not existing
-password: At least one of each [A-Z], [a-z], [0-9], hash to db, length : 8-48
-ToS check
-recaptcha -- later
-
-optional temporary flag
-*/
-?>
-
-<?php
 	function error_add($message)
 	{
 		if(isset($_SESSION['error_register']))
-		{
-			$_SESSION['error_register'] = $_SESSION['error_register']."<br>".$message;
-		}
+			$_SESSION['error_register'] .= "<br>".$message;
 		else
-		{
 			$_SESSION['error_register'] = $message;
-		}
 	}
 	
 	
@@ -48,104 +29,68 @@ optional temporary flag
 	}
 	
 	if(!ctype_alnum($_POST['user_name']))
-	{
 		error_add("Dozwolone znaki dla nazwy użytkownika: a-Z, 0-9");
-	}
+	
+	require_once("php-script/db_connect.php");
 	
 	try
 	{
-		require_once("php-script/db_credentials.php");
-		if(!$db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_name))
-		{
+		if(!$db_connection = db_connect())
 			throw new Exception("Bład serwera:", 1);
-		}
-		
-		
-		
 		
 		$user_name = htmlentities($_POST['user_name'], ENT_QUOTES);
+		
 		if(strlen($user_name) < 3 || strlen($user_name) > 20)
-		{
 			error_add("Dozwolona ilość znaków dla nazwy użytkownika: 3-20");
-		}
 		
 		if(!$db_query_result = $db_connection->query("SELECT user_name FROM user_data WHERE user_name = '$user_name'"))
-		{
 			throw new Exception("Błąd serwera", 2);
-		}
 		
 		if($db_query_result->num_rows > 0)
-		{
 			error_add("Wybrana nazwa użytkownika już istnieje");
-		}
 		
 		if(!$db_query_result = $db_connection->query("SELECT not_confirmed_name FROM not_confirmed_user_data WHERE not_confirmed_name = '$user_name'"))
-		{
 			throw new Exception("Błąd serwera", 5);
-		}
+		
 		if($db_query_result->num_rows > 0)
-		{
 			error_add("Wybrana nazwa użytkownika już istnieje");
-		}
-		
-		
 		
 		
 		$user_email = $_POST['user_email'];
 		
 		if(!filter_var($user_email, FILTER_VALIDATE_EMAIL))
-		{
 			error_add("Wprowadzono nieprawidłowy email");
-		}
 		
 		if(!$db_query_result = $db_connection->query("SELECT user_email FROM user_data WHERE user_email = '$user_email'"))
-		{
 			throw new Exception("Bład serwera", 3);
-		}
+		
 		if($db_query_result->num_rows > 0)
-		{
 			error_add("Podany adres email istnieje już w systemie");
-		}
+		
 		if(!$db_query_result = $db_connection->query("SELECT not_confirmed_email FROM not_confirmed_user_data WHERE not_confirmed_email = '$user_email'"))
-		{
 			throw new Exception("Bład serwera", 6);
-		}
+		
 		if($db_query_result->num_rows > 0)
-		{
 			error_add("Podany adres email istnieje już w systemie");
-		}
-		
-		
-		
 		
 		
 		if(strlen($_POST['user_password']) < 8 OR strlen($_POST['user_password']) > 48)
-		{
 			error_add("Niepoprawna długość hasła (8-48)");
-		}
+		
 		if($_POST['user_password'] != $_POST['user_password_confirm'])
-		{
 			error_add("Podane hasła nie są jednakowe");
-		}
 		
 		if(!preg_match("/[0-9]/", $_POST['user_password']) || !preg_match("/[a-z]/", $_POST['user_password']) || !preg_match("/[A-Z]/", $_POST['user_password']))
-		{
 			error_add("Hasło musi zawierać jedną wielką, mała literę oraz cyfrę");
-		}
 		
 		if(!isset($_POST['tos']))
-		{
 			error_add("Wymagana akceptacja regulaminu");
-		}
+		
 		if(!$_POST['g-recaptcha-response'])
-		{
 			error_add("Weryfikacja reCaptcha nie powiodła się");
-		}
 		
 		if(isset($_SESSION['error_register']))
-		{
 			throw new Exception($_SESSION['error_register']);
-		}
 		
 		$user_password = password_hash($_POST['user_password'], PASSWORD_DEFAULT);
 		
@@ -155,13 +100,10 @@ optional temporary flag
 		while($repeat_flag)
 		{
 			if(!$db_result = $db_connection->query("SELECT not_confirmed_key FROM not_confirmed_user_data WHERE not_confirmed_key = '$confirmation_key'"))
-			{
 				throw new Exception("Błąd serwera", 6);
-			}
+			
 			if($db_result->num_rows == 0)
-			{
 				$repeat_flag = false;
-			}
 		}
 		
 
@@ -194,9 +136,8 @@ optional temporary flag
 		$mail->send();
 		
 		if(!$db_connection->query("INSERT INTO not_confirmed_user_data (not_confirmed_name, not_confirmed_email, not_confirmed_password, not_confirmed_key) VALUES ('$user_name', '$user_email', '$user_password', '$confirmation_key')"))
-		{
 			throw new Exception("Błąd serwera", 4);
-		}
+		
 		$_SESSION['message'] = "Rejestracja ukończona, sprawdź email w celu aktywacji konta";
 	}
 	catch(Exception $error)
@@ -211,10 +152,7 @@ optional temporary flag
 
 	}
 	
-	if(isset($db_connection->host_info))
-	{
-		$db_connection->close();
-	}
+	db_close($db_connection);
 	
 	header('Location: index.php');
 	
