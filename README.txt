@@ -1,4 +1,4 @@
-SKIPPIT
+SKIPPIT.PL
 
 Errors handling
 Sorting
